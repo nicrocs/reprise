@@ -6,7 +6,6 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { SubmitButton } from '@/components/submit-button'
 import { SongTypeahead } from '@/components/song-typeahead'
-import { TuningSelect } from '@/components/tuning-select'
 
 export function SessionForm() {
   return (
@@ -36,10 +35,6 @@ export function SessionForm() {
       <div>
         <Label htmlFor="bpm">BPM (optional)</Label>
         <Input type="number" id="bpm" name="bpm" min="1" />
-      </div>
-      <div>
-        <Label>Tuning</Label>
-        <TuningSelect />
       </div>
       <div>
         <Label htmlFor="notes">Notes</Label>

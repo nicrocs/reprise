@@ -1018,6 +1018,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     title: string | null
+    tuning: $Enums.Tuning | null
     createdAt: Date | null
   }
 
@@ -1025,6 +1026,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     title: string | null
+    tuning: $Enums.Tuning | null
     createdAt: Date | null
   }
 
@@ -1032,6 +1034,7 @@ export namespace Prisma {
     id: number
     userId: number
     title: number
+    tuning: number
     createdAt: number
     _all: number
   }
@@ -1041,6 +1044,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     title?: true
+    tuning?: true
     createdAt?: true
   }
 
@@ -1048,6 +1052,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     title?: true
+    tuning?: true
     createdAt?: true
   }
 
@@ -1055,6 +1060,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     title?: true
+    tuning?: true
     createdAt?: true
     _all?: true
   }
@@ -1135,6 +1141,7 @@ export namespace Prisma {
     id: string
     userId: string
     title: string
+    tuning: $Enums.Tuning
     createdAt: Date
     _count: SongCountAggregateOutputType | null
     _min: SongMinAggregateOutputType | null
@@ -1159,6 +1166,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     title?: boolean
+    tuning?: boolean
     createdAt?: boolean
     sessions?: boolean | Song$sessionsArgs<ExtArgs>
     _count?: boolean | SongCountOutputTypeDefaultArgs<ExtArgs>
@@ -1168,6 +1176,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     title?: boolean
+    tuning?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["song"]>
 
@@ -1175,6 +1184,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     title?: boolean
+    tuning?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["song"]>
 
@@ -1182,10 +1192,11 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     title?: boolean
+    tuning?: boolean
     createdAt?: boolean
   }
 
-  export type SongOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "createdAt", ExtArgs["result"]["song"]>
+  export type SongOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "tuning" | "createdAt", ExtArgs["result"]["song"]>
   export type SongInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | Song$sessionsArgs<ExtArgs>
     _count?: boolean | SongCountOutputTypeDefaultArgs<ExtArgs>
@@ -1202,6 +1213,7 @@ export namespace Prisma {
       id: string
       userId: string
       title: string
+      tuning: $Enums.Tuning
       createdAt: Date
     }, ExtArgs["result"]["song"]>
     composites: {}
@@ -1630,6 +1642,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Song", 'String'>
     readonly userId: FieldRef<"Song", 'String'>
     readonly title: FieldRef<"Song", 'String'>
+    readonly tuning: FieldRef<"Song", 'Tuning'>
     readonly createdAt: FieldRef<"Song", 'DateTime'>
   }
     
@@ -2091,7 +2104,6 @@ export namespace Prisma {
     topic: string | null
     notes: string | null
     bpm: number | null
-    tuning: $Enums.Tuning | null
     songId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2105,7 +2117,6 @@ export namespace Prisma {
     topic: string | null
     notes: string | null
     bpm: number | null
-    tuning: $Enums.Tuning | null
     songId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2119,7 +2130,6 @@ export namespace Prisma {
     topic: number
     notes: number
     bpm: number
-    tuning: number
     songId: number
     createdAt: number
     updatedAt: number
@@ -2145,7 +2155,6 @@ export namespace Prisma {
     topic?: true
     notes?: true
     bpm?: true
-    tuning?: true
     songId?: true
     createdAt?: true
     updatedAt?: true
@@ -2159,7 +2168,6 @@ export namespace Prisma {
     topic?: true
     notes?: true
     bpm?: true
-    tuning?: true
     songId?: true
     createdAt?: true
     updatedAt?: true
@@ -2173,7 +2181,6 @@ export namespace Prisma {
     topic?: true
     notes?: true
     bpm?: true
-    tuning?: true
     songId?: true
     createdAt?: true
     updatedAt?: true
@@ -2274,7 +2281,6 @@ export namespace Prisma {
     topic: string
     notes: string | null
     bpm: number | null
-    tuning: $Enums.Tuning | null
     songId: string | null
     createdAt: Date
     updatedAt: Date
@@ -2307,7 +2313,6 @@ export namespace Prisma {
     topic?: boolean
     notes?: boolean
     bpm?: boolean
-    tuning?: boolean
     songId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2322,7 +2327,6 @@ export namespace Prisma {
     topic?: boolean
     notes?: boolean
     bpm?: boolean
-    tuning?: boolean
     songId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2337,7 +2341,6 @@ export namespace Prisma {
     topic?: boolean
     notes?: boolean
     bpm?: boolean
-    tuning?: boolean
     songId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2352,13 +2355,12 @@ export namespace Prisma {
     topic?: boolean
     notes?: boolean
     bpm?: boolean
-    tuning?: boolean
     songId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "duration" | "topic" | "notes" | "bpm" | "tuning" | "songId" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
+  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "duration" | "topic" | "notes" | "bpm" | "songId" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     song?: boolean | Session$songArgs<ExtArgs>
   }
@@ -2382,7 +2384,6 @@ export namespace Prisma {
       topic: string
       notes: string | null
       bpm: number | null
-      tuning: $Enums.Tuning | null
       songId: string | null
       createdAt: Date
       updatedAt: Date
@@ -2817,7 +2818,6 @@ export namespace Prisma {
     readonly topic: FieldRef<"Session", 'String'>
     readonly notes: FieldRef<"Session", 'String'>
     readonly bpm: FieldRef<"Session", 'Int'>
-    readonly tuning: FieldRef<"Session", 'Tuning'>
     readonly songId: FieldRef<"Session", 'String'>
     readonly createdAt: FieldRef<"Session", 'DateTime'>
     readonly updatedAt: FieldRef<"Session", 'DateTime'>
@@ -3272,6 +3272,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     title: 'title',
+    tuning: 'tuning',
     createdAt: 'createdAt'
   };
 
@@ -3286,7 +3287,6 @@ export namespace Prisma {
     topic: 'topic',
     notes: 'notes',
     bpm: 'bpm',
-    tuning: 'tuning',
     songId: 'songId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -3339,6 +3339,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Tuning'
+   */
+  export type EnumTuningFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Tuning'>
+    
+
+
+  /**
+   * Reference to a field of type 'Tuning[]'
+   */
+  export type ListEnumTuningFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Tuning[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -3367,20 +3381,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Tuning'
-   */
-  export type EnumTuningFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Tuning'>
-    
-
-
-  /**
-   * Reference to a field of type 'Tuning[]'
-   */
-  export type ListEnumTuningFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Tuning[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -3404,6 +3404,7 @@ export namespace Prisma {
     id?: StringFilter<"Song"> | string
     userId?: StringFilter<"Song"> | string
     title?: StringFilter<"Song"> | string
+    tuning?: EnumTuningFilter<"Song"> | $Enums.Tuning
     createdAt?: DateTimeFilter<"Song"> | Date | string
     sessions?: SessionListRelationFilter
   }
@@ -3412,6 +3413,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    tuning?: SortOrder
     createdAt?: SortOrder
     sessions?: SessionOrderByRelationAggregateInput
   }
@@ -3424,6 +3426,7 @@ export namespace Prisma {
     NOT?: SongWhereInput | SongWhereInput[]
     userId?: StringFilter<"Song"> | string
     title?: StringFilter<"Song"> | string
+    tuning?: EnumTuningFilter<"Song"> | $Enums.Tuning
     createdAt?: DateTimeFilter<"Song"> | Date | string
     sessions?: SessionListRelationFilter
   }, "id" | "userId_title">
@@ -3432,6 +3435,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    tuning?: SortOrder
     createdAt?: SortOrder
     _count?: SongCountOrderByAggregateInput
     _max?: SongMaxOrderByAggregateInput
@@ -3445,6 +3449,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Song"> | string
     userId?: StringWithAggregatesFilter<"Song"> | string
     title?: StringWithAggregatesFilter<"Song"> | string
+    tuning?: EnumTuningWithAggregatesFilter<"Song"> | $Enums.Tuning
     createdAt?: DateTimeWithAggregatesFilter<"Song"> | Date | string
   }
 
@@ -3459,7 +3464,6 @@ export namespace Prisma {
     topic?: StringFilter<"Session"> | string
     notes?: StringNullableFilter<"Session"> | string | null
     bpm?: IntNullableFilter<"Session"> | number | null
-    tuning?: EnumTuningNullableFilter<"Session"> | $Enums.Tuning | null
     songId?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
@@ -3474,7 +3478,6 @@ export namespace Prisma {
     topic?: SortOrder
     notes?: SortOrderInput | SortOrder
     bpm?: SortOrderInput | SortOrder
-    tuning?: SortOrderInput | SortOrder
     songId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -3492,7 +3495,6 @@ export namespace Prisma {
     topic?: StringFilter<"Session"> | string
     notes?: StringNullableFilter<"Session"> | string | null
     bpm?: IntNullableFilter<"Session"> | number | null
-    tuning?: EnumTuningNullableFilter<"Session"> | $Enums.Tuning | null
     songId?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
@@ -3507,7 +3509,6 @@ export namespace Prisma {
     topic?: SortOrder
     notes?: SortOrderInput | SortOrder
     bpm?: SortOrderInput | SortOrder
-    tuning?: SortOrderInput | SortOrder
     songId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -3529,7 +3530,6 @@ export namespace Prisma {
     topic?: StringWithAggregatesFilter<"Session"> | string
     notes?: StringNullableWithAggregatesFilter<"Session"> | string | null
     bpm?: IntNullableWithAggregatesFilter<"Session"> | number | null
-    tuning?: EnumTuningNullableWithAggregatesFilter<"Session"> | $Enums.Tuning | null
     songId?: StringNullableWithAggregatesFilter<"Session"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
@@ -3539,6 +3539,7 @@ export namespace Prisma {
     id?: string
     userId: string
     title: string
+    tuning?: $Enums.Tuning
     createdAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutSongInput
   }
@@ -3547,6 +3548,7 @@ export namespace Prisma {
     id?: string
     userId: string
     title: string
+    tuning?: $Enums.Tuning
     createdAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutSongInput
   }
@@ -3555,6 +3557,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutSongNestedInput
   }
@@ -3563,6 +3566,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutSongNestedInput
   }
@@ -3571,6 +3575,7 @@ export namespace Prisma {
     id?: string
     userId: string
     title: string
+    tuning?: $Enums.Tuning
     createdAt?: Date | string
   }
 
@@ -3578,6 +3583,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -3585,6 +3591,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -3596,7 +3603,6 @@ export namespace Prisma {
     topic: string
     notes?: string | null
     bpm?: number | null
-    tuning?: $Enums.Tuning | null
     createdAt?: Date | string
     updatedAt?: Date | string
     song?: SongCreateNestedOneWithoutSessionsInput
@@ -3610,7 +3616,6 @@ export namespace Prisma {
     topic: string
     notes?: string | null
     bpm?: number | null
-    tuning?: $Enums.Tuning | null
     songId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -3624,7 +3629,6 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
-    tuning?: NullableEnumTuningFieldUpdateOperationsInput | $Enums.Tuning | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     song?: SongUpdateOneWithoutSessionsNestedInput
@@ -3638,7 +3642,6 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
-    tuning?: NullableEnumTuningFieldUpdateOperationsInput | $Enums.Tuning | null
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3652,7 +3655,6 @@ export namespace Prisma {
     topic: string
     notes?: string | null
     bpm?: number | null
-    tuning?: $Enums.Tuning | null
     songId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -3666,7 +3668,6 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
-    tuning?: NullableEnumTuningFieldUpdateOperationsInput | $Enums.Tuning | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3679,7 +3680,6 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
-    tuning?: NullableEnumTuningFieldUpdateOperationsInput | $Enums.Tuning | null
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3698,6 +3698,13 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type EnumTuningFilter<$PrismaModel = never> = {
+    equals?: $Enums.Tuning | EnumTuningFieldRefInput<$PrismaModel>
+    in?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel>
+    not?: NestedEnumTuningFilter<$PrismaModel> | $Enums.Tuning
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -3730,6 +3737,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    tuning?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -3737,6 +3745,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    tuning?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -3744,6 +3753,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    tuning?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -3763,6 +3773,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type EnumTuningWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Tuning | EnumTuningFieldRefInput<$PrismaModel>
+    in?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel>
+    not?: NestedEnumTuningWithAggregatesFilter<$PrismaModel> | $Enums.Tuning
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTuningFilter<$PrismaModel>
+    _max?: NestedEnumTuningFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -3816,13 +3836,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type EnumTuningNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.Tuning | EnumTuningFieldRefInput<$PrismaModel> | null
-    in?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumTuningNullableFilter<$PrismaModel> | $Enums.Tuning | null
-  }
-
   export type SongNullableScalarRelationFilter = {
     is?: SongWhereInput | null
     isNot?: SongWhereInput | null
@@ -3841,7 +3854,6 @@ export namespace Prisma {
     topic?: SortOrder
     notes?: SortOrder
     bpm?: SortOrder
-    tuning?: SortOrder
     songId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -3860,7 +3872,6 @@ export namespace Prisma {
     topic?: SortOrder
     notes?: SortOrder
     bpm?: SortOrder
-    tuning?: SortOrder
     songId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -3874,7 +3885,6 @@ export namespace Prisma {
     topic?: SortOrder
     notes?: SortOrder
     bpm?: SortOrder
-    tuning?: SortOrder
     songId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -3935,16 +3945,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type EnumTuningNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Tuning | EnumTuningFieldRefInput<$PrismaModel> | null
-    in?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumTuningNullableWithAggregatesFilter<$PrismaModel> | $Enums.Tuning | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumTuningNullableFilter<$PrismaModel>
-    _max?: NestedEnumTuningNullableFilter<$PrismaModel>
-  }
-
   export type SessionCreateNestedManyWithoutSongInput = {
     create?: XOR<SessionCreateWithoutSongInput, SessionUncheckedCreateWithoutSongInput> | SessionCreateWithoutSongInput[] | SessionUncheckedCreateWithoutSongInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutSongInput | SessionCreateOrConnectWithoutSongInput[]
@@ -3961,6 +3961,10 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type EnumTuningFieldUpdateOperationsInput = {
+    set?: $Enums.Tuning
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -4021,10 +4025,6 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type NullableEnumTuningFieldUpdateOperationsInput = {
-    set?: $Enums.Tuning | null
-  }
-
   export type SongUpdateOneWithoutSessionsNestedInput = {
     create?: XOR<SongCreateWithoutSessionsInput, SongUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: SongCreateOrConnectWithoutSessionsInput
@@ -4047,6 +4047,13 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedEnumTuningFilter<$PrismaModel = never> = {
+    equals?: $Enums.Tuning | EnumTuningFieldRefInput<$PrismaModel>
+    in?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel>
+    not?: NestedEnumTuningFilter<$PrismaModel> | $Enums.Tuning
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -4088,6 +4095,16 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedEnumTuningWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Tuning | EnumTuningFieldRefInput<$PrismaModel>
+    in?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel>
+    not?: NestedEnumTuningWithAggregatesFilter<$PrismaModel> | $Enums.Tuning
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTuningFilter<$PrismaModel>
+    _max?: NestedEnumTuningFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -4125,13 +4142,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedEnumTuningNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.Tuning | EnumTuningFieldRefInput<$PrismaModel> | null
-    in?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumTuningNullableFilter<$PrismaModel> | $Enums.Tuning | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -4205,16 +4215,6 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedEnumTuningNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Tuning | EnumTuningFieldRefInput<$PrismaModel> | null
-    in?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumTuningNullableWithAggregatesFilter<$PrismaModel> | $Enums.Tuning | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumTuningNullableFilter<$PrismaModel>
-    _max?: NestedEnumTuningNullableFilter<$PrismaModel>
-  }
-
   export type SessionCreateWithoutSongInput = {
     id?: string
     userId: string
@@ -4223,7 +4223,6 @@ export namespace Prisma {
     topic: string
     notes?: string | null
     bpm?: number | null
-    tuning?: $Enums.Tuning | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4236,7 +4235,6 @@ export namespace Prisma {
     topic: string
     notes?: string | null
     bpm?: number | null
-    tuning?: $Enums.Tuning | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4278,7 +4276,6 @@ export namespace Prisma {
     topic?: StringFilter<"Session"> | string
     notes?: StringNullableFilter<"Session"> | string | null
     bpm?: IntNullableFilter<"Session"> | number | null
-    tuning?: EnumTuningNullableFilter<"Session"> | $Enums.Tuning | null
     songId?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
@@ -4288,6 +4285,7 @@ export namespace Prisma {
     id?: string
     userId: string
     title: string
+    tuning?: $Enums.Tuning
     createdAt?: Date | string
   }
 
@@ -4295,6 +4293,7 @@ export namespace Prisma {
     id?: string
     userId: string
     title: string
+    tuning?: $Enums.Tuning
     createdAt?: Date | string
   }
 
@@ -4318,6 +4317,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4325,6 +4325,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4336,7 +4337,6 @@ export namespace Prisma {
     topic: string
     notes?: string | null
     bpm?: number | null
-    tuning?: $Enums.Tuning | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4349,7 +4349,6 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
-    tuning?: NullableEnumTuningFieldUpdateOperationsInput | $Enums.Tuning | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4362,7 +4361,6 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
-    tuning?: NullableEnumTuningFieldUpdateOperationsInput | $Enums.Tuning | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4375,7 +4373,6 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
-    tuning?: NullableEnumTuningFieldUpdateOperationsInput | $Enums.Tuning | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -124,6 +124,7 @@ exports.Prisma.SongScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   title: 'title',
+  tuning: 'tuning',
   createdAt: 'createdAt'
 };
 
@@ -135,7 +136,6 @@ exports.Prisma.SessionScalarFieldEnum = {
   topic: 'topic',
   notes: 'notes',
   bpm: 'bpm',
-  tuning: 'tuning',
   songId: 'songId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

@@ -20,6 +20,7 @@ model Song {
   id        String    @id @default(cuid())
   userId    String
   title     String
+  tuning    Tuning    @default(STANDARD)
   createdAt DateTime  @default(now())
   sessions  Session[]
 
@@ -34,7 +35,6 @@ model Session {
   topic     String
   notes     String?
   bpm       Int?
-  tuning    Tuning?
   songId    String?
   song      Song?    @relation(fields: [songId], references: [id])
   createdAt DateTime @default(now())

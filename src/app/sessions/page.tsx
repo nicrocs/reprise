@@ -49,7 +49,14 @@ export default async function SessionsPage() {
                     <div className="flex gap-4 text-sm mt-3">
                         <span><span className="text-gray-400">Duration</span> {session.duration}m</span>
                         {session.bpm && <span><span className="text-gray-400">BPM</span> {session.bpm}</span>}
-                        {session.tuning && <span><span className="text-gray-400">Tuning</span> {session.tuning.replace('_', ' ')}</span>}
+                        {session.song?.tuning && (
+                            <span>
+                                <span className="text-gray-400">Tuning</span>{' '}
+                                <span className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs">
+                                {session.song.tuning.replace('_', ' ')}
+                                </span>
+                            </span>
+                        )}
                     </div>
                     {session.notes && (
                         <p className="text-sm text-gray-500 mt-2 border-t pt-3">{session.notes}</p>

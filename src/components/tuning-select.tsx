@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import {
   Select,
   SelectContent,
@@ -17,19 +18,24 @@ const TUNINGS = [
   { value: 'DADGAD', label: 'DADGAD' },
 ]
 
-export function TuningSelect() {
+export function TuningSelect({ name = 'tuning' }: { name?: string }) {
+  const [value, setValue] = useState('STANDARD')
+
   return (
-    <Select name="tuning">
-      <SelectTrigger>
-        <SelectValue placeholder="Tuning (optional)" />
-      </SelectTrigger>
-      <SelectContent>
-        {TUNINGS.map((t) => (
-          <SelectItem key={t.value} value={t.value}>
-            {t.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <>
+      <input type="hidden" name={name} value={value} />
+      <Select value={value} onValueChange={setValue}>
+        <SelectTrigger>
+          <SelectValue placeholder="Tuning (optional)" />
+        </SelectTrigger>
+        <SelectContent>
+          {TUNINGS.map((t) => (
+            <SelectItem key={t.value} value={t.value}>
+              {t.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </>
   )
 }

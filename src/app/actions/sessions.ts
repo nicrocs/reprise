@@ -3,6 +3,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { redirect } from 'next/navigation'
+import { Tuning } from '../../../prisma/generated/prisma'
 
 export async function createSession(formData: FormData) {
   const { userId } = await auth()
@@ -13,19 +14,23 @@ export async function createSession(formData: FormData) {
   const notes = formData.get('notes') as string
   const date = new Date(formData.get('date') as string)
   const bpm = formData.get('bpm') ? parseInt(formData.get('bpm') as string) : null
-  const tuning = formData.get('tuning') as string || null
   const songTitle = formData.get('songTitle') as string
+  const songTuning = formData.get('songTuning') as string || 'STANDARD'
 
   let songId = null
 
   if (songTitle) {
-    const song = await prisma.song.upsert({
-      where: { userId_title: { userId, title: songTitle } },
-      update: {},
-      create: { userId, title: songTitle },
-    })
-    songId = song.id
-  }
+  const song = await prisma.song.upsert({
+    where: { userId_title: { userId, title: songTitle } },
+    update: {},
+    create: { 
+      userId, 
+      title: songTitle,
+      tuning: songTuning as Tuning,
+    },
+  })
+  songId = song.id
+}
 
   await prisma.session.create({
     data: {
@@ -35,7 +40,6 @@ export async function createSession(formData: FormData) {
       notes,
       date,
       bpm: bpm ?? undefined,
-      tuning: tuning as Tuning ?? undefined,
       songId,
     },
   })

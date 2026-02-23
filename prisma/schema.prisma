@@ -17,26 +17,26 @@ enum Tuning {
 }
 
 model Song {
-  id        String    @id @default(cuid())
+  id        String   @id @default(cuid())
   userId    String
   title     String
-  createdAt DateTime  @default(now())
+  tuning    Tuning   @default(STANDARD)
+  createdAt DateTime @default(now())
   sessions  Session[]
 
   @@unique([userId, title])
 }
 
 model Session {
-  id              String   @id @default(cuid())
-  userId          String
-  date            DateTime @default(now())
-  duration        Int
-  topic           String
-  notes           String?
-  bpm             Int?
-  tuning          Tuning?
-  songId          String?
-  song            Song?    @relation(fields: [songId], references: [id])
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id        String   @id @default(cuid())
+  userId    String
+  date      DateTime @default(now())
+  duration  Int
+  topic     String
+  notes     String?
+  bpm       Int?
+  songId    String?
+  song      Song?    @relation(fields: [songId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
