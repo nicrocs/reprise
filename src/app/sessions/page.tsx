@@ -9,10 +9,11 @@ export default async function SessionsPage() {
 
   if (!userId) return null
 
-  const sessions = await prisma.session.findMany({
+    const sessions = await prisma.session.findMany({
     where: { userId },
     orderBy: { date: 'desc' },
-  })
+    include: { song: true },
+    })
 
   return (
     <main className="max-w-xl mx-auto p-8">
@@ -32,17 +33,26 @@ export default async function SessionsPage() {
           {sessions.map((session) => (
             <Card key={session.id}>
                 <CardHeader>
-                    <CardTitle>{session.topic}</CardTitle>
-                    <CardDescription className="text-sm text-gray-500">
-                        {session.duration} minutes
-                    </CardDescription>
+                    <div className="flex justify-between items-start mb-2">
+                        <div>
+                        {session.song && (
+                            <CardTitle>{session.song.title}</CardTitle>
+                        )}
+                        <CardDescription className="text-sm text-gray-500">{session.topic}</CardDescription>
+                        </div>
+                        <p className="text-sm text-gray-400">
+                        {new Date(session.date).toLocaleDateString()}
+                        </p>
+                    </div>
                 </CardHeader>
                 <CardContent>
-                    <p className="text-sm text-gray-500">
-                        {new Date(session.date).toLocaleDateString()}
-                    </p>
+                    <div className="flex gap-4 text-sm mt-3">
+                        <span><span className="text-gray-400">Duration</span> {session.duration}m</span>
+                        {session.bpm && <span><span className="text-gray-400">BPM</span> {session.bpm}</span>}
+                        {session.tuning && <span><span className="text-gray-400">Tuning</span> {session.tuning.replace('_', ' ')}</span>}
+                    </div>
                     {session.notes && (
-                        <p className="text-sm text-gray-600 mt-2">{session.notes}</p>
+                        <p className="text-sm text-gray-500 mt-2 border-t pt-3">{session.notes}</p>
                     )}
                 </CardContent>
                 <CardFooter>

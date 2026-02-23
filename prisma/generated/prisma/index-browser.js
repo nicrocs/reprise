@@ -120,6 +120,13 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.SongScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -127,6 +134,9 @@ exports.Prisma.SessionScalarFieldEnum = {
   duration: 'duration',
   topic: 'topic',
   notes: 'notes',
+  bpm: 'bpm',
+  tuning: 'tuning',
+  songId: 'songId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -145,9 +155,17 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.Tuning = exports.$Enums.Tuning = {
+  STANDARD: 'STANDARD',
+  DROP_D: 'DROP_D',
+  DROP_C: 'DROP_C',
+  OPEN_G: 'OPEN_G',
+  OPEN_D: 'OPEN_D',
+  DADGAD: 'DADGAD'
+};
 
 exports.Prisma.ModelName = {
+  Song: 'Song',
   Session: 'Session'
 };
 

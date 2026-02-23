@@ -7,13 +7,36 @@ datasource db {
   provider = "postgresql"
 }
 
-model Session {
-  id        String   @id @default(cuid())
+enum Tuning {
+  STANDARD
+  DROP_D
+  DROP_C
+  OPEN_G
+  OPEN_D
+  DADGAD
+}
+
+model Song {
+  id        String    @id @default(cuid())
   userId    String
-  date      DateTime @default(now())
-  duration  Int
-  topic     String
-  notes     String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  title     String
+  createdAt DateTime  @default(now())
+  sessions  Session[]
+
+  @@unique([userId, title])
+}
+
+model Session {
+  id              String   @id @default(cuid())
+  userId          String
+  date            DateTime @default(now())
+  duration        Int
+  topic           String
+  notes           String?
+  bpm             Int?
+  tuning          Tuning?
+  songId          String?
+  song            Song?    @relation(fields: [songId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
