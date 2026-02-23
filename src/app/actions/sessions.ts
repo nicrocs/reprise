@@ -28,3 +28,17 @@ export async function createSession(formData: FormData) {
 
   redirect('/sessions')
 }
+
+export async function deleteSession(id: string) {
+  const { userId } = await auth()
+
+  if (!userId) {
+    throw new Error('Unauthorized')
+  }
+
+  await prisma.session.delete({
+    where: { id, userId },
+  })
+
+  redirect('/sessions')
+}

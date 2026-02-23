@@ -2,6 +2,7 @@ import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { Card, CardAction, CardContent, CardHeader, CardDescription, CardTitle, CardFooter } from '@/components/ui/card'
+import { DeleteButton } from '@/components/delete-button'
 
 export default async function SessionsPage() {
   const { userId } = await auth()
@@ -43,7 +44,10 @@ export default async function SessionsPage() {
                     {session.notes && (
                         <p className="text-sm text-gray-600 mt-2">{session.notes}</p>
                     )}
-                </CardContent>  
+                </CardContent>
+                <CardFooter>
+                    <DeleteButton id={session.id} />
+                </CardFooter>
             </Card>
           ))}
         </div>

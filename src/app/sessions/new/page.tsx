@@ -2,7 +2,7 @@ import { createSession } from '@/app/actions/sessions'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Button } from '@/components/ui/button'
+import { SubmitButton } from '@/components/submit-button'
 
 export default function NewSessionPage() {
   return (
@@ -53,11 +53,7 @@ export default function NewSessionPage() {
             rows={4}
           />
         </div>
-        <Button
-          type="submit"
-        >
-          Save Session
-        </Button>
+        <SubmitButton />
       </form>
     </main>
   )
