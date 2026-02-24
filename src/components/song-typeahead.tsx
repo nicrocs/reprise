@@ -16,8 +16,8 @@ const TUNING_LABELS: Record<string, string> = {
 
 type Song = { id: string; title: string; tuning: string }
 
-export function SongTypeahead() {
-    const [query, setQuery] = useState('')
+export function SongTypeahead({ defaultValue }: { defaultValue?: string }) {
+  const [query, setQuery] = useState(defaultValue ?? '')
     const [suggestions, setSuggestions] = useState<Song[]>([])
     const [selectedSong, setSelectedSong] = useState<Song | null>(null)
     const containerRef = useRef(null)

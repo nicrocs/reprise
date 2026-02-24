@@ -47,6 +47,43 @@ export async function createSession(formData: FormData) {
   redirect('/sessions')
 }
 
+export async function updateSession(id: string, formData: FormData) {
+  const { userId } = await auth()
+  if (!userId) throw new Error('Unauthorized')
+
+  const topic = formData.get('topic') as string
+  const duration = parseInt(formData.get('duration') as string)
+  const notes = formData.get('notes') as string
+  const date = new Date(formData.get('date') as string)
+  const bpm = formData.get('bpm') ? parseInt(formData.get('bpm') as string) : null
+  const songTitle = formData.get('songTitle') as string
+  const songTuning = formData.get('songTuning') as string || 'STANDARD'
+
+  let songId = null
+  if (songTitle) {
+    const song = await prisma.song.upsert({
+      where: { userId_title: { userId, title: songTitle } },
+      update: {},
+      create: { userId, title: songTitle, tuning: songTuning as Tuning },
+    })
+    songId = song.id
+  }
+
+  await prisma.session.update({
+    where: { id, userId },
+    data: {
+      topic,
+      duration,
+      notes,
+      date,
+      bpm: bpm ?? undefined,
+      songId,
+    },
+  })
+
+  redirect('/sessions')
+}
+
 export async function deleteSession(id: string) {
   const { userId } = await auth()
 

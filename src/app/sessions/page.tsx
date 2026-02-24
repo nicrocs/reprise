@@ -2,7 +2,8 @@ import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { Card, CardAction, CardContent, CardHeader, CardDescription, CardTitle, CardFooter } from '@/components/ui/card'
-import { DeleteButton } from '@/components/delete-button'
+import { DeleteButton } from '@/components/delete-button' 
+import { buttonVariants } from '@/components/ui/button'
 
 export default async function SessionsPage() {
   const { userId } = await auth()
@@ -10,9 +11,9 @@ export default async function SessionsPage() {
   if (!userId) return null
 
     const sessions = await prisma.session.findMany({
-    where: { userId },
-    orderBy: { date: 'desc' },
-    include: { song: true },
+        where: { userId },
+        orderBy: { date: 'desc' },
+        include: { song: true },
     })
 
   return (
@@ -63,6 +64,12 @@ export default async function SessionsPage() {
                     )}
                 </CardContent>
                 <CardFooter>
+                    <Link
+                        href={`/sessions/${session.id}/edit`}
+                        className={`${buttonVariants({ variant: 'link', size: 'sm' })} mr-2`}
+                    >
+                        Edit
+                    </Link>
                     <DeleteButton id={session.id} />
                 </CardFooter>
             </Card>
