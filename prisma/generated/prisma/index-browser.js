@@ -124,6 +124,8 @@ exports.Prisma.SongScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   title: 'title',
+  key: 'key',
+  capo: 'capo',
   tuning: 'tuning',
   createdAt: 'createdAt'
 };
@@ -158,6 +160,8 @@ exports.Prisma.SessionScalarFieldEnum = {
   notes: 'notes',
   bpm: 'bpm',
   instrument: 'instrument',
+  intention: 'intention',
+  intentionMet: 'intentionMet',
   mood: 'mood',
   focus: 'focus',
   isFavorited: 'isFavorited',
@@ -182,6 +186,31 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Key = exports.$Enums.Key = {
+  E_MAJOR: 'E_MAJOR',
+  A_MAJOR: 'A_MAJOR',
+  D_MAJOR: 'D_MAJOR',
+  C_MAJOR: 'C_MAJOR',
+  G_MAJOR: 'G_MAJOR',
+  A_MINOR: 'A_MINOR',
+  E_MINOR: 'E_MINOR',
+  D_MINOR: 'D_MINOR',
+  B_MAJOR: 'B_MAJOR',
+  F_MAJOR: 'F_MAJOR',
+  Bb_MAJOR: 'Bb_MAJOR',
+  Eb_MAJOR: 'Eb_MAJOR',
+  Ab_MAJOR: 'Ab_MAJOR',
+  Db_MAJOR: 'Db_MAJOR',
+  Gb_MAJOR: 'Gb_MAJOR',
+  B_MINOR: 'B_MINOR',
+  F_SHARP_MINOR: 'F_SHARP_MINOR',
+  C_SHARP_MINOR: 'C_SHARP_MINOR',
+  G_MINOR: 'G_MINOR',
+  C_MINOR: 'C_MINOR',
+  F_MINOR: 'F_MINOR',
+  Bb_MINOR: 'Bb_MINOR'
+};
+
 exports.Tuning = exports.$Enums.Tuning = {
   STANDARD: 'STANDARD',
   DROP_D: 'DROP_D',

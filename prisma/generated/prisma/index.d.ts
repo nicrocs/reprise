@@ -43,7 +43,35 @@ export type Session = $Result.DefaultSelection<Prisma.$SessionPayload>
  * Enums
  */
 export namespace $Enums {
-  export const Tuning: {
+  export const Key: {
+  E_MAJOR: 'E_MAJOR',
+  A_MAJOR: 'A_MAJOR',
+  D_MAJOR: 'D_MAJOR',
+  C_MAJOR: 'C_MAJOR',
+  G_MAJOR: 'G_MAJOR',
+  A_MINOR: 'A_MINOR',
+  E_MINOR: 'E_MINOR',
+  D_MINOR: 'D_MINOR',
+  B_MAJOR: 'B_MAJOR',
+  F_MAJOR: 'F_MAJOR',
+  Bb_MAJOR: 'Bb_MAJOR',
+  Eb_MAJOR: 'Eb_MAJOR',
+  Ab_MAJOR: 'Ab_MAJOR',
+  Db_MAJOR: 'Db_MAJOR',
+  Gb_MAJOR: 'Gb_MAJOR',
+  B_MINOR: 'B_MINOR',
+  F_SHARP_MINOR: 'F_SHARP_MINOR',
+  C_SHARP_MINOR: 'C_SHARP_MINOR',
+  G_MINOR: 'G_MINOR',
+  C_MINOR: 'C_MINOR',
+  F_MINOR: 'F_MINOR',
+  Bb_MINOR: 'Bb_MINOR'
+};
+
+export type Key = (typeof Key)[keyof typeof Key]
+
+
+export const Tuning: {
   STANDARD: 'STANDARD',
   DROP_D: 'DROP_D',
   DROP_C: 'DROP_C',
@@ -55,6 +83,10 @@ export namespace $Enums {
 export type Tuning = (typeof Tuning)[keyof typeof Tuning]
 
 }
+
+export type Key = $Enums.Key
+
+export const Key: typeof $Enums.Key
 
 export type Tuning = $Enums.Tuning
 
@@ -1385,14 +1417,26 @@ export namespace Prisma {
 
   export type AggregateSong = {
     _count: SongCountAggregateOutputType | null
+    _avg: SongAvgAggregateOutputType | null
+    _sum: SongSumAggregateOutputType | null
     _min: SongMinAggregateOutputType | null
     _max: SongMaxAggregateOutputType | null
+  }
+
+  export type SongAvgAggregateOutputType = {
+    capo: number | null
+  }
+
+  export type SongSumAggregateOutputType = {
+    capo: number | null
   }
 
   export type SongMinAggregateOutputType = {
     id: string | null
     userId: string | null
     title: string | null
+    key: $Enums.Key | null
+    capo: number | null
     tuning: $Enums.Tuning | null
     createdAt: Date | null
   }
@@ -1401,6 +1445,8 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     title: string | null
+    key: $Enums.Key | null
+    capo: number | null
     tuning: $Enums.Tuning | null
     createdAt: Date | null
   }
@@ -1409,16 +1455,28 @@ export namespace Prisma {
     id: number
     userId: number
     title: number
+    key: number
+    capo: number
     tuning: number
     createdAt: number
     _all: number
   }
 
 
+  export type SongAvgAggregateInputType = {
+    capo?: true
+  }
+
+  export type SongSumAggregateInputType = {
+    capo?: true
+  }
+
   export type SongMinAggregateInputType = {
     id?: true
     userId?: true
     title?: true
+    key?: true
+    capo?: true
     tuning?: true
     createdAt?: true
   }
@@ -1427,6 +1485,8 @@ export namespace Prisma {
     id?: true
     userId?: true
     title?: true
+    key?: true
+    capo?: true
     tuning?: true
     createdAt?: true
   }
@@ -1435,6 +1495,8 @@ export namespace Prisma {
     id?: true
     userId?: true
     title?: true
+    key?: true
+    capo?: true
     tuning?: true
     createdAt?: true
     _all?: true
@@ -1478,6 +1540,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: SongAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SongSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: SongMinAggregateInputType
@@ -1508,6 +1582,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: SongCountAggregateInputType | true
+    _avg?: SongAvgAggregateInputType
+    _sum?: SongSumAggregateInputType
     _min?: SongMinAggregateInputType
     _max?: SongMaxAggregateInputType
   }
@@ -1516,9 +1592,13 @@ export namespace Prisma {
     id: string
     userId: string
     title: string
+    key: $Enums.Key | null
+    capo: number | null
     tuning: $Enums.Tuning
     createdAt: Date
     _count: SongCountAggregateOutputType | null
+    _avg: SongAvgAggregateOutputType | null
+    _sum: SongSumAggregateOutputType | null
     _min: SongMinAggregateOutputType | null
     _max: SongMaxAggregateOutputType | null
   }
@@ -1541,6 +1621,8 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     title?: boolean
+    key?: boolean
+    capo?: boolean
     tuning?: boolean
     createdAt?: boolean
     sessions?: boolean | Song$sessionsArgs<ExtArgs>
@@ -1551,6 +1633,8 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     title?: boolean
+    key?: boolean
+    capo?: boolean
     tuning?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["song"]>
@@ -1559,6 +1643,8 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     title?: boolean
+    key?: boolean
+    capo?: boolean
     tuning?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["song"]>
@@ -1567,11 +1653,13 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     title?: boolean
+    key?: boolean
+    capo?: boolean
     tuning?: boolean
     createdAt?: boolean
   }
 
-  export type SongOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "tuning" | "createdAt", ExtArgs["result"]["song"]>
+  export type SongOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "key" | "capo" | "tuning" | "createdAt", ExtArgs["result"]["song"]>
   export type SongInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | Song$sessionsArgs<ExtArgs>
     _count?: boolean | SongCountOutputTypeDefaultArgs<ExtArgs>
@@ -1588,6 +1676,8 @@ export namespace Prisma {
       id: string
       userId: string
       title: string
+      key: $Enums.Key | null
+      capo: number | null
       tuning: $Enums.Tuning
       createdAt: Date
     }, ExtArgs["result"]["song"]>
@@ -2017,6 +2107,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Song", 'String'>
     readonly userId: FieldRef<"Song", 'String'>
     readonly title: FieldRef<"Song", 'String'>
+    readonly key: FieldRef<"Song", 'Key'>
+    readonly capo: FieldRef<"Song", 'Int'>
     readonly tuning: FieldRef<"Song", 'Tuning'>
     readonly createdAt: FieldRef<"Song", 'DateTime'>
   }
@@ -5643,6 +5735,8 @@ export namespace Prisma {
     notes: string | null
     bpm: number | null
     instrument: string | null
+    intention: string | null
+    intentionMet: boolean | null
     mood: number | null
     focus: number | null
     isFavorited: boolean | null
@@ -5662,6 +5756,8 @@ export namespace Prisma {
     notes: string | null
     bpm: number | null
     instrument: string | null
+    intention: string | null
+    intentionMet: boolean | null
     mood: number | null
     focus: number | null
     isFavorited: boolean | null
@@ -5681,6 +5777,8 @@ export namespace Prisma {
     notes: number
     bpm: number
     instrument: number
+    intention: number
+    intentionMet: number
     mood: number
     focus: number
     isFavorited: number
@@ -5716,6 +5814,8 @@ export namespace Prisma {
     notes?: true
     bpm?: true
     instrument?: true
+    intention?: true
+    intentionMet?: true
     mood?: true
     focus?: true
     isFavorited?: true
@@ -5735,6 +5835,8 @@ export namespace Prisma {
     notes?: true
     bpm?: true
     instrument?: true
+    intention?: true
+    intentionMet?: true
     mood?: true
     focus?: true
     isFavorited?: true
@@ -5754,6 +5856,8 @@ export namespace Prisma {
     notes?: true
     bpm?: true
     instrument?: true
+    intention?: true
+    intentionMet?: true
     mood?: true
     focus?: true
     isFavorited?: true
@@ -5860,6 +5964,8 @@ export namespace Prisma {
     notes: string | null
     bpm: number | null
     instrument: string | null
+    intention: string | null
+    intentionMet: boolean | null
     mood: number | null
     focus: number | null
     isFavorited: boolean
@@ -5898,6 +6004,8 @@ export namespace Prisma {
     notes?: boolean
     bpm?: boolean
     instrument?: boolean
+    intention?: boolean
+    intentionMet?: boolean
     mood?: boolean
     focus?: boolean
     isFavorited?: boolean
@@ -5922,6 +6030,8 @@ export namespace Prisma {
     notes?: boolean
     bpm?: boolean
     instrument?: boolean
+    intention?: boolean
+    intentionMet?: boolean
     mood?: boolean
     focus?: boolean
     isFavorited?: boolean
@@ -5943,6 +6053,8 @@ export namespace Prisma {
     notes?: boolean
     bpm?: boolean
     instrument?: boolean
+    intention?: boolean
+    intentionMet?: boolean
     mood?: boolean
     focus?: boolean
     isFavorited?: boolean
@@ -5964,6 +6076,8 @@ export namespace Prisma {
     notes?: boolean
     bpm?: boolean
     instrument?: boolean
+    intention?: boolean
+    intentionMet?: boolean
     mood?: boolean
     focus?: boolean
     isFavorited?: boolean
@@ -5974,7 +6088,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "duration" | "topic" | "notes" | "bpm" | "instrument" | "mood" | "focus" | "isFavorited" | "isPublic" | "songId" | "instructorId" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
+  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "duration" | "topic" | "notes" | "bpm" | "instrument" | "intention" | "intentionMet" | "mood" | "focus" | "isFavorited" | "isPublic" | "songId" | "instructorId" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     song?: boolean | Session$songArgs<ExtArgs>
     tags?: boolean | Session$tagsArgs<ExtArgs>
@@ -6008,6 +6122,8 @@ export namespace Prisma {
       notes: string | null
       bpm: number | null
       instrument: string | null
+      intention: string | null
+      intentionMet: boolean | null
       mood: number | null
       focus: number | null
       isFavorited: boolean
@@ -6451,6 +6567,8 @@ export namespace Prisma {
     readonly notes: FieldRef<"Session", 'String'>
     readonly bpm: FieldRef<"Session", 'Int'>
     readonly instrument: FieldRef<"Session", 'String'>
+    readonly intention: FieldRef<"Session", 'String'>
+    readonly intentionMet: FieldRef<"Session", 'Boolean'>
     readonly mood: FieldRef<"Session", 'Int'>
     readonly focus: FieldRef<"Session", 'Int'>
     readonly isFavorited: FieldRef<"Session", 'Boolean'>
@@ -6977,6 +7095,8 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     title: 'title',
+    key: 'key',
+    capo: 'capo',
     tuning: 'tuning',
     createdAt: 'createdAt'
   };
@@ -7023,6 +7143,8 @@ export namespace Prisma {
     notes: 'notes',
     bpm: 'bpm',
     instrument: 'instrument',
+    intention: 'intention',
+    intentionMet: 'intentionMet',
     mood: 'mood',
     focus: 'focus',
     isFavorited: 'isFavorited',
@@ -7080,6 +7202,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Key'
+   */
+  export type EnumKeyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Key'>
+    
+
+
+  /**
+   * Reference to a field of type 'Key[]'
+   */
+  export type ListEnumKeyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Key[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Tuning'
    */
   export type EnumTuningFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Tuning'>
@@ -7104,20 +7254,6 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -7152,6 +7288,8 @@ export namespace Prisma {
     id?: StringFilter<"Song"> | string
     userId?: StringFilter<"Song"> | string
     title?: StringFilter<"Song"> | string
+    key?: EnumKeyNullableFilter<"Song"> | $Enums.Key | null
+    capo?: IntNullableFilter<"Song"> | number | null
     tuning?: EnumTuningFilter<"Song"> | $Enums.Tuning
     createdAt?: DateTimeFilter<"Song"> | Date | string
     sessions?: SessionListRelationFilter
@@ -7161,6 +7299,8 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    key?: SortOrderInput | SortOrder
+    capo?: SortOrderInput | SortOrder
     tuning?: SortOrder
     createdAt?: SortOrder
     sessions?: SessionOrderByRelationAggregateInput
@@ -7174,6 +7314,8 @@ export namespace Prisma {
     NOT?: SongWhereInput | SongWhereInput[]
     userId?: StringFilter<"Song"> | string
     title?: StringFilter<"Song"> | string
+    key?: EnumKeyNullableFilter<"Song"> | $Enums.Key | null
+    capo?: IntNullableFilter<"Song"> | number | null
     tuning?: EnumTuningFilter<"Song"> | $Enums.Tuning
     createdAt?: DateTimeFilter<"Song"> | Date | string
     sessions?: SessionListRelationFilter
@@ -7183,11 +7325,15 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    key?: SortOrderInput | SortOrder
+    capo?: SortOrderInput | SortOrder
     tuning?: SortOrder
     createdAt?: SortOrder
     _count?: SongCountOrderByAggregateInput
+    _avg?: SongAvgOrderByAggregateInput
     _max?: SongMaxOrderByAggregateInput
     _min?: SongMinOrderByAggregateInput
+    _sum?: SongSumOrderByAggregateInput
   }
 
   export type SongScalarWhereWithAggregatesInput = {
@@ -7197,6 +7343,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Song"> | string
     userId?: StringWithAggregatesFilter<"Song"> | string
     title?: StringWithAggregatesFilter<"Song"> | string
+    key?: EnumKeyNullableWithAggregatesFilter<"Song"> | $Enums.Key | null
+    capo?: IntNullableWithAggregatesFilter<"Song"> | number | null
     tuning?: EnumTuningWithAggregatesFilter<"Song"> | $Enums.Tuning
     createdAt?: DateTimeWithAggregatesFilter<"Song"> | Date | string
   }
@@ -7365,6 +7513,8 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Session"> | string | null
     bpm?: IntNullableFilter<"Session"> | number | null
     instrument?: StringNullableFilter<"Session"> | string | null
+    intention?: StringNullableFilter<"Session"> | string | null
+    intentionMet?: BoolNullableFilter<"Session"> | boolean | null
     mood?: IntNullableFilter<"Session"> | number | null
     focus?: IntNullableFilter<"Session"> | number | null
     isFavorited?: BoolFilter<"Session"> | boolean
@@ -7388,6 +7538,8 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     bpm?: SortOrderInput | SortOrder
     instrument?: SortOrderInput | SortOrder
+    intention?: SortOrderInput | SortOrder
+    intentionMet?: SortOrderInput | SortOrder
     mood?: SortOrderInput | SortOrder
     focus?: SortOrderInput | SortOrder
     isFavorited?: SortOrder
@@ -7414,6 +7566,8 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Session"> | string | null
     bpm?: IntNullableFilter<"Session"> | number | null
     instrument?: StringNullableFilter<"Session"> | string | null
+    intention?: StringNullableFilter<"Session"> | string | null
+    intentionMet?: BoolNullableFilter<"Session"> | boolean | null
     mood?: IntNullableFilter<"Session"> | number | null
     focus?: IntNullableFilter<"Session"> | number | null
     isFavorited?: BoolFilter<"Session"> | boolean
@@ -7437,6 +7591,8 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     bpm?: SortOrderInput | SortOrder
     instrument?: SortOrderInput | SortOrder
+    intention?: SortOrderInput | SortOrder
+    intentionMet?: SortOrderInput | SortOrder
     mood?: SortOrderInput | SortOrder
     focus?: SortOrderInput | SortOrder
     isFavorited?: SortOrder
@@ -7464,6 +7620,8 @@ export namespace Prisma {
     notes?: StringNullableWithAggregatesFilter<"Session"> | string | null
     bpm?: IntNullableWithAggregatesFilter<"Session"> | number | null
     instrument?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    intention?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    intentionMet?: BoolNullableWithAggregatesFilter<"Session"> | boolean | null
     mood?: IntNullableWithAggregatesFilter<"Session"> | number | null
     focus?: IntNullableWithAggregatesFilter<"Session"> | number | null
     isFavorited?: BoolWithAggregatesFilter<"Session"> | boolean
@@ -7478,6 +7636,8 @@ export namespace Prisma {
     id?: string
     userId: string
     title: string
+    key?: $Enums.Key | null
+    capo?: number | null
     tuning?: $Enums.Tuning
     createdAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutSongInput
@@ -7487,6 +7647,8 @@ export namespace Prisma {
     id?: string
     userId: string
     title: string
+    key?: $Enums.Key | null
+    capo?: number | null
     tuning?: $Enums.Tuning
     createdAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutSongInput
@@ -7496,6 +7658,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
+    capo?: NullableIntFieldUpdateOperationsInput | number | null
     tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutSongNestedInput
@@ -7505,6 +7669,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
+    capo?: NullableIntFieldUpdateOperationsInput | number | null
     tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutSongNestedInput
@@ -7514,6 +7680,8 @@ export namespace Prisma {
     id?: string
     userId: string
     title: string
+    key?: $Enums.Key | null
+    capo?: number | null
     tuning?: $Enums.Tuning
     createdAt?: Date | string
   }
@@ -7522,6 +7690,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
+    capo?: NullableIntFieldUpdateOperationsInput | number | null
     tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7530,6 +7700,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
+    capo?: NullableIntFieldUpdateOperationsInput | number | null
     tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7697,6 +7869,8 @@ export namespace Prisma {
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
     mood?: number | null
     focus?: number | null
     isFavorited?: boolean
@@ -7718,6 +7892,8 @@ export namespace Prisma {
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
     mood?: number | null
     focus?: number | null
     isFavorited?: boolean
@@ -7739,6 +7915,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
@@ -7760,6 +7938,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
@@ -7781,6 +7961,8 @@ export namespace Prisma {
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
     mood?: number | null
     focus?: number | null
     isFavorited?: boolean
@@ -7800,6 +7982,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
@@ -7817,6 +8001,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
@@ -7840,6 +8026,24 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type EnumKeyNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Key | EnumKeyFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Key[] | ListEnumKeyFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Key[] | ListEnumKeyFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumKeyNullableFilter<$PrismaModel> | $Enums.Key | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type EnumTuningFilter<$PrismaModel = never> = {
@@ -7866,6 +8070,11 @@ export namespace Prisma {
     none?: SessionWhereInput
   }
 
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -7879,14 +8088,22 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    key?: SortOrder
+    capo?: SortOrder
     tuning?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type SongAvgOrderByAggregateInput = {
+    capo?: SortOrder
   }
 
   export type SongMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    key?: SortOrder
+    capo?: SortOrder
     tuning?: SortOrder
     createdAt?: SortOrder
   }
@@ -7895,8 +8112,14 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    key?: SortOrder
+    capo?: SortOrder
     tuning?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type SongSumOrderByAggregateInput = {
+    capo?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -7915,6 +8138,32 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type EnumKeyNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Key | EnumKeyFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Key[] | ListEnumKeyFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Key[] | ListEnumKeyFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumKeyNullableWithAggregatesFilter<$PrismaModel> | $Enums.Key | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumKeyNullableFilter<$PrismaModel>
+    _max?: NestedEnumKeyNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumTuningWithAggregatesFilter<$PrismaModel = never> = {
@@ -7982,11 +8231,6 @@ export namespace Prisma {
   export type SessionScalarRelationFilter = {
     is?: SessionWhereInput
     isNot?: SessionWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type RecordingCountOrderByAggregateInput = {
@@ -8068,15 +8312,9 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -8123,6 +8361,8 @@ export namespace Prisma {
     notes?: SortOrder
     bpm?: SortOrder
     instrument?: SortOrder
+    intention?: SortOrder
+    intentionMet?: SortOrder
     mood?: SortOrder
     focus?: SortOrder
     isFavorited?: SortOrder
@@ -8149,6 +8389,8 @@ export namespace Prisma {
     notes?: SortOrder
     bpm?: SortOrder
     instrument?: SortOrder
+    intention?: SortOrder
+    intentionMet?: SortOrder
     mood?: SortOrder
     focus?: SortOrder
     isFavorited?: SortOrder
@@ -8168,6 +8410,8 @@ export namespace Prisma {
     notes?: SortOrder
     bpm?: SortOrder
     instrument?: SortOrder
+    intention?: SortOrder
+    intentionMet?: SortOrder
     mood?: SortOrder
     focus?: SortOrder
     isFavorited?: SortOrder
@@ -8201,20 +8445,12 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -8241,6 +8477,18 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type NullableEnumKeyFieldUpdateOperationsInput = {
+    set?: $Enums.Key | null
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type EnumTuningFieldUpdateOperationsInput = {
@@ -8423,12 +8671,8 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -8523,6 +8767,24 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedEnumKeyNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Key | EnumKeyFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Key[] | ListEnumKeyFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Key[] | ListEnumKeyFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumKeyNullableFilter<$PrismaModel> | $Enums.Key | null
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumTuningFilter<$PrismaModel = never> = {
     equals?: $Enums.Tuning | EnumTuningFieldRefInput<$PrismaModel>
     in?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel>
@@ -8567,6 +8829,43 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumKeyNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Key | EnumKeyFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Key[] | ListEnumKeyFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Key[] | ListEnumKeyFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumKeyNullableWithAggregatesFilter<$PrismaModel> | $Enums.Key | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumKeyNullableFilter<$PrismaModel>
+    _max?: NestedEnumKeyNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumTuningWithAggregatesFilter<$PrismaModel = never> = {
@@ -8624,15 +8923,9 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -8667,31 +8960,12 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -8711,6 +8985,8 @@ export namespace Prisma {
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
     mood?: number | null
     focus?: number | null
     isFavorited?: boolean
@@ -8731,6 +9007,8 @@ export namespace Prisma {
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
     mood?: number | null
     focus?: number | null
     isFavorited?: boolean
@@ -8780,6 +9058,8 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Session"> | string | null
     bpm?: IntNullableFilter<"Session"> | number | null
     instrument?: StringNullableFilter<"Session"> | string | null
+    intention?: StringNullableFilter<"Session"> | string | null
+    intentionMet?: BoolNullableFilter<"Session"> | boolean | null
     mood?: IntNullableFilter<"Session"> | number | null
     focus?: IntNullableFilter<"Session"> | number | null
     isFavorited?: BoolFilter<"Session"> | boolean
@@ -8799,6 +9079,8 @@ export namespace Prisma {
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
     mood?: number | null
     focus?: number | null
     isFavorited?: boolean
@@ -8819,6 +9101,8 @@ export namespace Prisma {
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
     mood?: number | null
     focus?: number | null
     isFavorited?: boolean
@@ -8860,6 +9144,8 @@ export namespace Prisma {
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
     mood?: number | null
     focus?: number | null
     isFavorited?: boolean
@@ -8880,6 +9166,8 @@ export namespace Prisma {
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
     mood?: number | null
     focus?: number | null
     isFavorited?: boolean
@@ -8916,6 +9204,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
@@ -8936,6 +9226,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
@@ -8956,6 +9248,8 @@ export namespace Prisma {
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
     mood?: number | null
     focus?: number | null
     isFavorited?: boolean
@@ -8976,6 +9270,8 @@ export namespace Prisma {
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
     mood?: number | null
     focus?: number | null
     isFavorited?: boolean
@@ -9017,6 +9313,8 @@ export namespace Prisma {
     id?: string
     userId: string
     title: string
+    key?: $Enums.Key | null
+    capo?: number | null
     tuning?: $Enums.Tuning
     createdAt?: Date | string
   }
@@ -9025,6 +9323,8 @@ export namespace Prisma {
     id?: string
     userId: string
     title: string
+    key?: $Enums.Key | null
+    capo?: number | null
     tuning?: $Enums.Tuning
     createdAt?: Date | string
   }
@@ -9109,6 +9409,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
+    capo?: NullableIntFieldUpdateOperationsInput | number | null
     tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9117,6 +9419,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
+    capo?: NullableIntFieldUpdateOperationsInput | number | null
     tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9207,6 +9511,8 @@ export namespace Prisma {
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
     mood?: number | null
     focus?: number | null
     isFavorited?: boolean
@@ -9225,6 +9531,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
@@ -9245,6 +9553,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
@@ -9265,6 +9575,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
@@ -9283,6 +9595,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
@@ -9303,6 +9617,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
@@ -9323,6 +9639,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
@@ -9342,6 +9660,8 @@ export namespace Prisma {
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
     mood?: number | null
     focus?: number | null
     isFavorited?: boolean
@@ -9360,6 +9680,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
@@ -9380,6 +9702,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
@@ -9400,6 +9724,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
     mood?: NullableIntFieldUpdateOperationsInput | number | null
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
