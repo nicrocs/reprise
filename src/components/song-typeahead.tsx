@@ -2,17 +2,9 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Input } from '@/components/ui/input'
-import { getSongs } from '@/app/actions/sessions'
+import { getSongs } from '@/app/actions/songs'
 import { TuningSelect } from '@/components/tuning-select'
-
-const TUNING_LABELS: Record<string, string> = {
-  STANDARD: 'Standard',
-  DROP_D: 'Drop D',
-  DROP_C: 'Drop C',
-  OPEN_G: 'Open G',
-  OPEN_D: 'Open D',
-  DADGAD: 'DADGAD',
-}
+import { TUNING_LABELS } from '@/lib/constants'
 
 type Song = { id: string; title: string; tuning: string }
 

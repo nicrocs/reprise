@@ -37,7 +37,7 @@ export default async function SessionsPage() {
                     <div className="flex justify-between items-start mb-2">
                         <div>
                         {session.song && (
-                            <CardTitle>{session.song.title}</CardTitle>
+                            <CardTitle><Link href={`/songs/${session.songId}`}>{session.song.title}</Link></CardTitle>
                         )}
                         <CardDescription className="text-sm text-gray-500">{session.topic}</CardDescription>
                         </div>
