@@ -24,6 +24,16 @@ export type Song = $Result.DefaultSelection<Prisma.$SongPayload>
  */
 export type Tag = $Result.DefaultSelection<Prisma.$TagPayload>
 /**
+ * Model Recording
+ * 
+ */
+export type Recording = $Result.DefaultSelection<Prisma.$RecordingPayload>
+/**
+ * Model Instructor
+ * 
+ */
+export type Instructor = $Result.DefaultSelection<Prisma.$InstructorPayload>
+/**
  * Model Session
  * 
  */
@@ -186,6 +196,26 @@ export class PrismaClient<
     * ```
     */
   get tag(): Prisma.TagDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.recording`: Exposes CRUD operations for the **Recording** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Recordings
+    * const recordings = await prisma.recording.findMany()
+    * ```
+    */
+  get recording(): Prisma.RecordingDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.instructor`: Exposes CRUD operations for the **Instructor** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Instructors
+    * const instructors = await prisma.instructor.findMany()
+    * ```
+    */
+  get instructor(): Prisma.InstructorDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.session`: Exposes CRUD operations for the **Session** model.
@@ -632,6 +662,8 @@ export namespace Prisma {
   export const ModelName: {
     Song: 'Song',
     Tag: 'Tag',
+    Recording: 'Recording',
+    Instructor: 'Instructor',
     Session: 'Session'
   };
 
@@ -648,7 +680,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "song" | "tag" | "session"
+      modelProps: "song" | "tag" | "recording" | "instructor" | "session"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -797,6 +829,154 @@ export namespace Prisma {
           count: {
             args: Prisma.TagCountArgs<ExtArgs>
             result: $Utils.Optional<TagCountAggregateOutputType> | number
+          }
+        }
+      }
+      Recording: {
+        payload: Prisma.$RecordingPayload<ExtArgs>
+        fields: Prisma.RecordingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RecordingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RecordingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordingPayload>
+          }
+          findFirst: {
+            args: Prisma.RecordingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RecordingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordingPayload>
+          }
+          findMany: {
+            args: Prisma.RecordingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordingPayload>[]
+          }
+          create: {
+            args: Prisma.RecordingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordingPayload>
+          }
+          createMany: {
+            args: Prisma.RecordingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RecordingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordingPayload>[]
+          }
+          delete: {
+            args: Prisma.RecordingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordingPayload>
+          }
+          update: {
+            args: Prisma.RecordingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordingPayload>
+          }
+          deleteMany: {
+            args: Prisma.RecordingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RecordingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RecordingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordingPayload>[]
+          }
+          upsert: {
+            args: Prisma.RecordingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordingPayload>
+          }
+          aggregate: {
+            args: Prisma.RecordingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRecording>
+          }
+          groupBy: {
+            args: Prisma.RecordingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RecordingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RecordingCountArgs<ExtArgs>
+            result: $Utils.Optional<RecordingCountAggregateOutputType> | number
+          }
+        }
+      }
+      Instructor: {
+        payload: Prisma.$InstructorPayload<ExtArgs>
+        fields: Prisma.InstructorFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InstructorFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstructorPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InstructorFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstructorPayload>
+          }
+          findFirst: {
+            args: Prisma.InstructorFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstructorPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InstructorFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstructorPayload>
+          }
+          findMany: {
+            args: Prisma.InstructorFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstructorPayload>[]
+          }
+          create: {
+            args: Prisma.InstructorCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstructorPayload>
+          }
+          createMany: {
+            args: Prisma.InstructorCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.InstructorCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstructorPayload>[]
+          }
+          delete: {
+            args: Prisma.InstructorDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstructorPayload>
+          }
+          update: {
+            args: Prisma.InstructorUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstructorPayload>
+          }
+          deleteMany: {
+            args: Prisma.InstructorDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InstructorUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.InstructorUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstructorPayload>[]
+          }
+          upsert: {
+            args: Prisma.InstructorUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstructorPayload>
+          }
+          aggregate: {
+            args: Prisma.InstructorAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInstructor>
+          }
+          groupBy: {
+            args: Prisma.InstructorGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InstructorGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InstructorCountArgs<ExtArgs>
+            result: $Utils.Optional<InstructorCountAggregateOutputType> | number
           }
         }
       }
@@ -984,6 +1164,8 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     song?: SongOmit
     tag?: TagOmit
+    recording?: RecordingOmit
+    instructor?: InstructorOmit
     session?: SessionOmit
   }
 
@@ -1123,15 +1305,48 @@ export namespace Prisma {
 
 
   /**
+   * Count Type InstructorCountOutputType
+   */
+
+  export type InstructorCountOutputType = {
+    sessions: number
+  }
+
+  export type InstructorCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sessions?: boolean | InstructorCountOutputTypeCountSessionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * InstructorCountOutputType without action
+   */
+  export type InstructorCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstructorCountOutputType
+     */
+    select?: InstructorCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * InstructorCountOutputType without action
+   */
+  export type InstructorCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionWhereInput
+  }
+
+
+  /**
    * Count Type SessionCountOutputType
    */
 
   export type SessionCountOutputType = {
     tags: number
+    recordings: number
   }
 
   export type SessionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tags?: boolean | SessionCountOutputTypeCountTagsArgs
+    recordings?: boolean | SessionCountOutputTypeCountRecordingsArgs
   }
 
   // Custom InputTypes
@@ -1150,6 +1365,13 @@ export namespace Prisma {
    */
   export type SessionCountOutputTypeCountTagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TagWhereInput
+  }
+
+  /**
+   * SessionCountOutputType without action
+   */
+  export type SessionCountOutputTypeCountRecordingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RecordingWhereInput
   }
 
 
@@ -3272,6 +3494,2121 @@ export namespace Prisma {
 
 
   /**
+   * Model Recording
+   */
+
+  export type AggregateRecording = {
+    _count: RecordingCountAggregateOutputType | null
+    _min: RecordingMinAggregateOutputType | null
+    _max: RecordingMaxAggregateOutputType | null
+  }
+
+  export type RecordingMinAggregateOutputType = {
+    id: string | null
+    sessionId: string | null
+    url: string | null
+    label: string | null
+    createdAt: Date | null
+  }
+
+  export type RecordingMaxAggregateOutputType = {
+    id: string | null
+    sessionId: string | null
+    url: string | null
+    label: string | null
+    createdAt: Date | null
+  }
+
+  export type RecordingCountAggregateOutputType = {
+    id: number
+    sessionId: number
+    url: number
+    label: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RecordingMinAggregateInputType = {
+    id?: true
+    sessionId?: true
+    url?: true
+    label?: true
+    createdAt?: true
+  }
+
+  export type RecordingMaxAggregateInputType = {
+    id?: true
+    sessionId?: true
+    url?: true
+    label?: true
+    createdAt?: true
+  }
+
+  export type RecordingCountAggregateInputType = {
+    id?: true
+    sessionId?: true
+    url?: true
+    label?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RecordingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Recording to aggregate.
+     */
+    where?: RecordingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Recordings to fetch.
+     */
+    orderBy?: RecordingOrderByWithRelationInput | RecordingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RecordingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Recordings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Recordings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Recordings
+    **/
+    _count?: true | RecordingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RecordingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RecordingMaxAggregateInputType
+  }
+
+  export type GetRecordingAggregateType<T extends RecordingAggregateArgs> = {
+        [P in keyof T & keyof AggregateRecording]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRecording[P]>
+      : GetScalarType<T[P], AggregateRecording[P]>
+  }
+
+
+
+
+  export type RecordingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RecordingWhereInput
+    orderBy?: RecordingOrderByWithAggregationInput | RecordingOrderByWithAggregationInput[]
+    by: RecordingScalarFieldEnum[] | RecordingScalarFieldEnum
+    having?: RecordingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RecordingCountAggregateInputType | true
+    _min?: RecordingMinAggregateInputType
+    _max?: RecordingMaxAggregateInputType
+  }
+
+  export type RecordingGroupByOutputType = {
+    id: string
+    sessionId: string
+    url: string
+    label: string | null
+    createdAt: Date
+    _count: RecordingCountAggregateOutputType | null
+    _min: RecordingMinAggregateOutputType | null
+    _max: RecordingMaxAggregateOutputType | null
+  }
+
+  type GetRecordingGroupByPayload<T extends RecordingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RecordingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RecordingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RecordingGroupByOutputType[P]>
+            : GetScalarType<T[P], RecordingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RecordingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sessionId?: boolean
+    url?: boolean
+    label?: boolean
+    createdAt?: boolean
+    session?: boolean | SessionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recording"]>
+
+  export type RecordingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sessionId?: boolean
+    url?: boolean
+    label?: boolean
+    createdAt?: boolean
+    session?: boolean | SessionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recording"]>
+
+  export type RecordingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sessionId?: boolean
+    url?: boolean
+    label?: boolean
+    createdAt?: boolean
+    session?: boolean | SessionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recording"]>
+
+  export type RecordingSelectScalar = {
+    id?: boolean
+    sessionId?: boolean
+    url?: boolean
+    label?: boolean
+    createdAt?: boolean
+  }
+
+  export type RecordingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sessionId" | "url" | "label" | "createdAt", ExtArgs["result"]["recording"]>
+  export type RecordingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    session?: boolean | SessionDefaultArgs<ExtArgs>
+  }
+  export type RecordingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    session?: boolean | SessionDefaultArgs<ExtArgs>
+  }
+  export type RecordingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    session?: boolean | SessionDefaultArgs<ExtArgs>
+  }
+
+  export type $RecordingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Recording"
+    objects: {
+      session: Prisma.$SessionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      sessionId: string
+      url: string
+      label: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["recording"]>
+    composites: {}
+  }
+
+  type RecordingGetPayload<S extends boolean | null | undefined | RecordingDefaultArgs> = $Result.GetResult<Prisma.$RecordingPayload, S>
+
+  type RecordingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RecordingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RecordingCountAggregateInputType | true
+    }
+
+  export interface RecordingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Recording'], meta: { name: 'Recording' } }
+    /**
+     * Find zero or one Recording that matches the filter.
+     * @param {RecordingFindUniqueArgs} args - Arguments to find a Recording
+     * @example
+     * // Get one Recording
+     * const recording = await prisma.recording.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RecordingFindUniqueArgs>(args: SelectSubset<T, RecordingFindUniqueArgs<ExtArgs>>): Prisma__RecordingClient<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Recording that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RecordingFindUniqueOrThrowArgs} args - Arguments to find a Recording
+     * @example
+     * // Get one Recording
+     * const recording = await prisma.recording.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RecordingFindUniqueOrThrowArgs>(args: SelectSubset<T, RecordingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RecordingClient<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Recording that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordingFindFirstArgs} args - Arguments to find a Recording
+     * @example
+     * // Get one Recording
+     * const recording = await prisma.recording.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RecordingFindFirstArgs>(args?: SelectSubset<T, RecordingFindFirstArgs<ExtArgs>>): Prisma__RecordingClient<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Recording that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordingFindFirstOrThrowArgs} args - Arguments to find a Recording
+     * @example
+     * // Get one Recording
+     * const recording = await prisma.recording.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RecordingFindFirstOrThrowArgs>(args?: SelectSubset<T, RecordingFindFirstOrThrowArgs<ExtArgs>>): Prisma__RecordingClient<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Recordings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Recordings
+     * const recordings = await prisma.recording.findMany()
+     * 
+     * // Get first 10 Recordings
+     * const recordings = await prisma.recording.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const recordingWithIdOnly = await prisma.recording.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RecordingFindManyArgs>(args?: SelectSubset<T, RecordingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Recording.
+     * @param {RecordingCreateArgs} args - Arguments to create a Recording.
+     * @example
+     * // Create one Recording
+     * const Recording = await prisma.recording.create({
+     *   data: {
+     *     // ... data to create a Recording
+     *   }
+     * })
+     * 
+     */
+    create<T extends RecordingCreateArgs>(args: SelectSubset<T, RecordingCreateArgs<ExtArgs>>): Prisma__RecordingClient<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Recordings.
+     * @param {RecordingCreateManyArgs} args - Arguments to create many Recordings.
+     * @example
+     * // Create many Recordings
+     * const recording = await prisma.recording.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RecordingCreateManyArgs>(args?: SelectSubset<T, RecordingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Recordings and returns the data saved in the database.
+     * @param {RecordingCreateManyAndReturnArgs} args - Arguments to create many Recordings.
+     * @example
+     * // Create many Recordings
+     * const recording = await prisma.recording.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Recordings and only return the `id`
+     * const recordingWithIdOnly = await prisma.recording.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RecordingCreateManyAndReturnArgs>(args?: SelectSubset<T, RecordingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Recording.
+     * @param {RecordingDeleteArgs} args - Arguments to delete one Recording.
+     * @example
+     * // Delete one Recording
+     * const Recording = await prisma.recording.delete({
+     *   where: {
+     *     // ... filter to delete one Recording
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RecordingDeleteArgs>(args: SelectSubset<T, RecordingDeleteArgs<ExtArgs>>): Prisma__RecordingClient<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Recording.
+     * @param {RecordingUpdateArgs} args - Arguments to update one Recording.
+     * @example
+     * // Update one Recording
+     * const recording = await prisma.recording.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RecordingUpdateArgs>(args: SelectSubset<T, RecordingUpdateArgs<ExtArgs>>): Prisma__RecordingClient<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Recordings.
+     * @param {RecordingDeleteManyArgs} args - Arguments to filter Recordings to delete.
+     * @example
+     * // Delete a few Recordings
+     * const { count } = await prisma.recording.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RecordingDeleteManyArgs>(args?: SelectSubset<T, RecordingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Recordings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Recordings
+     * const recording = await prisma.recording.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RecordingUpdateManyArgs>(args: SelectSubset<T, RecordingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Recordings and returns the data updated in the database.
+     * @param {RecordingUpdateManyAndReturnArgs} args - Arguments to update many Recordings.
+     * @example
+     * // Update many Recordings
+     * const recording = await prisma.recording.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Recordings and only return the `id`
+     * const recordingWithIdOnly = await prisma.recording.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RecordingUpdateManyAndReturnArgs>(args: SelectSubset<T, RecordingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Recording.
+     * @param {RecordingUpsertArgs} args - Arguments to update or create a Recording.
+     * @example
+     * // Update or create a Recording
+     * const recording = await prisma.recording.upsert({
+     *   create: {
+     *     // ... data to create a Recording
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Recording we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RecordingUpsertArgs>(args: SelectSubset<T, RecordingUpsertArgs<ExtArgs>>): Prisma__RecordingClient<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Recordings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordingCountArgs} args - Arguments to filter Recordings to count.
+     * @example
+     * // Count the number of Recordings
+     * const count = await prisma.recording.count({
+     *   where: {
+     *     // ... the filter for the Recordings we want to count
+     *   }
+     * })
+    **/
+    count<T extends RecordingCountArgs>(
+      args?: Subset<T, RecordingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RecordingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Recording.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RecordingAggregateArgs>(args: Subset<T, RecordingAggregateArgs>): Prisma.PrismaPromise<GetRecordingAggregateType<T>>
+
+    /**
+     * Group by Recording.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RecordingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RecordingGroupByArgs['orderBy'] }
+        : { orderBy?: RecordingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RecordingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRecordingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Recording model
+   */
+  readonly fields: RecordingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Recording.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RecordingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    session<T extends SessionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SessionDefaultArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Recording model
+   */
+  interface RecordingFieldRefs {
+    readonly id: FieldRef<"Recording", 'String'>
+    readonly sessionId: FieldRef<"Recording", 'String'>
+    readonly url: FieldRef<"Recording", 'String'>
+    readonly label: FieldRef<"Recording", 'String'>
+    readonly createdAt: FieldRef<"Recording", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Recording findUnique
+   */
+  export type RecordingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recording
+     */
+    select?: RecordingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recording
+     */
+    omit?: RecordingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordingInclude<ExtArgs> | null
+    /**
+     * Filter, which Recording to fetch.
+     */
+    where: RecordingWhereUniqueInput
+  }
+
+  /**
+   * Recording findUniqueOrThrow
+   */
+  export type RecordingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recording
+     */
+    select?: RecordingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recording
+     */
+    omit?: RecordingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordingInclude<ExtArgs> | null
+    /**
+     * Filter, which Recording to fetch.
+     */
+    where: RecordingWhereUniqueInput
+  }
+
+  /**
+   * Recording findFirst
+   */
+  export type RecordingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recording
+     */
+    select?: RecordingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recording
+     */
+    omit?: RecordingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordingInclude<ExtArgs> | null
+    /**
+     * Filter, which Recording to fetch.
+     */
+    where?: RecordingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Recordings to fetch.
+     */
+    orderBy?: RecordingOrderByWithRelationInput | RecordingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Recordings.
+     */
+    cursor?: RecordingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Recordings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Recordings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Recordings.
+     */
+    distinct?: RecordingScalarFieldEnum | RecordingScalarFieldEnum[]
+  }
+
+  /**
+   * Recording findFirstOrThrow
+   */
+  export type RecordingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recording
+     */
+    select?: RecordingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recording
+     */
+    omit?: RecordingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordingInclude<ExtArgs> | null
+    /**
+     * Filter, which Recording to fetch.
+     */
+    where?: RecordingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Recordings to fetch.
+     */
+    orderBy?: RecordingOrderByWithRelationInput | RecordingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Recordings.
+     */
+    cursor?: RecordingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Recordings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Recordings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Recordings.
+     */
+    distinct?: RecordingScalarFieldEnum | RecordingScalarFieldEnum[]
+  }
+
+  /**
+   * Recording findMany
+   */
+  export type RecordingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recording
+     */
+    select?: RecordingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recording
+     */
+    omit?: RecordingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordingInclude<ExtArgs> | null
+    /**
+     * Filter, which Recordings to fetch.
+     */
+    where?: RecordingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Recordings to fetch.
+     */
+    orderBy?: RecordingOrderByWithRelationInput | RecordingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Recordings.
+     */
+    cursor?: RecordingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Recordings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Recordings.
+     */
+    skip?: number
+    distinct?: RecordingScalarFieldEnum | RecordingScalarFieldEnum[]
+  }
+
+  /**
+   * Recording create
+   */
+  export type RecordingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recording
+     */
+    select?: RecordingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recording
+     */
+    omit?: RecordingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Recording.
+     */
+    data: XOR<RecordingCreateInput, RecordingUncheckedCreateInput>
+  }
+
+  /**
+   * Recording createMany
+   */
+  export type RecordingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Recordings.
+     */
+    data: RecordingCreateManyInput | RecordingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Recording createManyAndReturn
+   */
+  export type RecordingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recording
+     */
+    select?: RecordingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recording
+     */
+    omit?: RecordingOmit<ExtArgs> | null
+    /**
+     * The data used to create many Recordings.
+     */
+    data: RecordingCreateManyInput | RecordingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Recording update
+   */
+  export type RecordingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recording
+     */
+    select?: RecordingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recording
+     */
+    omit?: RecordingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Recording.
+     */
+    data: XOR<RecordingUpdateInput, RecordingUncheckedUpdateInput>
+    /**
+     * Choose, which Recording to update.
+     */
+    where: RecordingWhereUniqueInput
+  }
+
+  /**
+   * Recording updateMany
+   */
+  export type RecordingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Recordings.
+     */
+    data: XOR<RecordingUpdateManyMutationInput, RecordingUncheckedUpdateManyInput>
+    /**
+     * Filter which Recordings to update
+     */
+    where?: RecordingWhereInput
+    /**
+     * Limit how many Recordings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Recording updateManyAndReturn
+   */
+  export type RecordingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recording
+     */
+    select?: RecordingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recording
+     */
+    omit?: RecordingOmit<ExtArgs> | null
+    /**
+     * The data used to update Recordings.
+     */
+    data: XOR<RecordingUpdateManyMutationInput, RecordingUncheckedUpdateManyInput>
+    /**
+     * Filter which Recordings to update
+     */
+    where?: RecordingWhereInput
+    /**
+     * Limit how many Recordings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Recording upsert
+   */
+  export type RecordingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recording
+     */
+    select?: RecordingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recording
+     */
+    omit?: RecordingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Recording to update in case it exists.
+     */
+    where: RecordingWhereUniqueInput
+    /**
+     * In case the Recording found by the `where` argument doesn't exist, create a new Recording with this data.
+     */
+    create: XOR<RecordingCreateInput, RecordingUncheckedCreateInput>
+    /**
+     * In case the Recording was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RecordingUpdateInput, RecordingUncheckedUpdateInput>
+  }
+
+  /**
+   * Recording delete
+   */
+  export type RecordingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recording
+     */
+    select?: RecordingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recording
+     */
+    omit?: RecordingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordingInclude<ExtArgs> | null
+    /**
+     * Filter which Recording to delete.
+     */
+    where: RecordingWhereUniqueInput
+  }
+
+  /**
+   * Recording deleteMany
+   */
+  export type RecordingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Recordings to delete
+     */
+    where?: RecordingWhereInput
+    /**
+     * Limit how many Recordings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Recording without action
+   */
+  export type RecordingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recording
+     */
+    select?: RecordingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recording
+     */
+    omit?: RecordingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordingInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Instructor
+   */
+
+  export type AggregateInstructor = {
+    _count: InstructorCountAggregateOutputType | null
+    _min: InstructorMinAggregateOutputType | null
+    _max: InstructorMaxAggregateOutputType | null
+  }
+
+  export type InstructorMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    createdAt: Date | null
+  }
+
+  export type InstructorMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    createdAt: Date | null
+  }
+
+  export type InstructorCountAggregateOutputType = {
+    id: number
+    userId: number
+    name: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type InstructorMinAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    createdAt?: true
+  }
+
+  export type InstructorMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    createdAt?: true
+  }
+
+  export type InstructorCountAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type InstructorAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Instructor to aggregate.
+     */
+    where?: InstructorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Instructors to fetch.
+     */
+    orderBy?: InstructorOrderByWithRelationInput | InstructorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InstructorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Instructors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Instructors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Instructors
+    **/
+    _count?: true | InstructorCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InstructorMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InstructorMaxAggregateInputType
+  }
+
+  export type GetInstructorAggregateType<T extends InstructorAggregateArgs> = {
+        [P in keyof T & keyof AggregateInstructor]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInstructor[P]>
+      : GetScalarType<T[P], AggregateInstructor[P]>
+  }
+
+
+
+
+  export type InstructorGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InstructorWhereInput
+    orderBy?: InstructorOrderByWithAggregationInput | InstructorOrderByWithAggregationInput[]
+    by: InstructorScalarFieldEnum[] | InstructorScalarFieldEnum
+    having?: InstructorScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InstructorCountAggregateInputType | true
+    _min?: InstructorMinAggregateInputType
+    _max?: InstructorMaxAggregateInputType
+  }
+
+  export type InstructorGroupByOutputType = {
+    id: string
+    userId: string
+    name: string
+    createdAt: Date
+    _count: InstructorCountAggregateOutputType | null
+    _min: InstructorMinAggregateOutputType | null
+    _max: InstructorMaxAggregateOutputType | null
+  }
+
+  type GetInstructorGroupByPayload<T extends InstructorGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InstructorGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InstructorGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InstructorGroupByOutputType[P]>
+            : GetScalarType<T[P], InstructorGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InstructorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    createdAt?: boolean
+    sessions?: boolean | Instructor$sessionsArgs<ExtArgs>
+    _count?: boolean | InstructorCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["instructor"]>
+
+  export type InstructorSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["instructor"]>
+
+  export type InstructorSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["instructor"]>
+
+  export type InstructorSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }
+
+  export type InstructorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "createdAt", ExtArgs["result"]["instructor"]>
+  export type InstructorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sessions?: boolean | Instructor$sessionsArgs<ExtArgs>
+    _count?: boolean | InstructorCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type InstructorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type InstructorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $InstructorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Instructor"
+    objects: {
+      sessions: Prisma.$SessionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      name: string
+      createdAt: Date
+    }, ExtArgs["result"]["instructor"]>
+    composites: {}
+  }
+
+  type InstructorGetPayload<S extends boolean | null | undefined | InstructorDefaultArgs> = $Result.GetResult<Prisma.$InstructorPayload, S>
+
+  type InstructorCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InstructorFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InstructorCountAggregateInputType | true
+    }
+
+  export interface InstructorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Instructor'], meta: { name: 'Instructor' } }
+    /**
+     * Find zero or one Instructor that matches the filter.
+     * @param {InstructorFindUniqueArgs} args - Arguments to find a Instructor
+     * @example
+     * // Get one Instructor
+     * const instructor = await prisma.instructor.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InstructorFindUniqueArgs>(args: SelectSubset<T, InstructorFindUniqueArgs<ExtArgs>>): Prisma__InstructorClient<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Instructor that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InstructorFindUniqueOrThrowArgs} args - Arguments to find a Instructor
+     * @example
+     * // Get one Instructor
+     * const instructor = await prisma.instructor.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InstructorFindUniqueOrThrowArgs>(args: SelectSubset<T, InstructorFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InstructorClient<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Instructor that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstructorFindFirstArgs} args - Arguments to find a Instructor
+     * @example
+     * // Get one Instructor
+     * const instructor = await prisma.instructor.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InstructorFindFirstArgs>(args?: SelectSubset<T, InstructorFindFirstArgs<ExtArgs>>): Prisma__InstructorClient<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Instructor that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstructorFindFirstOrThrowArgs} args - Arguments to find a Instructor
+     * @example
+     * // Get one Instructor
+     * const instructor = await prisma.instructor.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InstructorFindFirstOrThrowArgs>(args?: SelectSubset<T, InstructorFindFirstOrThrowArgs<ExtArgs>>): Prisma__InstructorClient<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Instructors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstructorFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Instructors
+     * const instructors = await prisma.instructor.findMany()
+     * 
+     * // Get first 10 Instructors
+     * const instructors = await prisma.instructor.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const instructorWithIdOnly = await prisma.instructor.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends InstructorFindManyArgs>(args?: SelectSubset<T, InstructorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Instructor.
+     * @param {InstructorCreateArgs} args - Arguments to create a Instructor.
+     * @example
+     * // Create one Instructor
+     * const Instructor = await prisma.instructor.create({
+     *   data: {
+     *     // ... data to create a Instructor
+     *   }
+     * })
+     * 
+     */
+    create<T extends InstructorCreateArgs>(args: SelectSubset<T, InstructorCreateArgs<ExtArgs>>): Prisma__InstructorClient<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Instructors.
+     * @param {InstructorCreateManyArgs} args - Arguments to create many Instructors.
+     * @example
+     * // Create many Instructors
+     * const instructor = await prisma.instructor.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InstructorCreateManyArgs>(args?: SelectSubset<T, InstructorCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Instructors and returns the data saved in the database.
+     * @param {InstructorCreateManyAndReturnArgs} args - Arguments to create many Instructors.
+     * @example
+     * // Create many Instructors
+     * const instructor = await prisma.instructor.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Instructors and only return the `id`
+     * const instructorWithIdOnly = await prisma.instructor.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends InstructorCreateManyAndReturnArgs>(args?: SelectSubset<T, InstructorCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Instructor.
+     * @param {InstructorDeleteArgs} args - Arguments to delete one Instructor.
+     * @example
+     * // Delete one Instructor
+     * const Instructor = await prisma.instructor.delete({
+     *   where: {
+     *     // ... filter to delete one Instructor
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InstructorDeleteArgs>(args: SelectSubset<T, InstructorDeleteArgs<ExtArgs>>): Prisma__InstructorClient<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Instructor.
+     * @param {InstructorUpdateArgs} args - Arguments to update one Instructor.
+     * @example
+     * // Update one Instructor
+     * const instructor = await prisma.instructor.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InstructorUpdateArgs>(args: SelectSubset<T, InstructorUpdateArgs<ExtArgs>>): Prisma__InstructorClient<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Instructors.
+     * @param {InstructorDeleteManyArgs} args - Arguments to filter Instructors to delete.
+     * @example
+     * // Delete a few Instructors
+     * const { count } = await prisma.instructor.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InstructorDeleteManyArgs>(args?: SelectSubset<T, InstructorDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Instructors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstructorUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Instructors
+     * const instructor = await prisma.instructor.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InstructorUpdateManyArgs>(args: SelectSubset<T, InstructorUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Instructors and returns the data updated in the database.
+     * @param {InstructorUpdateManyAndReturnArgs} args - Arguments to update many Instructors.
+     * @example
+     * // Update many Instructors
+     * const instructor = await prisma.instructor.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Instructors and only return the `id`
+     * const instructorWithIdOnly = await prisma.instructor.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends InstructorUpdateManyAndReturnArgs>(args: SelectSubset<T, InstructorUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Instructor.
+     * @param {InstructorUpsertArgs} args - Arguments to update or create a Instructor.
+     * @example
+     * // Update or create a Instructor
+     * const instructor = await prisma.instructor.upsert({
+     *   create: {
+     *     // ... data to create a Instructor
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Instructor we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InstructorUpsertArgs>(args: SelectSubset<T, InstructorUpsertArgs<ExtArgs>>): Prisma__InstructorClient<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Instructors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstructorCountArgs} args - Arguments to filter Instructors to count.
+     * @example
+     * // Count the number of Instructors
+     * const count = await prisma.instructor.count({
+     *   where: {
+     *     // ... the filter for the Instructors we want to count
+     *   }
+     * })
+    **/
+    count<T extends InstructorCountArgs>(
+      args?: Subset<T, InstructorCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InstructorCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Instructor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstructorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InstructorAggregateArgs>(args: Subset<T, InstructorAggregateArgs>): Prisma.PrismaPromise<GetInstructorAggregateType<T>>
+
+    /**
+     * Group by Instructor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstructorGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InstructorGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InstructorGroupByArgs['orderBy'] }
+        : { orderBy?: InstructorGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InstructorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInstructorGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Instructor model
+   */
+  readonly fields: InstructorFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Instructor.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InstructorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    sessions<T extends Instructor$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, Instructor$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Instructor model
+   */
+  interface InstructorFieldRefs {
+    readonly id: FieldRef<"Instructor", 'String'>
+    readonly userId: FieldRef<"Instructor", 'String'>
+    readonly name: FieldRef<"Instructor", 'String'>
+    readonly createdAt: FieldRef<"Instructor", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Instructor findUnique
+   */
+  export type InstructorFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which Instructor to fetch.
+     */
+    where: InstructorWhereUniqueInput
+  }
+
+  /**
+   * Instructor findUniqueOrThrow
+   */
+  export type InstructorFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which Instructor to fetch.
+     */
+    where: InstructorWhereUniqueInput
+  }
+
+  /**
+   * Instructor findFirst
+   */
+  export type InstructorFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which Instructor to fetch.
+     */
+    where?: InstructorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Instructors to fetch.
+     */
+    orderBy?: InstructorOrderByWithRelationInput | InstructorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Instructors.
+     */
+    cursor?: InstructorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Instructors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Instructors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Instructors.
+     */
+    distinct?: InstructorScalarFieldEnum | InstructorScalarFieldEnum[]
+  }
+
+  /**
+   * Instructor findFirstOrThrow
+   */
+  export type InstructorFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which Instructor to fetch.
+     */
+    where?: InstructorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Instructors to fetch.
+     */
+    orderBy?: InstructorOrderByWithRelationInput | InstructorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Instructors.
+     */
+    cursor?: InstructorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Instructors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Instructors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Instructors.
+     */
+    distinct?: InstructorScalarFieldEnum | InstructorScalarFieldEnum[]
+  }
+
+  /**
+   * Instructor findMany
+   */
+  export type InstructorFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which Instructors to fetch.
+     */
+    where?: InstructorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Instructors to fetch.
+     */
+    orderBy?: InstructorOrderByWithRelationInput | InstructorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Instructors.
+     */
+    cursor?: InstructorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Instructors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Instructors.
+     */
+    skip?: number
+    distinct?: InstructorScalarFieldEnum | InstructorScalarFieldEnum[]
+  }
+
+  /**
+   * Instructor create
+   */
+  export type InstructorCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Instructor.
+     */
+    data: XOR<InstructorCreateInput, InstructorUncheckedCreateInput>
+  }
+
+  /**
+   * Instructor createMany
+   */
+  export type InstructorCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Instructors.
+     */
+    data: InstructorCreateManyInput | InstructorCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Instructor createManyAndReturn
+   */
+  export type InstructorCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * The data used to create many Instructors.
+     */
+    data: InstructorCreateManyInput | InstructorCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Instructor update
+   */
+  export type InstructorUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Instructor.
+     */
+    data: XOR<InstructorUpdateInput, InstructorUncheckedUpdateInput>
+    /**
+     * Choose, which Instructor to update.
+     */
+    where: InstructorWhereUniqueInput
+  }
+
+  /**
+   * Instructor updateMany
+   */
+  export type InstructorUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Instructors.
+     */
+    data: XOR<InstructorUpdateManyMutationInput, InstructorUncheckedUpdateManyInput>
+    /**
+     * Filter which Instructors to update
+     */
+    where?: InstructorWhereInput
+    /**
+     * Limit how many Instructors to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Instructor updateManyAndReturn
+   */
+  export type InstructorUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * The data used to update Instructors.
+     */
+    data: XOR<InstructorUpdateManyMutationInput, InstructorUncheckedUpdateManyInput>
+    /**
+     * Filter which Instructors to update
+     */
+    where?: InstructorWhereInput
+    /**
+     * Limit how many Instructors to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Instructor upsert
+   */
+  export type InstructorUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Instructor to update in case it exists.
+     */
+    where: InstructorWhereUniqueInput
+    /**
+     * In case the Instructor found by the `where` argument doesn't exist, create a new Instructor with this data.
+     */
+    create: XOR<InstructorCreateInput, InstructorUncheckedCreateInput>
+    /**
+     * In case the Instructor was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InstructorUpdateInput, InstructorUncheckedUpdateInput>
+  }
+
+  /**
+   * Instructor delete
+   */
+  export type InstructorDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorInclude<ExtArgs> | null
+    /**
+     * Filter which Instructor to delete.
+     */
+    where: InstructorWhereUniqueInput
+  }
+
+  /**
+   * Instructor deleteMany
+   */
+  export type InstructorDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Instructors to delete
+     */
+    where?: InstructorWhereInput
+    /**
+     * Limit how many Instructors to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Instructor.sessions
+   */
+  export type Instructor$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    where?: SessionWhereInput
+    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
+    cursor?: SessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+  }
+
+  /**
+   * Instructor without action
+   */
+  export type InstructorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Session
    */
 
@@ -3286,11 +5623,15 @@ export namespace Prisma {
   export type SessionAvgAggregateOutputType = {
     duration: number | null
     bpm: number | null
+    mood: number | null
+    focus: number | null
   }
 
   export type SessionSumAggregateOutputType = {
     duration: number | null
     bpm: number | null
+    mood: number | null
+    focus: number | null
   }
 
   export type SessionMinAggregateOutputType = {
@@ -3301,7 +5642,13 @@ export namespace Prisma {
     topic: string | null
     notes: string | null
     bpm: number | null
+    instrument: string | null
+    mood: number | null
+    focus: number | null
+    isFavorited: boolean | null
+    isPublic: boolean | null
     songId: string | null
+    instructorId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3314,7 +5661,13 @@ export namespace Prisma {
     topic: string | null
     notes: string | null
     bpm: number | null
+    instrument: string | null
+    mood: number | null
+    focus: number | null
+    isFavorited: boolean | null
+    isPublic: boolean | null
     songId: string | null
+    instructorId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3327,7 +5680,13 @@ export namespace Prisma {
     topic: number
     notes: number
     bpm: number
+    instrument: number
+    mood: number
+    focus: number
+    isFavorited: number
+    isPublic: number
     songId: number
+    instructorId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -3337,11 +5696,15 @@ export namespace Prisma {
   export type SessionAvgAggregateInputType = {
     duration?: true
     bpm?: true
+    mood?: true
+    focus?: true
   }
 
   export type SessionSumAggregateInputType = {
     duration?: true
     bpm?: true
+    mood?: true
+    focus?: true
   }
 
   export type SessionMinAggregateInputType = {
@@ -3352,7 +5715,13 @@ export namespace Prisma {
     topic?: true
     notes?: true
     bpm?: true
+    instrument?: true
+    mood?: true
+    focus?: true
+    isFavorited?: true
+    isPublic?: true
     songId?: true
+    instructorId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3365,7 +5734,13 @@ export namespace Prisma {
     topic?: true
     notes?: true
     bpm?: true
+    instrument?: true
+    mood?: true
+    focus?: true
+    isFavorited?: true
+    isPublic?: true
     songId?: true
+    instructorId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3378,7 +5753,13 @@ export namespace Prisma {
     topic?: true
     notes?: true
     bpm?: true
+    instrument?: true
+    mood?: true
+    focus?: true
+    isFavorited?: true
+    isPublic?: true
     songId?: true
+    instructorId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3478,7 +5859,13 @@ export namespace Prisma {
     topic: string
     notes: string | null
     bpm: number | null
+    instrument: string | null
+    mood: number | null
+    focus: number | null
+    isFavorited: boolean
+    isPublic: boolean
     songId: string | null
+    instructorId: string | null
     createdAt: Date
     updatedAt: Date
     _count: SessionCountAggregateOutputType | null
@@ -3510,11 +5897,19 @@ export namespace Prisma {
     topic?: boolean
     notes?: boolean
     bpm?: boolean
+    instrument?: boolean
+    mood?: boolean
+    focus?: boolean
+    isFavorited?: boolean
+    isPublic?: boolean
     songId?: boolean
+    instructorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     song?: boolean | Session$songArgs<ExtArgs>
     tags?: boolean | Session$tagsArgs<ExtArgs>
+    recordings?: boolean | Session$recordingsArgs<ExtArgs>
+    instructor?: boolean | Session$instructorArgs<ExtArgs>
     _count?: boolean | SessionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
 
@@ -3526,10 +5921,17 @@ export namespace Prisma {
     topic?: boolean
     notes?: boolean
     bpm?: boolean
+    instrument?: boolean
+    mood?: boolean
+    focus?: boolean
+    isFavorited?: boolean
+    isPublic?: boolean
     songId?: boolean
+    instructorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     song?: boolean | Session$songArgs<ExtArgs>
+    instructor?: boolean | Session$instructorArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
 
   export type SessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3540,10 +5942,17 @@ export namespace Prisma {
     topic?: boolean
     notes?: boolean
     bpm?: boolean
+    instrument?: boolean
+    mood?: boolean
+    focus?: boolean
+    isFavorited?: boolean
+    isPublic?: boolean
     songId?: boolean
+    instructorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     song?: boolean | Session$songArgs<ExtArgs>
+    instructor?: boolean | Session$instructorArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
 
   export type SessionSelectScalar = {
@@ -3554,22 +5963,32 @@ export namespace Prisma {
     topic?: boolean
     notes?: boolean
     bpm?: boolean
+    instrument?: boolean
+    mood?: boolean
+    focus?: boolean
+    isFavorited?: boolean
+    isPublic?: boolean
     songId?: boolean
+    instructorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "duration" | "topic" | "notes" | "bpm" | "songId" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
+  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "duration" | "topic" | "notes" | "bpm" | "instrument" | "mood" | "focus" | "isFavorited" | "isPublic" | "songId" | "instructorId" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     song?: boolean | Session$songArgs<ExtArgs>
     tags?: boolean | Session$tagsArgs<ExtArgs>
+    recordings?: boolean | Session$recordingsArgs<ExtArgs>
+    instructor?: boolean | Session$instructorArgs<ExtArgs>
     _count?: boolean | SessionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     song?: boolean | Session$songArgs<ExtArgs>
+    instructor?: boolean | Session$instructorArgs<ExtArgs>
   }
   export type SessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     song?: boolean | Session$songArgs<ExtArgs>
+    instructor?: boolean | Session$instructorArgs<ExtArgs>
   }
 
   export type $SessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3577,6 +5996,8 @@ export namespace Prisma {
     objects: {
       song: Prisma.$SongPayload<ExtArgs> | null
       tags: Prisma.$TagPayload<ExtArgs>[]
+      recordings: Prisma.$RecordingPayload<ExtArgs>[]
+      instructor: Prisma.$InstructorPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3586,7 +6007,13 @@ export namespace Prisma {
       topic: string
       notes: string | null
       bpm: number | null
+      instrument: string | null
+      mood: number | null
+      focus: number | null
+      isFavorited: boolean
+      isPublic: boolean
       songId: string | null
+      instructorId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["session"]>
@@ -3985,6 +6412,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     song<T extends Session$songArgs<ExtArgs> = {}>(args?: Subset<T, Session$songArgs<ExtArgs>>): Prisma__SongClient<$Result.GetResult<Prisma.$SongPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     tags<T extends Session$tagsArgs<ExtArgs> = {}>(args?: Subset<T, Session$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    recordings<T extends Session$recordingsArgs<ExtArgs> = {}>(args?: Subset<T, Session$recordingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    instructor<T extends Session$instructorArgs<ExtArgs> = {}>(args?: Subset<T, Session$instructorArgs<ExtArgs>>): Prisma__InstructorClient<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4021,7 +6450,13 @@ export namespace Prisma {
     readonly topic: FieldRef<"Session", 'String'>
     readonly notes: FieldRef<"Session", 'String'>
     readonly bpm: FieldRef<"Session", 'Int'>
+    readonly instrument: FieldRef<"Session", 'String'>
+    readonly mood: FieldRef<"Session", 'Int'>
+    readonly focus: FieldRef<"Session", 'Int'>
+    readonly isFavorited: FieldRef<"Session", 'Boolean'>
+    readonly isPublic: FieldRef<"Session", 'Boolean'>
     readonly songId: FieldRef<"Session", 'String'>
+    readonly instructorId: FieldRef<"Session", 'String'>
     readonly createdAt: FieldRef<"Session", 'DateTime'>
     readonly updatedAt: FieldRef<"Session", 'DateTime'>
   }
@@ -4463,6 +6898,49 @@ export namespace Prisma {
   }
 
   /**
+   * Session.recordings
+   */
+  export type Session$recordingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recording
+     */
+    select?: RecordingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recording
+     */
+    omit?: RecordingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordingInclude<ExtArgs> | null
+    where?: RecordingWhereInput
+    orderBy?: RecordingOrderByWithRelationInput | RecordingOrderByWithRelationInput[]
+    cursor?: RecordingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RecordingScalarFieldEnum | RecordingScalarFieldEnum[]
+  }
+
+  /**
+   * Session.instructor
+   */
+  export type Session$instructorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorInclude<ExtArgs> | null
+    where?: InstructorWhereInput
+  }
+
+  /**
    * Session without action
    */
   export type SessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4515,6 +6993,27 @@ export namespace Prisma {
   export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
 
 
+  export const RecordingScalarFieldEnum: {
+    id: 'id',
+    sessionId: 'sessionId',
+    url: 'url',
+    label: 'label',
+    createdAt: 'createdAt'
+  };
+
+  export type RecordingScalarFieldEnum = (typeof RecordingScalarFieldEnum)[keyof typeof RecordingScalarFieldEnum]
+
+
+  export const InstructorScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    name: 'name',
+    createdAt: 'createdAt'
+  };
+
+  export type InstructorScalarFieldEnum = (typeof InstructorScalarFieldEnum)[keyof typeof InstructorScalarFieldEnum]
+
+
   export const SessionScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -4523,7 +7022,13 @@ export namespace Prisma {
     topic: 'topic',
     notes: 'notes',
     bpm: 'bpm',
+    instrument: 'instrument',
+    mood: 'mood',
+    focus: 'focus',
+    isFavorited: 'isFavorited',
+    isPublic: 'isPublic',
     songId: 'songId',
+    instructorId: 'instructorId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -4613,6 +7118,13 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -4735,6 +7247,112 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Tag"> | string
   }
 
+  export type RecordingWhereInput = {
+    AND?: RecordingWhereInput | RecordingWhereInput[]
+    OR?: RecordingWhereInput[]
+    NOT?: RecordingWhereInput | RecordingWhereInput[]
+    id?: StringFilter<"Recording"> | string
+    sessionId?: StringFilter<"Recording"> | string
+    url?: StringFilter<"Recording"> | string
+    label?: StringNullableFilter<"Recording"> | string | null
+    createdAt?: DateTimeFilter<"Recording"> | Date | string
+    session?: XOR<SessionScalarRelationFilter, SessionWhereInput>
+  }
+
+  export type RecordingOrderByWithRelationInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    url?: SortOrder
+    label?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    session?: SessionOrderByWithRelationInput
+  }
+
+  export type RecordingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RecordingWhereInput | RecordingWhereInput[]
+    OR?: RecordingWhereInput[]
+    NOT?: RecordingWhereInput | RecordingWhereInput[]
+    sessionId?: StringFilter<"Recording"> | string
+    url?: StringFilter<"Recording"> | string
+    label?: StringNullableFilter<"Recording"> | string | null
+    createdAt?: DateTimeFilter<"Recording"> | Date | string
+    session?: XOR<SessionScalarRelationFilter, SessionWhereInput>
+  }, "id">
+
+  export type RecordingOrderByWithAggregationInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    url?: SortOrder
+    label?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: RecordingCountOrderByAggregateInput
+    _max?: RecordingMaxOrderByAggregateInput
+    _min?: RecordingMinOrderByAggregateInput
+  }
+
+  export type RecordingScalarWhereWithAggregatesInput = {
+    AND?: RecordingScalarWhereWithAggregatesInput | RecordingScalarWhereWithAggregatesInput[]
+    OR?: RecordingScalarWhereWithAggregatesInput[]
+    NOT?: RecordingScalarWhereWithAggregatesInput | RecordingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Recording"> | string
+    sessionId?: StringWithAggregatesFilter<"Recording"> | string
+    url?: StringWithAggregatesFilter<"Recording"> | string
+    label?: StringNullableWithAggregatesFilter<"Recording"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Recording"> | Date | string
+  }
+
+  export type InstructorWhereInput = {
+    AND?: InstructorWhereInput | InstructorWhereInput[]
+    OR?: InstructorWhereInput[]
+    NOT?: InstructorWhereInput | InstructorWhereInput[]
+    id?: StringFilter<"Instructor"> | string
+    userId?: StringFilter<"Instructor"> | string
+    name?: StringFilter<"Instructor"> | string
+    createdAt?: DateTimeFilter<"Instructor"> | Date | string
+    sessions?: SessionListRelationFilter
+  }
+
+  export type InstructorOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    sessions?: SessionOrderByRelationAggregateInput
+  }
+
+  export type InstructorWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_name?: InstructorUserIdNameCompoundUniqueInput
+    AND?: InstructorWhereInput | InstructorWhereInput[]
+    OR?: InstructorWhereInput[]
+    NOT?: InstructorWhereInput | InstructorWhereInput[]
+    userId?: StringFilter<"Instructor"> | string
+    name?: StringFilter<"Instructor"> | string
+    createdAt?: DateTimeFilter<"Instructor"> | Date | string
+    sessions?: SessionListRelationFilter
+  }, "id" | "userId_name">
+
+  export type InstructorOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    _count?: InstructorCountOrderByAggregateInput
+    _max?: InstructorMaxOrderByAggregateInput
+    _min?: InstructorMinOrderByAggregateInput
+  }
+
+  export type InstructorScalarWhereWithAggregatesInput = {
+    AND?: InstructorScalarWhereWithAggregatesInput | InstructorScalarWhereWithAggregatesInput[]
+    OR?: InstructorScalarWhereWithAggregatesInput[]
+    NOT?: InstructorScalarWhereWithAggregatesInput | InstructorScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Instructor"> | string
+    userId?: StringWithAggregatesFilter<"Instructor"> | string
+    name?: StringWithAggregatesFilter<"Instructor"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Instructor"> | Date | string
+  }
+
   export type SessionWhereInput = {
     AND?: SessionWhereInput | SessionWhereInput[]
     OR?: SessionWhereInput[]
@@ -4746,11 +7364,19 @@ export namespace Prisma {
     topic?: StringFilter<"Session"> | string
     notes?: StringNullableFilter<"Session"> | string | null
     bpm?: IntNullableFilter<"Session"> | number | null
+    instrument?: StringNullableFilter<"Session"> | string | null
+    mood?: IntNullableFilter<"Session"> | number | null
+    focus?: IntNullableFilter<"Session"> | number | null
+    isFavorited?: BoolFilter<"Session"> | boolean
+    isPublic?: BoolFilter<"Session"> | boolean
     songId?: StringNullableFilter<"Session"> | string | null
+    instructorId?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
     song?: XOR<SongNullableScalarRelationFilter, SongWhereInput> | null
     tags?: TagListRelationFilter
+    recordings?: RecordingListRelationFilter
+    instructor?: XOR<InstructorNullableScalarRelationFilter, InstructorWhereInput> | null
   }
 
   export type SessionOrderByWithRelationInput = {
@@ -4761,11 +7387,19 @@ export namespace Prisma {
     topic?: SortOrder
     notes?: SortOrderInput | SortOrder
     bpm?: SortOrderInput | SortOrder
+    instrument?: SortOrderInput | SortOrder
+    mood?: SortOrderInput | SortOrder
+    focus?: SortOrderInput | SortOrder
+    isFavorited?: SortOrder
+    isPublic?: SortOrder
     songId?: SortOrderInput | SortOrder
+    instructorId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     song?: SongOrderByWithRelationInput
     tags?: TagOrderByRelationAggregateInput
+    recordings?: RecordingOrderByRelationAggregateInput
+    instructor?: InstructorOrderByWithRelationInput
   }
 
   export type SessionWhereUniqueInput = Prisma.AtLeast<{
@@ -4779,11 +7413,19 @@ export namespace Prisma {
     topic?: StringFilter<"Session"> | string
     notes?: StringNullableFilter<"Session"> | string | null
     bpm?: IntNullableFilter<"Session"> | number | null
+    instrument?: StringNullableFilter<"Session"> | string | null
+    mood?: IntNullableFilter<"Session"> | number | null
+    focus?: IntNullableFilter<"Session"> | number | null
+    isFavorited?: BoolFilter<"Session"> | boolean
+    isPublic?: BoolFilter<"Session"> | boolean
     songId?: StringNullableFilter<"Session"> | string | null
+    instructorId?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
     song?: XOR<SongNullableScalarRelationFilter, SongWhereInput> | null
     tags?: TagListRelationFilter
+    recordings?: RecordingListRelationFilter
+    instructor?: XOR<InstructorNullableScalarRelationFilter, InstructorWhereInput> | null
   }, "id">
 
   export type SessionOrderByWithAggregationInput = {
@@ -4794,7 +7436,13 @@ export namespace Prisma {
     topic?: SortOrder
     notes?: SortOrderInput | SortOrder
     bpm?: SortOrderInput | SortOrder
+    instrument?: SortOrderInput | SortOrder
+    mood?: SortOrderInput | SortOrder
+    focus?: SortOrderInput | SortOrder
+    isFavorited?: SortOrder
+    isPublic?: SortOrder
     songId?: SortOrderInput | SortOrder
+    instructorId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SessionCountOrderByAggregateInput
@@ -4815,7 +7463,13 @@ export namespace Prisma {
     topic?: StringWithAggregatesFilter<"Session"> | string
     notes?: StringNullableWithAggregatesFilter<"Session"> | string | null
     bpm?: IntNullableWithAggregatesFilter<"Session"> | number | null
+    instrument?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    mood?: IntNullableWithAggregatesFilter<"Session"> | number | null
+    focus?: IntNullableWithAggregatesFilter<"Session"> | number | null
+    isFavorited?: BoolWithAggregatesFilter<"Session"> | boolean
+    isPublic?: BoolWithAggregatesFilter<"Session"> | boolean
     songId?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    instructorId?: StringNullableWithAggregatesFilter<"Session"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
   }
@@ -4926,6 +7580,114 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
   }
 
+  export type RecordingCreateInput = {
+    id?: string
+    url: string
+    label?: string | null
+    createdAt?: Date | string
+    session: SessionCreateNestedOneWithoutRecordingsInput
+  }
+
+  export type RecordingUncheckedCreateInput = {
+    id?: string
+    sessionId: string
+    url: string
+    label?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RecordingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    session?: SessionUpdateOneRequiredWithoutRecordingsNestedInput
+  }
+
+  export type RecordingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecordingCreateManyInput = {
+    id?: string
+    sessionId: string
+    url: string
+    label?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RecordingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecordingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InstructorCreateInput = {
+    id?: string
+    userId: string
+    name: string
+    createdAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutInstructorInput
+  }
+
+  export type InstructorUncheckedCreateInput = {
+    id?: string
+    userId: string
+    name: string
+    createdAt?: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutInstructorInput
+  }
+
+  export type InstructorUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutInstructorNestedInput
+  }
+
+  export type InstructorUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutInstructorNestedInput
+  }
+
+  export type InstructorCreateManyInput = {
+    id?: string
+    userId: string
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type InstructorUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InstructorUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SessionCreateInput = {
     id?: string
     userId: string
@@ -4934,10 +7696,17 @@ export namespace Prisma {
     topic: string
     notes?: string | null
     bpm?: number | null
+    instrument?: string | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     song?: SongCreateNestedOneWithoutSessionsInput
     tags?: TagCreateNestedManyWithoutSessionsInput
+    recordings?: RecordingCreateNestedManyWithoutSessionInput
+    instructor?: InstructorCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateInput = {
@@ -4948,10 +7717,17 @@ export namespace Prisma {
     topic: string
     notes?: string | null
     bpm?: number | null
+    instrument?: string | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
     songId?: string | null
+    instructorId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
+    recordings?: RecordingUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type SessionUpdateInput = {
@@ -4962,10 +7738,17 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     song?: SongUpdateOneWithoutSessionsNestedInput
     tags?: TagUpdateManyWithoutSessionsNestedInput
+    recordings?: RecordingUpdateManyWithoutSessionNestedInput
+    instructor?: InstructorUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateInput = {
@@ -4976,10 +7759,17 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
+    instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
+    recordings?: RecordingUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type SessionCreateManyInput = {
@@ -4990,7 +7780,13 @@ export namespace Prisma {
     topic: string
     notes?: string | null
     bpm?: number | null
+    instrument?: string | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
     songId?: string | null
+    instructorId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5003,6 +7799,11 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5015,7 +7816,13 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
+    instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5157,17 +7964,6 @@ export namespace Prisma {
     name?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -5183,26 +7979,9 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type SongNullableScalarRelationFilter = {
-    is?: SongWhereInput | null
-    isNot?: SongWhereInput | null
-  }
-
-  export type TagListRelationFilter = {
-    every?: TagWhereInput
-    some?: TagWhereInput
-    none?: TagWhereInput
+  export type SessionScalarRelationFilter = {
+    is?: SessionWhereInput
+    isNot?: SessionWhereInput
   }
 
   export type SortOrderInput = {
@@ -5210,73 +7989,28 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type TagOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type SessionCountOrderByAggregateInput = {
+  export type RecordingCountOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
-    date?: SortOrder
-    duration?: SortOrder
-    topic?: SortOrder
-    notes?: SortOrder
-    bpm?: SortOrder
-    songId?: SortOrder
+    sessionId?: SortOrder
+    url?: SortOrder
+    label?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
-  export type SessionAvgOrderByAggregateInput = {
-    duration?: SortOrder
-    bpm?: SortOrder
-  }
-
-  export type SessionMaxOrderByAggregateInput = {
+  export type RecordingMaxOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
-    date?: SortOrder
-    duration?: SortOrder
-    topic?: SortOrder
-    notes?: SortOrder
-    bpm?: SortOrder
-    songId?: SortOrder
+    sessionId?: SortOrder
+    url?: SortOrder
+    label?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
-  export type SessionMinOrderByAggregateInput = {
+  export type RecordingMinOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
-    date?: SortOrder
-    duration?: SortOrder
-    topic?: SortOrder
-    notes?: SortOrder
-    bpm?: SortOrder
-    songId?: SortOrder
+    sessionId?: SortOrder
+    url?: SortOrder
+    label?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type SessionSumOrderByAggregateInput = {
-    duration?: SortOrder
-    bpm?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5297,6 +8031,176 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type InstructorUserIdNameCompoundUniqueInput = {
+    userId: string
+    name: string
+  }
+
+  export type InstructorCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type InstructorMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type InstructorMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type SongNullableScalarRelationFilter = {
+    is?: SongWhereInput | null
+    isNot?: SongWhereInput | null
+  }
+
+  export type TagListRelationFilter = {
+    every?: TagWhereInput
+    some?: TagWhereInput
+    none?: TagWhereInput
+  }
+
+  export type RecordingListRelationFilter = {
+    every?: RecordingWhereInput
+    some?: RecordingWhereInput
+    none?: RecordingWhereInput
+  }
+
+  export type InstructorNullableScalarRelationFilter = {
+    is?: InstructorWhereInput | null
+    isNot?: InstructorWhereInput | null
+  }
+
+  export type TagOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RecordingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SessionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    duration?: SortOrder
+    topic?: SortOrder
+    notes?: SortOrder
+    bpm?: SortOrder
+    instrument?: SortOrder
+    mood?: SortOrder
+    focus?: SortOrder
+    isFavorited?: SortOrder
+    isPublic?: SortOrder
+    songId?: SortOrder
+    instructorId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SessionAvgOrderByAggregateInput = {
+    duration?: SortOrder
+    bpm?: SortOrder
+    mood?: SortOrder
+    focus?: SortOrder
+  }
+
+  export type SessionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    duration?: SortOrder
+    topic?: SortOrder
+    notes?: SortOrder
+    bpm?: SortOrder
+    instrument?: SortOrder
+    mood?: SortOrder
+    focus?: SortOrder
+    isFavorited?: SortOrder
+    isPublic?: SortOrder
+    songId?: SortOrder
+    instructorId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SessionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    duration?: SortOrder
+    topic?: SortOrder
+    notes?: SortOrder
+    bpm?: SortOrder
+    instrument?: SortOrder
+    mood?: SortOrder
+    focus?: SortOrder
+    isFavorited?: SortOrder
+    isPublic?: SortOrder
+    songId?: SortOrder
+    instructorId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SessionSumOrderByAggregateInput = {
+    duration?: SortOrder
+    bpm?: SortOrder
+    mood?: SortOrder
+    focus?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -5311,6 +8215,14 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type SessionCreateNestedManyWithoutSongInput = {
@@ -5405,6 +8317,66 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type SessionCreateNestedOneWithoutRecordingsInput = {
+    create?: XOR<SessionCreateWithoutRecordingsInput, SessionUncheckedCreateWithoutRecordingsInput>
+    connectOrCreate?: SessionCreateOrConnectWithoutRecordingsInput
+    connect?: SessionWhereUniqueInput
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type SessionUpdateOneRequiredWithoutRecordingsNestedInput = {
+    create?: XOR<SessionCreateWithoutRecordingsInput, SessionUncheckedCreateWithoutRecordingsInput>
+    connectOrCreate?: SessionCreateOrConnectWithoutRecordingsInput
+    upsert?: SessionUpsertWithoutRecordingsInput
+    connect?: SessionWhereUniqueInput
+    update?: XOR<XOR<SessionUpdateToOneWithWhereWithoutRecordingsInput, SessionUpdateWithoutRecordingsInput>, SessionUncheckedUpdateWithoutRecordingsInput>
+  }
+
+  export type SessionCreateNestedManyWithoutInstructorInput = {
+    create?: XOR<SessionCreateWithoutInstructorInput, SessionUncheckedCreateWithoutInstructorInput> | SessionCreateWithoutInstructorInput[] | SessionUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutInstructorInput | SessionCreateOrConnectWithoutInstructorInput[]
+    createMany?: SessionCreateManyInstructorInputEnvelope
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type SessionUncheckedCreateNestedManyWithoutInstructorInput = {
+    create?: XOR<SessionCreateWithoutInstructorInput, SessionUncheckedCreateWithoutInstructorInput> | SessionCreateWithoutInstructorInput[] | SessionUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutInstructorInput | SessionCreateOrConnectWithoutInstructorInput[]
+    createMany?: SessionCreateManyInstructorInputEnvelope
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type SessionUpdateManyWithoutInstructorNestedInput = {
+    create?: XOR<SessionCreateWithoutInstructorInput, SessionUncheckedCreateWithoutInstructorInput> | SessionCreateWithoutInstructorInput[] | SessionUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutInstructorInput | SessionCreateOrConnectWithoutInstructorInput[]
+    upsert?: SessionUpsertWithWhereUniqueWithoutInstructorInput | SessionUpsertWithWhereUniqueWithoutInstructorInput[]
+    createMany?: SessionCreateManyInstructorInputEnvelope
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    update?: SessionUpdateWithWhereUniqueWithoutInstructorInput | SessionUpdateWithWhereUniqueWithoutInstructorInput[]
+    updateMany?: SessionUpdateManyWithWhereWithoutInstructorInput | SessionUpdateManyWithWhereWithoutInstructorInput[]
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type SessionUncheckedUpdateManyWithoutInstructorNestedInput = {
+    create?: XOR<SessionCreateWithoutInstructorInput, SessionUncheckedCreateWithoutInstructorInput> | SessionCreateWithoutInstructorInput[] | SessionUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutInstructorInput | SessionCreateOrConnectWithoutInstructorInput[]
+    upsert?: SessionUpsertWithWhereUniqueWithoutInstructorInput | SessionUpsertWithWhereUniqueWithoutInstructorInput[]
+    createMany?: SessionCreateManyInstructorInputEnvelope
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    update?: SessionUpdateWithWhereUniqueWithoutInstructorInput | SessionUpdateWithWhereUniqueWithoutInstructorInput[]
+    updateMany?: SessionUpdateManyWithWhereWithoutInstructorInput | SessionUpdateManyWithWhereWithoutInstructorInput[]
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
   export type SongCreateNestedOneWithoutSessionsInput = {
     create?: XOR<SongCreateWithoutSessionsInput, SongUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: SongCreateOrConnectWithoutSessionsInput
@@ -5417,10 +8389,30 @@ export namespace Prisma {
     connect?: TagWhereUniqueInput | TagWhereUniqueInput[]
   }
 
+  export type RecordingCreateNestedManyWithoutSessionInput = {
+    create?: XOR<RecordingCreateWithoutSessionInput, RecordingUncheckedCreateWithoutSessionInput> | RecordingCreateWithoutSessionInput[] | RecordingUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: RecordingCreateOrConnectWithoutSessionInput | RecordingCreateOrConnectWithoutSessionInput[]
+    createMany?: RecordingCreateManySessionInputEnvelope
+    connect?: RecordingWhereUniqueInput | RecordingWhereUniqueInput[]
+  }
+
+  export type InstructorCreateNestedOneWithoutSessionsInput = {
+    create?: XOR<InstructorCreateWithoutSessionsInput, InstructorUncheckedCreateWithoutSessionsInput>
+    connectOrCreate?: InstructorCreateOrConnectWithoutSessionsInput
+    connect?: InstructorWhereUniqueInput
+  }
+
   export type TagUncheckedCreateNestedManyWithoutSessionsInput = {
     create?: XOR<TagCreateWithoutSessionsInput, TagUncheckedCreateWithoutSessionsInput> | TagCreateWithoutSessionsInput[] | TagUncheckedCreateWithoutSessionsInput[]
     connectOrCreate?: TagCreateOrConnectWithoutSessionsInput | TagCreateOrConnectWithoutSessionsInput[]
     connect?: TagWhereUniqueInput | TagWhereUniqueInput[]
+  }
+
+  export type RecordingUncheckedCreateNestedManyWithoutSessionInput = {
+    create?: XOR<RecordingCreateWithoutSessionInput, RecordingUncheckedCreateWithoutSessionInput> | RecordingCreateWithoutSessionInput[] | RecordingUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: RecordingCreateOrConnectWithoutSessionInput | RecordingCreateOrConnectWithoutSessionInput[]
+    createMany?: RecordingCreateManySessionInputEnvelope
+    connect?: RecordingWhereUniqueInput | RecordingWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -5431,16 +8423,16 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type SongUpdateOneWithoutSessionsNestedInput = {
@@ -5466,6 +8458,30 @@ export namespace Prisma {
     deleteMany?: TagScalarWhereInput | TagScalarWhereInput[]
   }
 
+  export type RecordingUpdateManyWithoutSessionNestedInput = {
+    create?: XOR<RecordingCreateWithoutSessionInput, RecordingUncheckedCreateWithoutSessionInput> | RecordingCreateWithoutSessionInput[] | RecordingUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: RecordingCreateOrConnectWithoutSessionInput | RecordingCreateOrConnectWithoutSessionInput[]
+    upsert?: RecordingUpsertWithWhereUniqueWithoutSessionInput | RecordingUpsertWithWhereUniqueWithoutSessionInput[]
+    createMany?: RecordingCreateManySessionInputEnvelope
+    set?: RecordingWhereUniqueInput | RecordingWhereUniqueInput[]
+    disconnect?: RecordingWhereUniqueInput | RecordingWhereUniqueInput[]
+    delete?: RecordingWhereUniqueInput | RecordingWhereUniqueInput[]
+    connect?: RecordingWhereUniqueInput | RecordingWhereUniqueInput[]
+    update?: RecordingUpdateWithWhereUniqueWithoutSessionInput | RecordingUpdateWithWhereUniqueWithoutSessionInput[]
+    updateMany?: RecordingUpdateManyWithWhereWithoutSessionInput | RecordingUpdateManyWithWhereWithoutSessionInput[]
+    deleteMany?: RecordingScalarWhereInput | RecordingScalarWhereInput[]
+  }
+
+  export type InstructorUpdateOneWithoutSessionsNestedInput = {
+    create?: XOR<InstructorCreateWithoutSessionsInput, InstructorUncheckedCreateWithoutSessionsInput>
+    connectOrCreate?: InstructorCreateOrConnectWithoutSessionsInput
+    upsert?: InstructorUpsertWithoutSessionsInput
+    disconnect?: InstructorWhereInput | boolean
+    delete?: InstructorWhereInput | boolean
+    connect?: InstructorWhereUniqueInput
+    update?: XOR<XOR<InstructorUpdateToOneWithWhereWithoutSessionsInput, InstructorUpdateWithoutSessionsInput>, InstructorUncheckedUpdateWithoutSessionsInput>
+  }
+
   export type TagUncheckedUpdateManyWithoutSessionsNestedInput = {
     create?: XOR<TagCreateWithoutSessionsInput, TagUncheckedCreateWithoutSessionsInput> | TagCreateWithoutSessionsInput[] | TagUncheckedCreateWithoutSessionsInput[]
     connectOrCreate?: TagCreateOrConnectWithoutSessionsInput | TagCreateOrConnectWithoutSessionsInput[]
@@ -5477,6 +8493,20 @@ export namespace Prisma {
     update?: TagUpdateWithWhereUniqueWithoutSessionsInput | TagUpdateWithWhereUniqueWithoutSessionsInput[]
     updateMany?: TagUpdateManyWithWhereWithoutSessionsInput | TagUpdateManyWithWhereWithoutSessionsInput[]
     deleteMany?: TagScalarWhereInput | TagScalarWhereInput[]
+  }
+
+  export type RecordingUncheckedUpdateManyWithoutSessionNestedInput = {
+    create?: XOR<RecordingCreateWithoutSessionInput, RecordingUncheckedCreateWithoutSessionInput> | RecordingCreateWithoutSessionInput[] | RecordingUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: RecordingCreateOrConnectWithoutSessionInput | RecordingCreateOrConnectWithoutSessionInput[]
+    upsert?: RecordingUpsertWithWhereUniqueWithoutSessionInput | RecordingUpsertWithWhereUniqueWithoutSessionInput[]
+    createMany?: RecordingCreateManySessionInputEnvelope
+    set?: RecordingWhereUniqueInput | RecordingWhereUniqueInput[]
+    disconnect?: RecordingWhereUniqueInput | RecordingWhereUniqueInput[]
+    delete?: RecordingWhereUniqueInput | RecordingWhereUniqueInput[]
+    connect?: RecordingWhereUniqueInput | RecordingWhereUniqueInput[]
+    update?: RecordingUpdateWithWhereUniqueWithoutSessionInput | RecordingUpdateWithWhereUniqueWithoutSessionInput[]
+    updateMany?: RecordingUpdateManyWithWhereWithoutSessionInput | RecordingUpdateManyWithWhereWithoutSessionInput[]
+    deleteMany?: RecordingScalarWhereInput | RecordingScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -5577,6 +8607,23 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -5586,6 +8633,11 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -5615,23 +8667,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -5659,6 +8694,14 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type SessionCreateWithoutSongInput = {
     id?: string
     userId: string
@@ -5667,9 +8710,16 @@ export namespace Prisma {
     topic: string
     notes?: string | null
     bpm?: number | null
+    instrument?: string | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagCreateNestedManyWithoutSessionsInput
+    recordings?: RecordingCreateNestedManyWithoutSessionInput
+    instructor?: InstructorCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateWithoutSongInput = {
@@ -5680,9 +8730,16 @@ export namespace Prisma {
     topic: string
     notes?: string | null
     bpm?: number | null
+    instrument?: string | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
+    instructorId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
+    recordings?: RecordingUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type SessionCreateOrConnectWithoutSongInput = {
@@ -5722,7 +8779,13 @@ export namespace Prisma {
     topic?: StringFilter<"Session"> | string
     notes?: StringNullableFilter<"Session"> | string | null
     bpm?: IntNullableFilter<"Session"> | number | null
+    instrument?: StringNullableFilter<"Session"> | string | null
+    mood?: IntNullableFilter<"Session"> | number | null
+    focus?: IntNullableFilter<"Session"> | number | null
+    isFavorited?: BoolFilter<"Session"> | boolean
+    isPublic?: BoolFilter<"Session"> | boolean
     songId?: StringNullableFilter<"Session"> | string | null
+    instructorId?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
   }
@@ -5735,9 +8798,16 @@ export namespace Prisma {
     topic: string
     notes?: string | null
     bpm?: number | null
+    instrument?: string | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     song?: SongCreateNestedOneWithoutSessionsInput
+    recordings?: RecordingCreateNestedManyWithoutSessionInput
+    instructor?: InstructorCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateWithoutTagsInput = {
@@ -5748,9 +8818,16 @@ export namespace Prisma {
     topic: string
     notes?: string | null
     bpm?: number | null
+    instrument?: string | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
     songId?: string | null
+    instructorId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    recordings?: RecordingUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type SessionCreateOrConnectWithoutTagsInput = {
@@ -5772,6 +8849,168 @@ export namespace Prisma {
   export type SessionUpdateManyWithWhereWithoutTagsInput = {
     where: SessionScalarWhereInput
     data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutTagsInput>
+  }
+
+  export type SessionCreateWithoutRecordingsInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    duration: number
+    topic: string
+    notes?: string | null
+    bpm?: number | null
+    instrument?: string | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    song?: SongCreateNestedOneWithoutSessionsInput
+    tags?: TagCreateNestedManyWithoutSessionsInput
+    instructor?: InstructorCreateNestedOneWithoutSessionsInput
+  }
+
+  export type SessionUncheckedCreateWithoutRecordingsInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    duration: number
+    topic: string
+    notes?: string | null
+    bpm?: number | null
+    instrument?: string | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
+    songId?: string | null
+    instructorId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
+  }
+
+  export type SessionCreateOrConnectWithoutRecordingsInput = {
+    where: SessionWhereUniqueInput
+    create: XOR<SessionCreateWithoutRecordingsInput, SessionUncheckedCreateWithoutRecordingsInput>
+  }
+
+  export type SessionUpsertWithoutRecordingsInput = {
+    update: XOR<SessionUpdateWithoutRecordingsInput, SessionUncheckedUpdateWithoutRecordingsInput>
+    create: XOR<SessionCreateWithoutRecordingsInput, SessionUncheckedCreateWithoutRecordingsInput>
+    where?: SessionWhereInput
+  }
+
+  export type SessionUpdateToOneWithWhereWithoutRecordingsInput = {
+    where?: SessionWhereInput
+    data: XOR<SessionUpdateWithoutRecordingsInput, SessionUncheckedUpdateWithoutRecordingsInput>
+  }
+
+  export type SessionUpdateWithoutRecordingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration?: IntFieldUpdateOperationsInput | number
+    topic?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    song?: SongUpdateOneWithoutSessionsNestedInput
+    tags?: TagUpdateManyWithoutSessionsNestedInput
+    instructor?: InstructorUpdateOneWithoutSessionsNestedInput
+  }
+
+  export type SessionUncheckedUpdateWithoutRecordingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration?: IntFieldUpdateOperationsInput | number
+    topic?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    songId?: NullableStringFieldUpdateOperationsInput | string | null
+    instructorId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
+  }
+
+  export type SessionCreateWithoutInstructorInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    duration: number
+    topic: string
+    notes?: string | null
+    bpm?: number | null
+    instrument?: string | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    song?: SongCreateNestedOneWithoutSessionsInput
+    tags?: TagCreateNestedManyWithoutSessionsInput
+    recordings?: RecordingCreateNestedManyWithoutSessionInput
+  }
+
+  export type SessionUncheckedCreateWithoutInstructorInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    duration: number
+    topic: string
+    notes?: string | null
+    bpm?: number | null
+    instrument?: string | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
+    songId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
+    recordings?: RecordingUncheckedCreateNestedManyWithoutSessionInput
+  }
+
+  export type SessionCreateOrConnectWithoutInstructorInput = {
+    where: SessionWhereUniqueInput
+    create: XOR<SessionCreateWithoutInstructorInput, SessionUncheckedCreateWithoutInstructorInput>
+  }
+
+  export type SessionCreateManyInstructorInputEnvelope = {
+    data: SessionCreateManyInstructorInput | SessionCreateManyInstructorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SessionUpsertWithWhereUniqueWithoutInstructorInput = {
+    where: SessionWhereUniqueInput
+    update: XOR<SessionUpdateWithoutInstructorInput, SessionUncheckedUpdateWithoutInstructorInput>
+    create: XOR<SessionCreateWithoutInstructorInput, SessionUncheckedCreateWithoutInstructorInput>
+  }
+
+  export type SessionUpdateWithWhereUniqueWithoutInstructorInput = {
+    where: SessionWhereUniqueInput
+    data: XOR<SessionUpdateWithoutInstructorInput, SessionUncheckedUpdateWithoutInstructorInput>
+  }
+
+  export type SessionUpdateManyWithWhereWithoutInstructorInput = {
+    where: SessionScalarWhereInput
+    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutInstructorInput>
   }
 
   export type SongCreateWithoutSessionsInput = {
@@ -5810,6 +9049,49 @@ export namespace Prisma {
   export type TagCreateOrConnectWithoutSessionsInput = {
     where: TagWhereUniqueInput
     create: XOR<TagCreateWithoutSessionsInput, TagUncheckedCreateWithoutSessionsInput>
+  }
+
+  export type RecordingCreateWithoutSessionInput = {
+    id?: string
+    url: string
+    label?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RecordingUncheckedCreateWithoutSessionInput = {
+    id?: string
+    url: string
+    label?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RecordingCreateOrConnectWithoutSessionInput = {
+    where: RecordingWhereUniqueInput
+    create: XOR<RecordingCreateWithoutSessionInput, RecordingUncheckedCreateWithoutSessionInput>
+  }
+
+  export type RecordingCreateManySessionInputEnvelope = {
+    data: RecordingCreateManySessionInput | RecordingCreateManySessionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InstructorCreateWithoutSessionsInput = {
+    id?: string
+    userId: string
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type InstructorUncheckedCreateWithoutSessionsInput = {
+    id?: string
+    userId: string
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type InstructorCreateOrConnectWithoutSessionsInput = {
+    where: InstructorWhereUniqueInput
+    create: XOR<InstructorCreateWithoutSessionsInput, InstructorUncheckedCreateWithoutSessionsInput>
   }
 
   export type SongUpsertWithoutSessionsInput = {
@@ -5864,6 +9146,58 @@ export namespace Prisma {
     name?: StringFilter<"Tag"> | string
   }
 
+  export type RecordingUpsertWithWhereUniqueWithoutSessionInput = {
+    where: RecordingWhereUniqueInput
+    update: XOR<RecordingUpdateWithoutSessionInput, RecordingUncheckedUpdateWithoutSessionInput>
+    create: XOR<RecordingCreateWithoutSessionInput, RecordingUncheckedCreateWithoutSessionInput>
+  }
+
+  export type RecordingUpdateWithWhereUniqueWithoutSessionInput = {
+    where: RecordingWhereUniqueInput
+    data: XOR<RecordingUpdateWithoutSessionInput, RecordingUncheckedUpdateWithoutSessionInput>
+  }
+
+  export type RecordingUpdateManyWithWhereWithoutSessionInput = {
+    where: RecordingScalarWhereInput
+    data: XOR<RecordingUpdateManyMutationInput, RecordingUncheckedUpdateManyWithoutSessionInput>
+  }
+
+  export type RecordingScalarWhereInput = {
+    AND?: RecordingScalarWhereInput | RecordingScalarWhereInput[]
+    OR?: RecordingScalarWhereInput[]
+    NOT?: RecordingScalarWhereInput | RecordingScalarWhereInput[]
+    id?: StringFilter<"Recording"> | string
+    sessionId?: StringFilter<"Recording"> | string
+    url?: StringFilter<"Recording"> | string
+    label?: StringNullableFilter<"Recording"> | string | null
+    createdAt?: DateTimeFilter<"Recording"> | Date | string
+  }
+
+  export type InstructorUpsertWithoutSessionsInput = {
+    update: XOR<InstructorUpdateWithoutSessionsInput, InstructorUncheckedUpdateWithoutSessionsInput>
+    create: XOR<InstructorCreateWithoutSessionsInput, InstructorUncheckedCreateWithoutSessionsInput>
+    where?: InstructorWhereInput
+  }
+
+  export type InstructorUpdateToOneWithWhereWithoutSessionsInput = {
+    where?: InstructorWhereInput
+    data: XOR<InstructorUpdateWithoutSessionsInput, InstructorUncheckedUpdateWithoutSessionsInput>
+  }
+
+  export type InstructorUpdateWithoutSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InstructorUncheckedUpdateWithoutSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SessionCreateManySongInput = {
     id?: string
     userId: string
@@ -5872,6 +9206,12 @@ export namespace Prisma {
     topic: string
     notes?: string | null
     bpm?: number | null
+    instrument?: string | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
+    instructorId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5884,9 +9224,16 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUpdateManyWithoutSessionsNestedInput
+    recordings?: RecordingUpdateManyWithoutSessionNestedInput
+    instructor?: InstructorUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateWithoutSongInput = {
@@ -5897,9 +9244,16 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
+    recordings?: RecordingUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type SessionUncheckedUpdateManyWithoutSongInput = {
@@ -5910,6 +9264,12 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5922,9 +9282,16 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     song?: SongUpdateOneWithoutSessionsNestedInput
+    recordings?: RecordingUpdateManyWithoutSessionNestedInput
+    instructor?: InstructorUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateWithoutTagsInput = {
@@ -5935,9 +9302,16 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
+    instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recordings?: RecordingUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type SessionUncheckedUpdateManyWithoutTagsInput = {
@@ -5948,9 +9322,98 @@ export namespace Prisma {
     topic?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    songId?: NullableStringFieldUpdateOperationsInput | string | null
+    instructorId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionCreateManyInstructorInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    duration: number
+    topic: string
+    notes?: string | null
+    bpm?: number | null
+    instrument?: string | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
+    songId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SessionUpdateWithoutInstructorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration?: IntFieldUpdateOperationsInput | number
+    topic?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    song?: SongUpdateOneWithoutSessionsNestedInput
+    tags?: TagUpdateManyWithoutSessionsNestedInput
+    recordings?: RecordingUpdateManyWithoutSessionNestedInput
+  }
+
+  export type SessionUncheckedUpdateWithoutInstructorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration?: IntFieldUpdateOperationsInput | number
+    topic?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
+    recordings?: RecordingUncheckedUpdateManyWithoutSessionNestedInput
+  }
+
+  export type SessionUncheckedUpdateManyWithoutInstructorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration?: IntFieldUpdateOperationsInput | number
+    topic?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    songId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecordingCreateManySessionInput = {
+    id?: string
+    url: string
+    label?: string | null
+    createdAt?: Date | string
   }
 
   export type TagUpdateWithoutSessionsInput = {
@@ -5969,6 +9432,27 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RecordingUpdateWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecordingUncheckedUpdateWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecordingUncheckedUpdateManyWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

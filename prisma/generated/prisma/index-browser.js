@@ -134,6 +134,21 @@ exports.Prisma.TagScalarFieldEnum = {
   name: 'name'
 };
 
+exports.Prisma.RecordingScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  url: 'url',
+  label: 'label',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.InstructorScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -142,7 +157,13 @@ exports.Prisma.SessionScalarFieldEnum = {
   topic: 'topic',
   notes: 'notes',
   bpm: 'bpm',
+  instrument: 'instrument',
+  mood: 'mood',
+  focus: 'focus',
+  isFavorited: 'isFavorited',
+  isPublic: 'isPublic',
   songId: 'songId',
+  instructorId: 'instructorId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -173,6 +194,8 @@ exports.Tuning = exports.$Enums.Tuning = {
 exports.Prisma.ModelName = {
   Song: 'Song',
   Tag: 'Tag',
+  Recording: 'Recording',
+  Instructor: 'Instructor',
   Session: 'Session'
 };
 

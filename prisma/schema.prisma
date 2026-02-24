@@ -36,17 +36,44 @@ model Tag {
   @@unique([userId, name])
 }
 
-model Session {
+model Recording {
   id        String   @id @default(cuid())
-  userId    String
-  date      DateTime @default(now())
-  duration  Int
-  topic     String
-  notes     String?
-  bpm       Int?
-  songId    String?
-  song      Song?    @relation(fields: [songId], references: [id])
-  tags     Tag[]
+  sessionId String
+  url       String
+  label     String?
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+model Instructor {
+  id        String    @id @default(cuid())
+  userId    String
+  name      String
+  sessions  Session[]
+  createdAt DateTime  @default(now())
+
+  @@unique([userId, name])
+}
+
+model Session {
+  id          String   @id @default(cuid())
+  userId      String
+  date        DateTime @default(now())
+  duration    Int
+  topic       String
+  notes       String?
+  bpm         Int?
+  instrument  String?
+  mood        Int?
+  focus       Int?
+  isFavorited Boolean     @default(false)
+  isPublic    Boolean     @default(false)
+  songId      String?
+  song        Song?    @relation(fields: [songId], references: [id])
+  tags        Tag[]
+  recordings  Recording[]
+  instructorId String?
+  instructor   Instructor? @relation(fields: [instructorId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
