@@ -128,6 +128,12 @@ exports.Prisma.SongScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.TagScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name'
+};
+
 exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -166,6 +172,7 @@ exports.Tuning = exports.$Enums.Tuning = {
 
 exports.Prisma.ModelName = {
   Song: 'Song',
+  Tag: 'Tag',
   Session: 'Session'
 };
 
