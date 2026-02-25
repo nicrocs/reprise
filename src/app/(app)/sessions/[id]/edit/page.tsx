@@ -32,6 +32,8 @@ export default async function EditSessionPage({ params } : { params: Promise<{ i
           songTitle: session.song?.title,
           bpm: session.bpm,
           notes: session.notes,
+          intention: session.intention,
+          intentionMet: session.intentionMet
         }}
       />
     </main>

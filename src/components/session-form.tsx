@@ -2,7 +2,9 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { SubmitButton } from '@/components/submit-button'
+import { Separator } from '@/components/ui/separator'
 import { SongTypeahead } from '@/components/song-typeahead'
+import { IntentionMetRadioGroup } from './intentionMet-radioGroup'
 
 type SessionFormProps = {
   action: (formData: FormData) => Promise<void>
@@ -13,6 +15,8 @@ type SessionFormProps = {
     songTitle?: string
     bpm?: number | null
     notes?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
   }
   submitLabel?: string
 }
@@ -21,6 +25,41 @@ export function SessionForm({ action, defaultValues, submitLabel }: SessionFormP
     
   return (
     <form action={action} className="flex flex-col gap-4">
+        {defaultValues?.intention && (
+        <div className="rounded-lg border p-4 space-y-3">
+            <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
+            Your intention
+            </p>
+            <p
+            className="text-base font-medium text-foreground leading-snug"
+            style={{ borderLeft: '2px solid var(--primary)', paddingLeft: '0.75rem' }}
+            >
+            {defaultValues.intention}
+            </p>
+            <Separator />
+            <IntentionMetRadioGroup defaultValue={defaultValues.intentionMet} />
+        </div>
+        )}
+        <div className="space-y-2">
+        <Label htmlFor="intention" className="text-base font-semibold">
+            What do you want to accomplish in this session?
+        </Label>
+        <p className="text-sm text-muted-foreground">
+            {'Be specific. "nail the bridge transition at 120bpm" beats "practice song."'}
+        </p>
+        <Textarea
+            id="intention"
+            name="intention"
+            defaultValue={defaultValues?.intention ?? ""}
+            placeholder="e.g. Work through the first 8 bars of the solo slowly, hands separately"
+            className="min-h-[100px] text-base"
+            rows={3}
+        />
+        </div>
+
+        <Separator />
+
+{/* rest of the form fields below */}
       <div>
         <Label htmlFor="date">Date</Label>
         <Input

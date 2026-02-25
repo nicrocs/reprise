@@ -16,6 +16,7 @@ export async function createSession(formData: FormData) {
   const bpm = formData.get('bpm') ? parseInt(formData.get('bpm') as string) : null
   const songTitle = formData.get('songTitle') as string
   const songTuning = formData.get('songTuning') as string || 'STANDARD'
+  const intention = formData.get('intention') as string
 
   let songId = null
 
@@ -41,6 +42,7 @@ export async function createSession(formData: FormData) {
       date,
       bpm: bpm ?? undefined,
       songId,
+      intention
     },
   })
 
@@ -58,6 +60,9 @@ export async function updateSession(id: string, formData: FormData) {
   const bpm = formData.get('bpm') ? parseInt(formData.get('bpm') as string) : null
   const songTitle = formData.get('songTitle') as string
   const songTuning = formData.get('songTuning') as string || 'STANDARD'
+    const intention = formData.get('intention') as string
+    const intentionMetRaw = formData.get('intentionMet')
+    const intentionMet = intentionMetRaw === 'true' ? true : intentionMetRaw === 'false' ? false : null
 
   let songId = null
   if (songTitle) {
@@ -78,6 +83,8 @@ export async function updateSession(id: string, formData: FormData) {
       date,
       bpm: bpm ?? undefined,
       songId,
+      intention,
+      intentionMet
     },
   })
 

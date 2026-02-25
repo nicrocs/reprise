@@ -124,3 +124,5 @@
     @apply bg-background text-foreground;
   }
 }
+
+@source inline("border-l-2 pl-3");

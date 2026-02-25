@@ -33,21 +33,21 @@ export default async function SessionsPage() {
         <div className="flex flex-col gap-4">
           {sessions.map((session) => (
             <Card key={session.id}>
-                <CardHeader>
-                    <div className="flex justify-between items-start mb-2">
-                        <div>
-                        {session.song && (
-                            <CardTitle><Link href={`/songs/${session.songId}`}>{session.song.title}</Link></CardTitle>
-                        )}
-                        <CardDescription className="text-sm text-gray-500">{session.topic}</CardDescription>
-                        </div>
-                        <p className="text-sm text-gray-400">
-                        {new Date(session.date).toLocaleDateString()}
-                        </p>
-                    </div>
-                </CardHeader>
+              <CardHeader>
+                {session.song && (
+                  <CardTitle>
+                    <Link href={`/songs/${session.songId}`}>{session.song.title}</Link>
+                  </CardTitle>
+                )}
+                <span className="text-sm text-muted-foreground">{session.topic}</span>
+                {session.intention && (
+                  <p className="text-base font-medium text-foreground leading-snug mt-1 pl-3 border-l-2 border-primary">
+                    {session.intention}
+                  </p>
+                )}
+              </CardHeader>
                 <CardContent>
-                    <div className="flex gap-4 text-sm mt-3">
+                    <div className="flex gap-4 text-sm">
                         <span><span className="text-gray-400">Duration</span> {session.duration}m</span>
                         {session.bpm && <span><span className="text-gray-400">BPM</span> {session.bpm}</span>}
                         {session.song?.tuning && (
