@@ -12,7 +12,8 @@ export async function createSession(formData: FormData) {
   const topic = formData.get('topic') as string
   const duration = parseInt(formData.get('duration') as string)
   const notes = formData.get('notes') as string
-  const date = new Date(formData.get('date') as string)
+  const dateStr = formData.get('date') as string
+  const date = new Date(dateStr + ':00')
   const bpm = formData.get('bpm') ? parseInt(formData.get('bpm') as string) : null
   const songTitle = formData.get('songTitle') as string
   const songTuning = formData.get('songTuning') as string || 'STANDARD'

@@ -5,6 +5,7 @@ import { SubmitButton } from '@/components/submit-button'
 import { Separator } from '@/components/ui/separator'
 import { SongTypeahead } from '@/components/song-typeahead'
 import { IntentionMetRadioGroup } from './intentionMet-radioGroup'
+import { toLocalDateTimeString } from '@/lib/utils'
 
 type SessionFormProps = {
   action: (formData: FormData) => Promise<void>
@@ -63,11 +64,13 @@ export function SessionForm({ action, defaultValues, submitLabel }: SessionFormP
       <div>
         <Label htmlFor="date">Date</Label>
         <Input
-          type="date"
+          type="datetime-local"
           id="date"
           name="date"
           required
-          defaultValue={defaultValues?.date ?? new Date().toLocaleDateString('en-CA')}
+          defaultValue={defaultValues?.date
+    ? toLocalDateTimeString(new Date(defaultValues.date))
+    : toLocalDateTimeString(new Date())}
         />
       </div>
       <div>
