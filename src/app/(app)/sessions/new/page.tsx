@@ -21,7 +21,7 @@ export default function NewSessionPage() {
   const [editing, setEditing] = useState(false)
 
   async function handleSongSelect(id: string, title: string) {
-    const result = await getSongById(id)
+    const result = id ? await getSongById(id) : null
     if (result) {
       setSong({
         id,

@@ -1,19 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, } from 'react'
 import { getSongs } from '@/app/actions/songs'
 import { TUNING_LABELS } from '@/lib/constants'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Button } from '@/components/ui/button'
-import { X } from 'lucide-react'
 
 type Song = { id: string; title: string; tuning: string }
 
@@ -23,7 +12,7 @@ type Props = {
 }
 
 export function SongTypeahead({ defaultValue, onSelect }: Props) {
-  const [open, setOpen] = useState(false)
+  // const [open, setOpen] = useState(false)
   const [query, setQuery] = useState(defaultValue ?? '')
   const [suggestions, setSuggestions] = useState<Song[]>([])
   const [selected, setSelected] = useState<Song | null>(null)
@@ -42,7 +31,6 @@ useEffect(() => {
     setSelected(song)
     setQuery(song.title)
     setSuggestions([])
-    setOpen(false)
     onSelect?.(song.id, song.title)
   }
 
@@ -50,7 +38,6 @@ useEffect(() => {
     setSelected(null)
     setQuery('')
     setSuggestions([])
-    setOpen(false)
     onSelect?.('', '')
   }
 
@@ -59,64 +46,40 @@ useEffect(() => {
       {/* Hidden input for FormData compatibility */}
       <input type="hidden" name="songTitle" value={query} />
 
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={open}
-            className="w-full justify-between font-normal"
-            onClick={() => setOpen(true)}
-          >
-            {selected ? selected.title : query || 'Song title (optional)'}
-            {query && (
-              <X
-                className="ml-2 h-4 w-4 shrink-0 opacity-50 hover:opacity-100"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handleClear()
-                }}
-              />
-            )}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-full p-0" align="start">
-          <Command shouldFilter={false}>
-            <CommandInput
-              placeholder="Search songs..."
-              value={query}
-                onValueChange={(val) => {
-                    setQuery(val)
-                    setSelected(null)
-                    if (val.length < 1) setSuggestions([])  // clear here instead
-                    setOpen(true)
-                }}
-            />
-            <CommandList>
-              {suggestions.length === 0 && query.length > 0 && (
-                <CommandEmpty>
-                  {query} — will be created as a new song
-                </CommandEmpty>
-              )}
-              <CommandGroup>
-                {suggestions.map((song) => (
-                  <CommandItem
-                    key={song.id}
-                    value={song.title}
-                    onSelect={() => handleSelect(song)}
-                    className="flex justify-between"
-                  >
-                    <span>{song.title}</span>
-                    <span className="text-xs text-muted-foreground">
-                      {TUNING_LABELS[song.tuning]}
-                    </span>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </PopoverContent>
-      </Popover>
+<div className="relative">
+  <input
+    type="text"
+    value={query}
+    onChange={(e) => {
+      setQuery(e.target.value)
+      setSelected(null)
+    }}
+    onBlur={() => {
+      if (query && !selected) onSelect?.('', query)
+      setSuggestions([])
+    }}
+    placeholder="Song title (optional)"
+    className="w-full border rounded-md px-3 py-2 text-sm"
+  />
+  {suggestions.length > 0 && (
+    <div className="absolute z-10 w-full border rounded-md bg-background mt-1 shadow-md">
+      {suggestions.map((song) => (
+        <button
+          key={song.id}
+          type="button"
+          onMouseDown={(e) => {
+            e.preventDefault() // prevent input blur before select fires
+            handleSelect(song)
+          }}
+          className="w-full text-left px-3 py-2 text-sm hover:bg-muted flex justify-between"
+        >
+          <span>{song.title}</span>
+          <span className="text-xs text-muted-foreground">{TUNING_LABELS[song.tuning]}</span>
+        </button>
+      ))}
+    </div>
+  )}
+</div>
     </>
   )
 }

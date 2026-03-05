@@ -1,22 +1,28 @@
 'use client'
 
-import { useState } from 'react'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
 
 type Props = {
-  defaultValue?: boolean | null
+  value?: boolean | null
+  onChange: (intentionMet: boolean | null) => void
 }
 
-export function IntentionMetRadioGroup({ defaultValue }: Props) {
+export function IntentionMetRadioGroup({ value, onChange }: Props) {
   const toStringValue = (v: boolean | null | undefined) =>
     v === true ? 'true' : v === false ? 'false' : ''
 
-  const [value, setValue] = useState(toStringValue(defaultValue))
+  const stringValue = toStringValue(value)
+
+  // const [value, setValue] = useState(toStringValue(defaultValue))
+  const handleChange = (v: string) => {
+    const intentionMet = v === 'true' ? true : v === 'false' ? false : null 
+    onChange(intentionMet)
+  }
 
   return (
     <>
-      <RadioGroup value={value} onValueChange={setValue} className="flex gap-6">
+      <RadioGroup value={stringValue} onValueChange={handleChange} className="flex gap-6">
         <div className="flex items-center gap-2">
           <RadioGroupItem value="true" id="met-yes" />
           <Label htmlFor="met-yes">Yes</Label>
@@ -30,7 +36,6 @@ export function IntentionMetRadioGroup({ defaultValue }: Props) {
           <Label htmlFor="met-unsure">Not sure</Label>
         </div>
       </RadioGroup>
-      <input type="hidden" name="intentionMet" value={value} />
     </>
   )
 }
