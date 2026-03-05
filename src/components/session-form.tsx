@@ -4,7 +4,7 @@ import { Label } from '@/components/ui/label'
 import { SubmitButton } from '@/components/submit-button'
 import { Separator } from '@/components/ui/separator'
 import { SongTypeahead } from '@/components/song-typeahead'
-import { IntentionMetRadioGroup } from './intention-met-radio-group'
+// import { IntentionMetRadioGroup } from './intention-met-radio-group'
 import { toLocalDateTimeString } from '@/lib/utils'
 
 type SessionFormProps = {
@@ -38,7 +38,7 @@ export function SessionForm({ action, defaultValues, submitLabel }: SessionFormP
             {defaultValues.intention}
             </p>
             <Separator />
-            <IntentionMetRadioGroup defaultValue={defaultValues.intentionMet} />
+            {/* <IntentionMetRadioGroup defaultValue={defaultValues.intentionMet} /> */}
         </div>
         )}
         <div className="space-y-2">

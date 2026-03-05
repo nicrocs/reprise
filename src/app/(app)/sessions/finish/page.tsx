@@ -21,6 +21,7 @@ export default function FinishSessionPage() {
   })
   const [topic, setTopic] = useState('')
   const [pickup, setPickup] = useState('')
+  const [notes, setNotes] = useState('')
   const [intentionMet, setIntentionMet] = useState<boolean | null>(null)
   const [duration, setDuration] = useState<number>(() => {
     if (typeof window === 'undefined') return 25
@@ -35,8 +36,6 @@ export default function FinishSessionPage() {
   useEffect(() => {
     if (!session) router.replace('/sessions/new')
   }, [session, router])
-
-  console.log({ session })
 
   async function handleSave() {
     if (!session) return
@@ -53,6 +52,7 @@ export default function FinishSessionPage() {
         : new Date().toISOString()
     )
     formData.set('bpm', String(bpm))
+    formData.set('notes', notes)
 
     // formData.set('type', type)
     if (session.songId) formData.set('songId', session.songId)
@@ -99,7 +99,7 @@ export default function FinishSessionPage() {
           What did you work on?
         </Label>
         <Textarea
-          id="accomplished"
+          id="topic"
           value={topic}
           onChange={e => setTopic(e.target.value)}
           placeholder="e.g. Full song, Tune, Songwriting, etc"
@@ -147,6 +147,16 @@ export default function FinishSessionPage() {
         />
       </div>
       {/* add notes */}
+    <div>
+        <Label htmlFor="notes">Notes</Label>
+        <Textarea
+          id="notes"
+          name="notes"
+          rows={4}
+          onChange={e => setNotes(e.target.value)}
+          value={notes}
+        />
+      </div>
       {/* add mood */}
       {/* add focus */}
         {/* <div className='space-y-2'>
