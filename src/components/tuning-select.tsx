@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import {
   Select,
   SelectContent,
@@ -8,30 +7,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { TUNING_LABELS } from '@/lib/constants'
+import { Tuning } from '../../prisma/generated/prisma'
 
-const TUNINGS = [
-  { value: 'STANDARD', label: 'Standard' },
-  { value: 'DROP_D', label: 'Drop D' },
-  { value: 'DROP_C', label: 'Drop C' },
-  { value: 'OPEN_G', label: 'Open G' },
-  { value: 'OPEN_D', label: 'Open D' },
-  { value: 'DADGAD', label: 'DADGAD' },
-]
-
-export function TuningSelect({ name = 'tuning' }: { name?: string }) {
-  const [value, setValue] = useState('STANDARD')
-
+export function TuningSelect({ defaultValue, onChange }: { defaultValue?: Tuning, onChange: (t: string) => void }) {
   return (
     <>
-      <input type="hidden" name={name} value={value} />
-      <Select value={value} onValueChange={setValue}>
+      <Select value={defaultValue} onValueChange={onChange}>
         <SelectTrigger>
           <SelectValue placeholder="Tuning (optional)" />
         </SelectTrigger>
         <SelectContent>
-          {TUNINGS.map((t) => (
-            <SelectItem key={t.value} value={t.value}>
-              {t.label}
+          {Object.keys(TUNING_LABELS).map((t) => (
+            <SelectItem key={t} value={t}>
+              {TUNING_LABELS[t]}
             </SelectItem>
           ))}
         </SelectContent>
