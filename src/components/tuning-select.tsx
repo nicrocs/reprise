@@ -10,10 +10,10 @@ import {
 import { TUNING_LABELS } from '@/lib/constants'
 import { Tuning } from '../../prisma/generated/prisma'
 
-export function TuningSelect({ defaultValue, onChange }: { defaultValue?: Tuning, onChange: (t: string) => void }) {
+export function TuningSelect({ defaultValue, onChange }: { defaultValue: Tuning | null, onChange: (t: Tuning) => void }) {
   return (
     <>
-      <Select value={defaultValue} onValueChange={onChange}>
+      <Select value={defaultValue ?? undefined} onValueChange={onChange}>
         <SelectTrigger>
           <SelectValue placeholder="Tuning (optional)" />
         </SelectTrigger>

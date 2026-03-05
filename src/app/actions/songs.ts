@@ -53,7 +53,7 @@ export async function getSongById(id: string) {
   })
 }
 
-export async function updateSong(id: string, { tuning, key }: { tuning: string, key: string | null}) {
+export async function updateSong(id: string, { tuning, key }: { tuning: Tuning | null, key: Key | null}) {
   const { userId } = await auth()
   if (!userId) throw new Error('Unauthorized')
 

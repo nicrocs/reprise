@@ -1,4 +1,5 @@
 // Client-side only — do not import in server components or actions
+import { Tuning, Key } from "../../prisma/generated/prisma"
 
 const STORAGE_KEY = 'reprise_active_session'
 
@@ -7,8 +8,8 @@ export type ActiveSession = {
   intention: string
   songId?: string
   songTitle?: string
-  tuning?: string
-  key?: string
+  tuning?: Tuning
+  key?: Key
 }
 
 export function saveActiveSession(session: ActiveSession): void {

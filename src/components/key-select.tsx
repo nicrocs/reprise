@@ -11,11 +11,11 @@ import { KEY_LABELS } from '@/lib/constants'
 import { Key } from '../../prisma/generated/prisma'
 
 
-export function KeySelect({ defaultValue, onChange }: { defaultValue?: Key, onChange: (k: string) => void }) {
+export function KeySelect({ defaultValue, onChange }: { defaultValue: Key | null, onChange: (k: Key) => void }) {
 
   return (
     <>
-      <Select value={defaultValue} onValueChange={onChange}>
+      <Select value={defaultValue ?? undefined} onValueChange={onChange}>
         <SelectTrigger>
           <SelectValue placeholder="Key (optional)" />
         </SelectTrigger>

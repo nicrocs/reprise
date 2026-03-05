@@ -12,13 +12,7 @@ import { SongDetails } from '@/components/song-details'
 import { saveActiveSession } from '@/lib/active-session'
 import { getSongById } from '@/app/actions/songs'
 import { TUNING_LABELS, KEY_LABELS } from '@/lib/constants'
-
-type SongInfo = {
-  id: string
-  title: string
-  tuning: string
-  key: string | null
-}
+import { SongInfo } from '@/components/song-details'
 
 export default function NewSessionPage() {
   const router = useRouter()
@@ -48,7 +42,7 @@ export default function NewSessionPage() {
       intention: intention.trim(),
       songId: song?.id,
       songTitle: song?.title,
-      tuning: song?.tuning,
+      tuning: song?.tuning ?? undefined,
       key: song?.key ?? undefined,
     })
     router.push(destination)
@@ -69,7 +63,7 @@ export default function NewSessionPage() {
         <SongTypeahead onSelect={handleSongSelect} />
 
         {/* Tuning + key — read only with edit toggle */}
-        {song && !editing && (
+        {song && !editing && song.tuning && (
           <div className="flex items-center gap-3 pt-1">
             <span className="text-sm text-muted-foreground">
               {TUNING_LABELS[song.tuning]}

@@ -6,12 +6,13 @@ import { Button } from '@/components/ui/button'
 import { TuningSelect } from '@/components/tuning-select'
 import { KeySelect } from '@/components/key-select'
 import { updateSong } from '@/app/actions/songs'
+import { Tuning, Key } from '../../prisma/generated/prisma'
 
-type SongInfo = {
+export type SongInfo = {
   id: string
   title: string
-  tuning: string
-  key: string | null
+  tuning: Tuning | null
+  key: Key | null
 }
 
 type Props = {
@@ -22,11 +23,11 @@ type Props = {
 
 export function SongDetails({ song, onSave, onCancel }: Props) {
   const [tuning, setTuning] = useState(song.tuning)
-  const [key, setKey] = useState(song.key ?? '')
+  const [key, setKey] = useState(song.key)
 
   async function handleSave() {
-    if (song.id) await updateSong(song.id, { tuning, key: key || null })
-    onSave({ ...song, tuning, key: key || null })
+    if (song.id) await updateSong(song.id, { tuning, key })
+    onSave({ ...song, tuning, key })
   }
 
   return (
