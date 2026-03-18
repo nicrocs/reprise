@@ -29,7 +29,7 @@ useEffect(() => {
   }, 200)
 
   return () => clearTimeout(timeout)
-}, [query])
+}, [query, selected])
 
   function handleSelect(song: Song) {
     setSelected(song)

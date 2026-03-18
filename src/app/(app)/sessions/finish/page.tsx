@@ -77,8 +77,8 @@ function handleCancelCreate() {
     setSaving(true)
 
     const formData = new FormData()
+
     formData.set('intention', session.intention)
-    formData.set('topic', topic)
     formData.set('pickup', pickup)
     formData.set('intentionMet', intentionMet === null ? '' : String(intentionMet))
     formData.set('duration', String(duration))
@@ -89,9 +89,10 @@ function handleCancelCreate() {
     formData.set('bpm', String(bpm))
     formData.set('notes', notes)
 
-    // formData.set('type', type)
+
     if (session.songId) formData.set('songId', session.songId)
     if (session.songTitle) formData.set('songTitle', session.songTitle)
+    if (session.goalId) formData.set('goalId', session.goalId)
 
     await createSession(formData)
     clearActiveSession()

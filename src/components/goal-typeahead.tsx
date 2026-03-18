@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 type Goal = { id: string; name: string; }
 
 type Props = {
-  initialGoal?: {id: string; name: string}
+  initialGoal?: {id: string | null; name: string}
   onSelect?: (id: string, title: string) => void
 }
 
@@ -16,7 +16,7 @@ export function GoalTypeahead({ initialGoal, onSelect }: Props) {
   // const [open, setOpen] = useState(false)
   const [query, setQuery] = useState(initialGoal?.name ?? '')
   const [suggestions, setSuggestions] = useState<Goal[]>([])
-  const [selected, setSelected] = useState<Goal | null>(initialGoal ? { id: initialGoal.id, name: initialGoal.name } : null)
+  const [selected, setSelected] = useState<Goal | null>(initialGoal?.id ? { id: initialGoal.id, name: initialGoal.name } : null)
 
 useEffect(() => {
   if (query.length < 1) return  // just return, don't setState
