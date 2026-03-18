@@ -10,6 +10,8 @@ export type ActiveSession = {
   songTitle?: string
   tuning?: Tuning
   key?: Key
+  goalId?: string
+  goalName?: string
 }
 
 export function saveActiveSession(session: ActiveSession): void {

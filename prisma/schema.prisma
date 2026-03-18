@@ -82,6 +82,16 @@ model Instructor {
   @@unique([userId, name])
 }
 
+model Goal {
+  id        String    @id @default(cuid())
+  userId    String
+  name      String
+  createdAt DateTime  @default(now())
+  sessions  Session[]
+
+  @@unique([userId, name])
+}
+
 model Session {
   id          String   @id @default(cuid())
   userId      String
@@ -103,6 +113,8 @@ model Session {
   recordings  Recording[]
   instructorId String?
   instructor   Instructor? @relation(fields: [instructorId], references: [id])
+  goalId    String?
+  goal      Goal?     @relation(fields: [goalId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

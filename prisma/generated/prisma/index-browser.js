@@ -151,6 +151,13 @@ exports.Prisma.InstructorScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.GoalScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -168,6 +175,7 @@ exports.Prisma.SessionScalarFieldEnum = {
   isPublic: 'isPublic',
   songId: 'songId',
   instructorId: 'instructorId',
+  goalId: 'goalId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -225,6 +233,7 @@ exports.Prisma.ModelName = {
   Tag: 'Tag',
   Recording: 'Recording',
   Instructor: 'Instructor',
+  Goal: 'Goal',
   Session: 'Session'
 };
 

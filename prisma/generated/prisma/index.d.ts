@@ -34,6 +34,11 @@ export type Recording = $Result.DefaultSelection<Prisma.$RecordingPayload>
  */
 export type Instructor = $Result.DefaultSelection<Prisma.$InstructorPayload>
 /**
+ * Model Goal
+ * 
+ */
+export type Goal = $Result.DefaultSelection<Prisma.$GoalPayload>
+/**
  * Model Session
  * 
  */
@@ -248,6 +253,16 @@ export class PrismaClient<
     * ```
     */
   get instructor(): Prisma.InstructorDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.goal`: Exposes CRUD operations for the **Goal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Goals
+    * const goals = await prisma.goal.findMany()
+    * ```
+    */
+  get goal(): Prisma.GoalDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.session`: Exposes CRUD operations for the **Session** model.
@@ -696,6 +711,7 @@ export namespace Prisma {
     Tag: 'Tag',
     Recording: 'Recording',
     Instructor: 'Instructor',
+    Goal: 'Goal',
     Session: 'Session'
   };
 
@@ -712,7 +728,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "song" | "tag" | "recording" | "instructor" | "session"
+      modelProps: "song" | "tag" | "recording" | "instructor" | "goal" | "session"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1012,6 +1028,80 @@ export namespace Prisma {
           }
         }
       }
+      Goal: {
+        payload: Prisma.$GoalPayload<ExtArgs>
+        fields: Prisma.GoalFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GoalFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GoalPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GoalFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GoalPayload>
+          }
+          findFirst: {
+            args: Prisma.GoalFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GoalPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GoalFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GoalPayload>
+          }
+          findMany: {
+            args: Prisma.GoalFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GoalPayload>[]
+          }
+          create: {
+            args: Prisma.GoalCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GoalPayload>
+          }
+          createMany: {
+            args: Prisma.GoalCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GoalCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GoalPayload>[]
+          }
+          delete: {
+            args: Prisma.GoalDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GoalPayload>
+          }
+          update: {
+            args: Prisma.GoalUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GoalPayload>
+          }
+          deleteMany: {
+            args: Prisma.GoalDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GoalUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GoalUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GoalPayload>[]
+          }
+          upsert: {
+            args: Prisma.GoalUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GoalPayload>
+          }
+          aggregate: {
+            args: Prisma.GoalAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGoal>
+          }
+          groupBy: {
+            args: Prisma.GoalGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GoalGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GoalCountArgs<ExtArgs>
+            result: $Utils.Optional<GoalCountAggregateOutputType> | number
+          }
+        }
+      }
       Session: {
         payload: Prisma.$SessionPayload<ExtArgs>
         fields: Prisma.SessionFieldRefs
@@ -1198,6 +1288,7 @@ export namespace Prisma {
     tag?: TagOmit
     recording?: RecordingOmit
     instructor?: InstructorOmit
+    goal?: GoalOmit
     session?: SessionOmit
   }
 
@@ -1363,6 +1454,37 @@ export namespace Prisma {
    * InstructorCountOutputType without action
    */
   export type InstructorCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionWhereInput
+  }
+
+
+  /**
+   * Count Type GoalCountOutputType
+   */
+
+  export type GoalCountOutputType = {
+    sessions: number
+  }
+
+  export type GoalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sessions?: boolean | GoalCountOutputTypeCountSessionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GoalCountOutputType without action
+   */
+  export type GoalCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GoalCountOutputType
+     */
+    select?: GoalCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GoalCountOutputType without action
+   */
+  export type GoalCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SessionWhereInput
   }
 
@@ -5701,6 +5823,1063 @@ export namespace Prisma {
 
 
   /**
+   * Model Goal
+   */
+
+  export type AggregateGoal = {
+    _count: GoalCountAggregateOutputType | null
+    _min: GoalMinAggregateOutputType | null
+    _max: GoalMaxAggregateOutputType | null
+  }
+
+  export type GoalMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    createdAt: Date | null
+  }
+
+  export type GoalMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    createdAt: Date | null
+  }
+
+  export type GoalCountAggregateOutputType = {
+    id: number
+    userId: number
+    name: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GoalMinAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    createdAt?: true
+  }
+
+  export type GoalMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    createdAt?: true
+  }
+
+  export type GoalCountAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GoalAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Goal to aggregate.
+     */
+    where?: GoalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Goals to fetch.
+     */
+    orderBy?: GoalOrderByWithRelationInput | GoalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GoalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Goals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Goals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Goals
+    **/
+    _count?: true | GoalCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GoalMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GoalMaxAggregateInputType
+  }
+
+  export type GetGoalAggregateType<T extends GoalAggregateArgs> = {
+        [P in keyof T & keyof AggregateGoal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGoal[P]>
+      : GetScalarType<T[P], AggregateGoal[P]>
+  }
+
+
+
+
+  export type GoalGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GoalWhereInput
+    orderBy?: GoalOrderByWithAggregationInput | GoalOrderByWithAggregationInput[]
+    by: GoalScalarFieldEnum[] | GoalScalarFieldEnum
+    having?: GoalScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GoalCountAggregateInputType | true
+    _min?: GoalMinAggregateInputType
+    _max?: GoalMaxAggregateInputType
+  }
+
+  export type GoalGroupByOutputType = {
+    id: string
+    userId: string
+    name: string
+    createdAt: Date
+    _count: GoalCountAggregateOutputType | null
+    _min: GoalMinAggregateOutputType | null
+    _max: GoalMaxAggregateOutputType | null
+  }
+
+  type GetGoalGroupByPayload<T extends GoalGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GoalGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GoalGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GoalGroupByOutputType[P]>
+            : GetScalarType<T[P], GoalGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GoalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    createdAt?: boolean
+    sessions?: boolean | Goal$sessionsArgs<ExtArgs>
+    _count?: boolean | GoalCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["goal"]>
+
+  export type GoalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["goal"]>
+
+  export type GoalSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["goal"]>
+
+  export type GoalSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }
+
+  export type GoalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "createdAt", ExtArgs["result"]["goal"]>
+  export type GoalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sessions?: boolean | Goal$sessionsArgs<ExtArgs>
+    _count?: boolean | GoalCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type GoalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type GoalIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $GoalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Goal"
+    objects: {
+      sessions: Prisma.$SessionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      name: string
+      createdAt: Date
+    }, ExtArgs["result"]["goal"]>
+    composites: {}
+  }
+
+  type GoalGetPayload<S extends boolean | null | undefined | GoalDefaultArgs> = $Result.GetResult<Prisma.$GoalPayload, S>
+
+  type GoalCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GoalFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GoalCountAggregateInputType | true
+    }
+
+  export interface GoalDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Goal'], meta: { name: 'Goal' } }
+    /**
+     * Find zero or one Goal that matches the filter.
+     * @param {GoalFindUniqueArgs} args - Arguments to find a Goal
+     * @example
+     * // Get one Goal
+     * const goal = await prisma.goal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GoalFindUniqueArgs>(args: SelectSubset<T, GoalFindUniqueArgs<ExtArgs>>): Prisma__GoalClient<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Goal that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GoalFindUniqueOrThrowArgs} args - Arguments to find a Goal
+     * @example
+     * // Get one Goal
+     * const goal = await prisma.goal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GoalFindUniqueOrThrowArgs>(args: SelectSubset<T, GoalFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GoalClient<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Goal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GoalFindFirstArgs} args - Arguments to find a Goal
+     * @example
+     * // Get one Goal
+     * const goal = await prisma.goal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GoalFindFirstArgs>(args?: SelectSubset<T, GoalFindFirstArgs<ExtArgs>>): Prisma__GoalClient<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Goal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GoalFindFirstOrThrowArgs} args - Arguments to find a Goal
+     * @example
+     * // Get one Goal
+     * const goal = await prisma.goal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GoalFindFirstOrThrowArgs>(args?: SelectSubset<T, GoalFindFirstOrThrowArgs<ExtArgs>>): Prisma__GoalClient<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Goals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GoalFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Goals
+     * const goals = await prisma.goal.findMany()
+     * 
+     * // Get first 10 Goals
+     * const goals = await prisma.goal.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const goalWithIdOnly = await prisma.goal.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GoalFindManyArgs>(args?: SelectSubset<T, GoalFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Goal.
+     * @param {GoalCreateArgs} args - Arguments to create a Goal.
+     * @example
+     * // Create one Goal
+     * const Goal = await prisma.goal.create({
+     *   data: {
+     *     // ... data to create a Goal
+     *   }
+     * })
+     * 
+     */
+    create<T extends GoalCreateArgs>(args: SelectSubset<T, GoalCreateArgs<ExtArgs>>): Prisma__GoalClient<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Goals.
+     * @param {GoalCreateManyArgs} args - Arguments to create many Goals.
+     * @example
+     * // Create many Goals
+     * const goal = await prisma.goal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GoalCreateManyArgs>(args?: SelectSubset<T, GoalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Goals and returns the data saved in the database.
+     * @param {GoalCreateManyAndReturnArgs} args - Arguments to create many Goals.
+     * @example
+     * // Create many Goals
+     * const goal = await prisma.goal.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Goals and only return the `id`
+     * const goalWithIdOnly = await prisma.goal.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GoalCreateManyAndReturnArgs>(args?: SelectSubset<T, GoalCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Goal.
+     * @param {GoalDeleteArgs} args - Arguments to delete one Goal.
+     * @example
+     * // Delete one Goal
+     * const Goal = await prisma.goal.delete({
+     *   where: {
+     *     // ... filter to delete one Goal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GoalDeleteArgs>(args: SelectSubset<T, GoalDeleteArgs<ExtArgs>>): Prisma__GoalClient<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Goal.
+     * @param {GoalUpdateArgs} args - Arguments to update one Goal.
+     * @example
+     * // Update one Goal
+     * const goal = await prisma.goal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GoalUpdateArgs>(args: SelectSubset<T, GoalUpdateArgs<ExtArgs>>): Prisma__GoalClient<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Goals.
+     * @param {GoalDeleteManyArgs} args - Arguments to filter Goals to delete.
+     * @example
+     * // Delete a few Goals
+     * const { count } = await prisma.goal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GoalDeleteManyArgs>(args?: SelectSubset<T, GoalDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Goals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GoalUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Goals
+     * const goal = await prisma.goal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GoalUpdateManyArgs>(args: SelectSubset<T, GoalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Goals and returns the data updated in the database.
+     * @param {GoalUpdateManyAndReturnArgs} args - Arguments to update many Goals.
+     * @example
+     * // Update many Goals
+     * const goal = await prisma.goal.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Goals and only return the `id`
+     * const goalWithIdOnly = await prisma.goal.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GoalUpdateManyAndReturnArgs>(args: SelectSubset<T, GoalUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Goal.
+     * @param {GoalUpsertArgs} args - Arguments to update or create a Goal.
+     * @example
+     * // Update or create a Goal
+     * const goal = await prisma.goal.upsert({
+     *   create: {
+     *     // ... data to create a Goal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Goal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GoalUpsertArgs>(args: SelectSubset<T, GoalUpsertArgs<ExtArgs>>): Prisma__GoalClient<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Goals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GoalCountArgs} args - Arguments to filter Goals to count.
+     * @example
+     * // Count the number of Goals
+     * const count = await prisma.goal.count({
+     *   where: {
+     *     // ... the filter for the Goals we want to count
+     *   }
+     * })
+    **/
+    count<T extends GoalCountArgs>(
+      args?: Subset<T, GoalCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GoalCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Goal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GoalAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GoalAggregateArgs>(args: Subset<T, GoalAggregateArgs>): Prisma.PrismaPromise<GetGoalAggregateType<T>>
+
+    /**
+     * Group by Goal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GoalGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GoalGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GoalGroupByArgs['orderBy'] }
+        : { orderBy?: GoalGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GoalGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGoalGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Goal model
+   */
+  readonly fields: GoalFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Goal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GoalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    sessions<T extends Goal$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, Goal$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Goal model
+   */
+  interface GoalFieldRefs {
+    readonly id: FieldRef<"Goal", 'String'>
+    readonly userId: FieldRef<"Goal", 'String'>
+    readonly name: FieldRef<"Goal", 'String'>
+    readonly createdAt: FieldRef<"Goal", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Goal findUnique
+   */
+  export type GoalFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Goal
+     */
+    select?: GoalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Goal
+     */
+    omit?: GoalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GoalInclude<ExtArgs> | null
+    /**
+     * Filter, which Goal to fetch.
+     */
+    where: GoalWhereUniqueInput
+  }
+
+  /**
+   * Goal findUniqueOrThrow
+   */
+  export type GoalFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Goal
+     */
+    select?: GoalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Goal
+     */
+    omit?: GoalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GoalInclude<ExtArgs> | null
+    /**
+     * Filter, which Goal to fetch.
+     */
+    where: GoalWhereUniqueInput
+  }
+
+  /**
+   * Goal findFirst
+   */
+  export type GoalFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Goal
+     */
+    select?: GoalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Goal
+     */
+    omit?: GoalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GoalInclude<ExtArgs> | null
+    /**
+     * Filter, which Goal to fetch.
+     */
+    where?: GoalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Goals to fetch.
+     */
+    orderBy?: GoalOrderByWithRelationInput | GoalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Goals.
+     */
+    cursor?: GoalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Goals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Goals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Goals.
+     */
+    distinct?: GoalScalarFieldEnum | GoalScalarFieldEnum[]
+  }
+
+  /**
+   * Goal findFirstOrThrow
+   */
+  export type GoalFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Goal
+     */
+    select?: GoalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Goal
+     */
+    omit?: GoalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GoalInclude<ExtArgs> | null
+    /**
+     * Filter, which Goal to fetch.
+     */
+    where?: GoalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Goals to fetch.
+     */
+    orderBy?: GoalOrderByWithRelationInput | GoalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Goals.
+     */
+    cursor?: GoalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Goals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Goals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Goals.
+     */
+    distinct?: GoalScalarFieldEnum | GoalScalarFieldEnum[]
+  }
+
+  /**
+   * Goal findMany
+   */
+  export type GoalFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Goal
+     */
+    select?: GoalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Goal
+     */
+    omit?: GoalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GoalInclude<ExtArgs> | null
+    /**
+     * Filter, which Goals to fetch.
+     */
+    where?: GoalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Goals to fetch.
+     */
+    orderBy?: GoalOrderByWithRelationInput | GoalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Goals.
+     */
+    cursor?: GoalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Goals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Goals.
+     */
+    skip?: number
+    distinct?: GoalScalarFieldEnum | GoalScalarFieldEnum[]
+  }
+
+  /**
+   * Goal create
+   */
+  export type GoalCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Goal
+     */
+    select?: GoalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Goal
+     */
+    omit?: GoalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GoalInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Goal.
+     */
+    data: XOR<GoalCreateInput, GoalUncheckedCreateInput>
+  }
+
+  /**
+   * Goal createMany
+   */
+  export type GoalCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Goals.
+     */
+    data: GoalCreateManyInput | GoalCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Goal createManyAndReturn
+   */
+  export type GoalCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Goal
+     */
+    select?: GoalSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Goal
+     */
+    omit?: GoalOmit<ExtArgs> | null
+    /**
+     * The data used to create many Goals.
+     */
+    data: GoalCreateManyInput | GoalCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Goal update
+   */
+  export type GoalUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Goal
+     */
+    select?: GoalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Goal
+     */
+    omit?: GoalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GoalInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Goal.
+     */
+    data: XOR<GoalUpdateInput, GoalUncheckedUpdateInput>
+    /**
+     * Choose, which Goal to update.
+     */
+    where: GoalWhereUniqueInput
+  }
+
+  /**
+   * Goal updateMany
+   */
+  export type GoalUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Goals.
+     */
+    data: XOR<GoalUpdateManyMutationInput, GoalUncheckedUpdateManyInput>
+    /**
+     * Filter which Goals to update
+     */
+    where?: GoalWhereInput
+    /**
+     * Limit how many Goals to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Goal updateManyAndReturn
+   */
+  export type GoalUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Goal
+     */
+    select?: GoalSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Goal
+     */
+    omit?: GoalOmit<ExtArgs> | null
+    /**
+     * The data used to update Goals.
+     */
+    data: XOR<GoalUpdateManyMutationInput, GoalUncheckedUpdateManyInput>
+    /**
+     * Filter which Goals to update
+     */
+    where?: GoalWhereInput
+    /**
+     * Limit how many Goals to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Goal upsert
+   */
+  export type GoalUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Goal
+     */
+    select?: GoalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Goal
+     */
+    omit?: GoalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GoalInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Goal to update in case it exists.
+     */
+    where: GoalWhereUniqueInput
+    /**
+     * In case the Goal found by the `where` argument doesn't exist, create a new Goal with this data.
+     */
+    create: XOR<GoalCreateInput, GoalUncheckedCreateInput>
+    /**
+     * In case the Goal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GoalUpdateInput, GoalUncheckedUpdateInput>
+  }
+
+  /**
+   * Goal delete
+   */
+  export type GoalDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Goal
+     */
+    select?: GoalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Goal
+     */
+    omit?: GoalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GoalInclude<ExtArgs> | null
+    /**
+     * Filter which Goal to delete.
+     */
+    where: GoalWhereUniqueInput
+  }
+
+  /**
+   * Goal deleteMany
+   */
+  export type GoalDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Goals to delete
+     */
+    where?: GoalWhereInput
+    /**
+     * Limit how many Goals to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Goal.sessions
+   */
+  export type Goal$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    where?: SessionWhereInput
+    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
+    cursor?: SessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+  }
+
+  /**
+   * Goal without action
+   */
+  export type GoalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Goal
+     */
+    select?: GoalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Goal
+     */
+    omit?: GoalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GoalInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Session
    */
 
@@ -5743,6 +6922,7 @@ export namespace Prisma {
     isPublic: boolean | null
     songId: string | null
     instructorId: string | null
+    goalId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5764,6 +6944,7 @@ export namespace Prisma {
     isPublic: boolean | null
     songId: string | null
     instructorId: string | null
+    goalId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5785,6 +6966,7 @@ export namespace Prisma {
     isPublic: number
     songId: number
     instructorId: number
+    goalId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -5822,6 +7004,7 @@ export namespace Prisma {
     isPublic?: true
     songId?: true
     instructorId?: true
+    goalId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5843,6 +7026,7 @@ export namespace Prisma {
     isPublic?: true
     songId?: true
     instructorId?: true
+    goalId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5864,6 +7048,7 @@ export namespace Prisma {
     isPublic?: true
     songId?: true
     instructorId?: true
+    goalId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -5972,6 +7157,7 @@ export namespace Prisma {
     isPublic: boolean
     songId: string | null
     instructorId: string | null
+    goalId: string | null
     createdAt: Date
     updatedAt: Date
     _count: SessionCountAggregateOutputType | null
@@ -6012,12 +7198,14 @@ export namespace Prisma {
     isPublic?: boolean
     songId?: boolean
     instructorId?: boolean
+    goalId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     song?: boolean | Session$songArgs<ExtArgs>
     tags?: boolean | Session$tagsArgs<ExtArgs>
     recordings?: boolean | Session$recordingsArgs<ExtArgs>
     instructor?: boolean | Session$instructorArgs<ExtArgs>
+    goal?: boolean | Session$goalArgs<ExtArgs>
     _count?: boolean | SessionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
 
@@ -6038,10 +7226,12 @@ export namespace Prisma {
     isPublic?: boolean
     songId?: boolean
     instructorId?: boolean
+    goalId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     song?: boolean | Session$songArgs<ExtArgs>
     instructor?: boolean | Session$instructorArgs<ExtArgs>
+    goal?: boolean | Session$goalArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
 
   export type SessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6061,10 +7251,12 @@ export namespace Prisma {
     isPublic?: boolean
     songId?: boolean
     instructorId?: boolean
+    goalId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     song?: boolean | Session$songArgs<ExtArgs>
     instructor?: boolean | Session$instructorArgs<ExtArgs>
+    goal?: boolean | Session$goalArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
 
   export type SessionSelectScalar = {
@@ -6084,25 +7276,29 @@ export namespace Prisma {
     isPublic?: boolean
     songId?: boolean
     instructorId?: boolean
+    goalId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "duration" | "topic" | "notes" | "bpm" | "instrument" | "intention" | "intentionMet" | "mood" | "focus" | "isFavorited" | "isPublic" | "songId" | "instructorId" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
+  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "duration" | "topic" | "notes" | "bpm" | "instrument" | "intention" | "intentionMet" | "mood" | "focus" | "isFavorited" | "isPublic" | "songId" | "instructorId" | "goalId" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     song?: boolean | Session$songArgs<ExtArgs>
     tags?: boolean | Session$tagsArgs<ExtArgs>
     recordings?: boolean | Session$recordingsArgs<ExtArgs>
     instructor?: boolean | Session$instructorArgs<ExtArgs>
+    goal?: boolean | Session$goalArgs<ExtArgs>
     _count?: boolean | SessionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     song?: boolean | Session$songArgs<ExtArgs>
     instructor?: boolean | Session$instructorArgs<ExtArgs>
+    goal?: boolean | Session$goalArgs<ExtArgs>
   }
   export type SessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     song?: boolean | Session$songArgs<ExtArgs>
     instructor?: boolean | Session$instructorArgs<ExtArgs>
+    goal?: boolean | Session$goalArgs<ExtArgs>
   }
 
   export type $SessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6112,6 +7308,7 @@ export namespace Prisma {
       tags: Prisma.$TagPayload<ExtArgs>[]
       recordings: Prisma.$RecordingPayload<ExtArgs>[]
       instructor: Prisma.$InstructorPayload<ExtArgs> | null
+      goal: Prisma.$GoalPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6130,6 +7327,7 @@ export namespace Prisma {
       isPublic: boolean
       songId: string | null
       instructorId: string | null
+      goalId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["session"]>
@@ -6530,6 +7728,7 @@ export namespace Prisma {
     tags<T extends Session$tagsArgs<ExtArgs> = {}>(args?: Subset<T, Session$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     recordings<T extends Session$recordingsArgs<ExtArgs> = {}>(args?: Subset<T, Session$recordingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     instructor<T extends Session$instructorArgs<ExtArgs> = {}>(args?: Subset<T, Session$instructorArgs<ExtArgs>>): Prisma__InstructorClient<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    goal<T extends Session$goalArgs<ExtArgs> = {}>(args?: Subset<T, Session$goalArgs<ExtArgs>>): Prisma__GoalClient<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6575,6 +7774,7 @@ export namespace Prisma {
     readonly isPublic: FieldRef<"Session", 'Boolean'>
     readonly songId: FieldRef<"Session", 'String'>
     readonly instructorId: FieldRef<"Session", 'String'>
+    readonly goalId: FieldRef<"Session", 'String'>
     readonly createdAt: FieldRef<"Session", 'DateTime'>
     readonly updatedAt: FieldRef<"Session", 'DateTime'>
   }
@@ -7059,6 +8259,25 @@ export namespace Prisma {
   }
 
   /**
+   * Session.goal
+   */
+  export type Session$goalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Goal
+     */
+    select?: GoalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Goal
+     */
+    omit?: GoalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GoalInclude<ExtArgs> | null
+    where?: GoalWhereInput
+  }
+
+  /**
    * Session without action
    */
   export type SessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7134,6 +8353,16 @@ export namespace Prisma {
   export type InstructorScalarFieldEnum = (typeof InstructorScalarFieldEnum)[keyof typeof InstructorScalarFieldEnum]
 
 
+  export const GoalScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    name: 'name',
+    createdAt: 'createdAt'
+  };
+
+  export type GoalScalarFieldEnum = (typeof GoalScalarFieldEnum)[keyof typeof GoalScalarFieldEnum]
+
+
   export const SessionScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -7151,6 +8380,7 @@ export namespace Prisma {
     isPublic: 'isPublic',
     songId: 'songId',
     instructorId: 'instructorId',
+    goalId: 'goalId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -7501,6 +8731,57 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Instructor"> | Date | string
   }
 
+  export type GoalWhereInput = {
+    AND?: GoalWhereInput | GoalWhereInput[]
+    OR?: GoalWhereInput[]
+    NOT?: GoalWhereInput | GoalWhereInput[]
+    id?: StringFilter<"Goal"> | string
+    userId?: StringFilter<"Goal"> | string
+    name?: StringFilter<"Goal"> | string
+    createdAt?: DateTimeFilter<"Goal"> | Date | string
+    sessions?: SessionListRelationFilter
+  }
+
+  export type GoalOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    sessions?: SessionOrderByRelationAggregateInput
+  }
+
+  export type GoalWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_name?: GoalUserIdNameCompoundUniqueInput
+    AND?: GoalWhereInput | GoalWhereInput[]
+    OR?: GoalWhereInput[]
+    NOT?: GoalWhereInput | GoalWhereInput[]
+    userId?: StringFilter<"Goal"> | string
+    name?: StringFilter<"Goal"> | string
+    createdAt?: DateTimeFilter<"Goal"> | Date | string
+    sessions?: SessionListRelationFilter
+  }, "id" | "userId_name">
+
+  export type GoalOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    _count?: GoalCountOrderByAggregateInput
+    _max?: GoalMaxOrderByAggregateInput
+    _min?: GoalMinOrderByAggregateInput
+  }
+
+  export type GoalScalarWhereWithAggregatesInput = {
+    AND?: GoalScalarWhereWithAggregatesInput | GoalScalarWhereWithAggregatesInput[]
+    OR?: GoalScalarWhereWithAggregatesInput[]
+    NOT?: GoalScalarWhereWithAggregatesInput | GoalScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Goal"> | string
+    userId?: StringWithAggregatesFilter<"Goal"> | string
+    name?: StringWithAggregatesFilter<"Goal"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Goal"> | Date | string
+  }
+
   export type SessionWhereInput = {
     AND?: SessionWhereInput | SessionWhereInput[]
     OR?: SessionWhereInput[]
@@ -7521,12 +8802,14 @@ export namespace Prisma {
     isPublic?: BoolFilter<"Session"> | boolean
     songId?: StringNullableFilter<"Session"> | string | null
     instructorId?: StringNullableFilter<"Session"> | string | null
+    goalId?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
     song?: XOR<SongNullableScalarRelationFilter, SongWhereInput> | null
     tags?: TagListRelationFilter
     recordings?: RecordingListRelationFilter
     instructor?: XOR<InstructorNullableScalarRelationFilter, InstructorWhereInput> | null
+    goal?: XOR<GoalNullableScalarRelationFilter, GoalWhereInput> | null
   }
 
   export type SessionOrderByWithRelationInput = {
@@ -7546,12 +8829,14 @@ export namespace Prisma {
     isPublic?: SortOrder
     songId?: SortOrderInput | SortOrder
     instructorId?: SortOrderInput | SortOrder
+    goalId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     song?: SongOrderByWithRelationInput
     tags?: TagOrderByRelationAggregateInput
     recordings?: RecordingOrderByRelationAggregateInput
     instructor?: InstructorOrderByWithRelationInput
+    goal?: GoalOrderByWithRelationInput
   }
 
   export type SessionWhereUniqueInput = Prisma.AtLeast<{
@@ -7574,12 +8859,14 @@ export namespace Prisma {
     isPublic?: BoolFilter<"Session"> | boolean
     songId?: StringNullableFilter<"Session"> | string | null
     instructorId?: StringNullableFilter<"Session"> | string | null
+    goalId?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
     song?: XOR<SongNullableScalarRelationFilter, SongWhereInput> | null
     tags?: TagListRelationFilter
     recordings?: RecordingListRelationFilter
     instructor?: XOR<InstructorNullableScalarRelationFilter, InstructorWhereInput> | null
+    goal?: XOR<GoalNullableScalarRelationFilter, GoalWhereInput> | null
   }, "id">
 
   export type SessionOrderByWithAggregationInput = {
@@ -7599,6 +8886,7 @@ export namespace Prisma {
     isPublic?: SortOrder
     songId?: SortOrderInput | SortOrder
     instructorId?: SortOrderInput | SortOrder
+    goalId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SessionCountOrderByAggregateInput
@@ -7628,6 +8916,7 @@ export namespace Prisma {
     isPublic?: BoolWithAggregatesFilter<"Session"> | boolean
     songId?: StringNullableWithAggregatesFilter<"Session"> | string | null
     instructorId?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    goalId?: StringNullableWithAggregatesFilter<"Session"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
   }
@@ -7860,6 +9149,59 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type GoalCreateInput = {
+    id?: string
+    userId: string
+    name: string
+    createdAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutGoalInput
+  }
+
+  export type GoalUncheckedCreateInput = {
+    id?: string
+    userId: string
+    name: string
+    createdAt?: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutGoalInput
+  }
+
+  export type GoalUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutGoalNestedInput
+  }
+
+  export type GoalUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutGoalNestedInput
+  }
+
+  export type GoalCreateManyInput = {
+    id?: string
+    userId: string
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type GoalUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GoalUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SessionCreateInput = {
     id?: string
     userId: string
@@ -7881,6 +9223,7 @@ export namespace Prisma {
     tags?: TagCreateNestedManyWithoutSessionsInput
     recordings?: RecordingCreateNestedManyWithoutSessionInput
     instructor?: InstructorCreateNestedOneWithoutSessionsInput
+    goal?: GoalCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateInput = {
@@ -7900,6 +9243,7 @@ export namespace Prisma {
     isPublic?: boolean
     songId?: string | null
     instructorId?: string | null
+    goalId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
@@ -7927,6 +9271,7 @@ export namespace Prisma {
     tags?: TagUpdateManyWithoutSessionsNestedInput
     recordings?: RecordingUpdateManyWithoutSessionNestedInput
     instructor?: InstructorUpdateOneWithoutSessionsNestedInput
+    goal?: GoalUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateInput = {
@@ -7946,6 +9291,7 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
+    goalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
@@ -7969,6 +9315,7 @@ export namespace Prisma {
     isPublic?: boolean
     songId?: string | null
     instructorId?: string | null
+    goalId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8009,6 +9356,7 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
+    goalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8301,6 +9649,32 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type GoalUserIdNameCompoundUniqueInput = {
+    userId: string
+    name: string
+  }
+
+  export type GoalCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GoalMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GoalMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -8344,6 +9718,11 @@ export namespace Prisma {
     isNot?: InstructorWhereInput | null
   }
 
+  export type GoalNullableScalarRelationFilter = {
+    is?: GoalWhereInput | null
+    isNot?: GoalWhereInput | null
+  }
+
   export type TagOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -8369,6 +9748,7 @@ export namespace Prisma {
     isPublic?: SortOrder
     songId?: SortOrder
     instructorId?: SortOrder
+    goalId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8397,6 +9777,7 @@ export namespace Prisma {
     isPublic?: SortOrder
     songId?: SortOrder
     instructorId?: SortOrder
+    goalId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8418,6 +9799,7 @@ export namespace Prisma {
     isPublic?: SortOrder
     songId?: SortOrder
     instructorId?: SortOrder
+    goalId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8625,6 +10007,48 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type SessionCreateNestedManyWithoutGoalInput = {
+    create?: XOR<SessionCreateWithoutGoalInput, SessionUncheckedCreateWithoutGoalInput> | SessionCreateWithoutGoalInput[] | SessionUncheckedCreateWithoutGoalInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutGoalInput | SessionCreateOrConnectWithoutGoalInput[]
+    createMany?: SessionCreateManyGoalInputEnvelope
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type SessionUncheckedCreateNestedManyWithoutGoalInput = {
+    create?: XOR<SessionCreateWithoutGoalInput, SessionUncheckedCreateWithoutGoalInput> | SessionCreateWithoutGoalInput[] | SessionUncheckedCreateWithoutGoalInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutGoalInput | SessionCreateOrConnectWithoutGoalInput[]
+    createMany?: SessionCreateManyGoalInputEnvelope
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type SessionUpdateManyWithoutGoalNestedInput = {
+    create?: XOR<SessionCreateWithoutGoalInput, SessionUncheckedCreateWithoutGoalInput> | SessionCreateWithoutGoalInput[] | SessionUncheckedCreateWithoutGoalInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutGoalInput | SessionCreateOrConnectWithoutGoalInput[]
+    upsert?: SessionUpsertWithWhereUniqueWithoutGoalInput | SessionUpsertWithWhereUniqueWithoutGoalInput[]
+    createMany?: SessionCreateManyGoalInputEnvelope
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    update?: SessionUpdateWithWhereUniqueWithoutGoalInput | SessionUpdateWithWhereUniqueWithoutGoalInput[]
+    updateMany?: SessionUpdateManyWithWhereWithoutGoalInput | SessionUpdateManyWithWhereWithoutGoalInput[]
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type SessionUncheckedUpdateManyWithoutGoalNestedInput = {
+    create?: XOR<SessionCreateWithoutGoalInput, SessionUncheckedCreateWithoutGoalInput> | SessionCreateWithoutGoalInput[] | SessionUncheckedCreateWithoutGoalInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutGoalInput | SessionCreateOrConnectWithoutGoalInput[]
+    upsert?: SessionUpsertWithWhereUniqueWithoutGoalInput | SessionUpsertWithWhereUniqueWithoutGoalInput[]
+    createMany?: SessionCreateManyGoalInputEnvelope
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    update?: SessionUpdateWithWhereUniqueWithoutGoalInput | SessionUpdateWithWhereUniqueWithoutGoalInput[]
+    updateMany?: SessionUpdateManyWithWhereWithoutGoalInput | SessionUpdateManyWithWhereWithoutGoalInput[]
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
   export type SongCreateNestedOneWithoutSessionsInput = {
     create?: XOR<SongCreateWithoutSessionsInput, SongUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: SongCreateOrConnectWithoutSessionsInput
@@ -8648,6 +10072,12 @@ export namespace Prisma {
     create?: XOR<InstructorCreateWithoutSessionsInput, InstructorUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: InstructorCreateOrConnectWithoutSessionsInput
     connect?: InstructorWhereUniqueInput
+  }
+
+  export type GoalCreateNestedOneWithoutSessionsInput = {
+    create?: XOR<GoalCreateWithoutSessionsInput, GoalUncheckedCreateWithoutSessionsInput>
+    connectOrCreate?: GoalCreateOrConnectWithoutSessionsInput
+    connect?: GoalWhereUniqueInput
   }
 
   export type TagUncheckedCreateNestedManyWithoutSessionsInput = {
@@ -8724,6 +10154,16 @@ export namespace Prisma {
     delete?: InstructorWhereInput | boolean
     connect?: InstructorWhereUniqueInput
     update?: XOR<XOR<InstructorUpdateToOneWithWhereWithoutSessionsInput, InstructorUpdateWithoutSessionsInput>, InstructorUncheckedUpdateWithoutSessionsInput>
+  }
+
+  export type GoalUpdateOneWithoutSessionsNestedInput = {
+    create?: XOR<GoalCreateWithoutSessionsInput, GoalUncheckedCreateWithoutSessionsInput>
+    connectOrCreate?: GoalCreateOrConnectWithoutSessionsInput
+    upsert?: GoalUpsertWithoutSessionsInput
+    disconnect?: GoalWhereInput | boolean
+    delete?: GoalWhereInput | boolean
+    connect?: GoalWhereUniqueInput
+    update?: XOR<XOR<GoalUpdateToOneWithWhereWithoutSessionsInput, GoalUpdateWithoutSessionsInput>, GoalUncheckedUpdateWithoutSessionsInput>
   }
 
   export type TagUncheckedUpdateManyWithoutSessionsNestedInput = {
@@ -8996,6 +10436,7 @@ export namespace Prisma {
     tags?: TagCreateNestedManyWithoutSessionsInput
     recordings?: RecordingCreateNestedManyWithoutSessionInput
     instructor?: InstructorCreateNestedOneWithoutSessionsInput
+    goal?: GoalCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateWithoutSongInput = {
@@ -9014,6 +10455,7 @@ export namespace Prisma {
     isFavorited?: boolean
     isPublic?: boolean
     instructorId?: string | null
+    goalId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
@@ -9066,6 +10508,7 @@ export namespace Prisma {
     isPublic?: BoolFilter<"Session"> | boolean
     songId?: StringNullableFilter<"Session"> | string | null
     instructorId?: StringNullableFilter<"Session"> | string | null
+    goalId?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
   }
@@ -9090,6 +10533,7 @@ export namespace Prisma {
     song?: SongCreateNestedOneWithoutSessionsInput
     recordings?: RecordingCreateNestedManyWithoutSessionInput
     instructor?: InstructorCreateNestedOneWithoutSessionsInput
+    goal?: GoalCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateWithoutTagsInput = {
@@ -9109,6 +10553,7 @@ export namespace Prisma {
     isPublic?: boolean
     songId?: string | null
     instructorId?: string | null
+    goalId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     recordings?: RecordingUncheckedCreateNestedManyWithoutSessionInput
@@ -9155,6 +10600,7 @@ export namespace Prisma {
     song?: SongCreateNestedOneWithoutSessionsInput
     tags?: TagCreateNestedManyWithoutSessionsInput
     instructor?: InstructorCreateNestedOneWithoutSessionsInput
+    goal?: GoalCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateWithoutRecordingsInput = {
@@ -9174,6 +10620,7 @@ export namespace Prisma {
     isPublic?: boolean
     songId?: string | null
     instructorId?: string | null
+    goalId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
@@ -9215,6 +10662,7 @@ export namespace Prisma {
     song?: SongUpdateOneWithoutSessionsNestedInput
     tags?: TagUpdateManyWithoutSessionsNestedInput
     instructor?: InstructorUpdateOneWithoutSessionsNestedInput
+    goal?: GoalUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateWithoutRecordingsInput = {
@@ -9234,6 +10682,7 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
+    goalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
@@ -9259,6 +10708,7 @@ export namespace Prisma {
     song?: SongCreateNestedOneWithoutSessionsInput
     tags?: TagCreateNestedManyWithoutSessionsInput
     recordings?: RecordingCreateNestedManyWithoutSessionInput
+    goal?: GoalCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateWithoutInstructorInput = {
@@ -9277,6 +10727,7 @@ export namespace Prisma {
     isFavorited?: boolean
     isPublic?: boolean
     songId?: string | null
+    goalId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
@@ -9307,6 +10758,78 @@ export namespace Prisma {
   export type SessionUpdateManyWithWhereWithoutInstructorInput = {
     where: SessionScalarWhereInput
     data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutInstructorInput>
+  }
+
+  export type SessionCreateWithoutGoalInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    duration: number
+    topic: string
+    notes?: string | null
+    bpm?: number | null
+    instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    song?: SongCreateNestedOneWithoutSessionsInput
+    tags?: TagCreateNestedManyWithoutSessionsInput
+    recordings?: RecordingCreateNestedManyWithoutSessionInput
+    instructor?: InstructorCreateNestedOneWithoutSessionsInput
+  }
+
+  export type SessionUncheckedCreateWithoutGoalInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    duration: number
+    topic: string
+    notes?: string | null
+    bpm?: number | null
+    instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
+    songId?: string | null
+    instructorId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
+    recordings?: RecordingUncheckedCreateNestedManyWithoutSessionInput
+  }
+
+  export type SessionCreateOrConnectWithoutGoalInput = {
+    where: SessionWhereUniqueInput
+    create: XOR<SessionCreateWithoutGoalInput, SessionUncheckedCreateWithoutGoalInput>
+  }
+
+  export type SessionCreateManyGoalInputEnvelope = {
+    data: SessionCreateManyGoalInput | SessionCreateManyGoalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SessionUpsertWithWhereUniqueWithoutGoalInput = {
+    where: SessionWhereUniqueInput
+    update: XOR<SessionUpdateWithoutGoalInput, SessionUncheckedUpdateWithoutGoalInput>
+    create: XOR<SessionCreateWithoutGoalInput, SessionUncheckedCreateWithoutGoalInput>
+  }
+
+  export type SessionUpdateWithWhereUniqueWithoutGoalInput = {
+    where: SessionWhereUniqueInput
+    data: XOR<SessionUpdateWithoutGoalInput, SessionUncheckedUpdateWithoutGoalInput>
+  }
+
+  export type SessionUpdateManyWithWhereWithoutGoalInput = {
+    where: SessionScalarWhereInput
+    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutGoalInput>
   }
 
   export type SongCreateWithoutSessionsInput = {
@@ -9392,6 +10915,25 @@ export namespace Prisma {
   export type InstructorCreateOrConnectWithoutSessionsInput = {
     where: InstructorWhereUniqueInput
     create: XOR<InstructorCreateWithoutSessionsInput, InstructorUncheckedCreateWithoutSessionsInput>
+  }
+
+  export type GoalCreateWithoutSessionsInput = {
+    id?: string
+    userId: string
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type GoalUncheckedCreateWithoutSessionsInput = {
+    id?: string
+    userId: string
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type GoalCreateOrConnectWithoutSessionsInput = {
+    where: GoalWhereUniqueInput
+    create: XOR<GoalCreateWithoutSessionsInput, GoalUncheckedCreateWithoutSessionsInput>
   }
 
   export type SongUpsertWithoutSessionsInput = {
@@ -9502,6 +11044,31 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type GoalUpsertWithoutSessionsInput = {
+    update: XOR<GoalUpdateWithoutSessionsInput, GoalUncheckedUpdateWithoutSessionsInput>
+    create: XOR<GoalCreateWithoutSessionsInput, GoalUncheckedCreateWithoutSessionsInput>
+    where?: GoalWhereInput
+  }
+
+  export type GoalUpdateToOneWithWhereWithoutSessionsInput = {
+    where?: GoalWhereInput
+    data: XOR<GoalUpdateWithoutSessionsInput, GoalUncheckedUpdateWithoutSessionsInput>
+  }
+
+  export type GoalUpdateWithoutSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GoalUncheckedUpdateWithoutSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SessionCreateManySongInput = {
     id?: string
     userId: string
@@ -9518,6 +11085,7 @@ export namespace Prisma {
     isFavorited?: boolean
     isPublic?: boolean
     instructorId?: string | null
+    goalId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9542,6 +11110,7 @@ export namespace Prisma {
     tags?: TagUpdateManyWithoutSessionsNestedInput
     recordings?: RecordingUpdateManyWithoutSessionNestedInput
     instructor?: InstructorUpdateOneWithoutSessionsNestedInput
+    goal?: GoalUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateWithoutSongInput = {
@@ -9560,6 +11129,7 @@ export namespace Prisma {
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
+    goalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
@@ -9582,6 +11152,7 @@ export namespace Prisma {
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
+    goalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9606,6 +11177,7 @@ export namespace Prisma {
     song?: SongUpdateOneWithoutSessionsNestedInput
     recordings?: RecordingUpdateManyWithoutSessionNestedInput
     instructor?: InstructorUpdateOneWithoutSessionsNestedInput
+    goal?: GoalUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateWithoutTagsInput = {
@@ -9625,6 +11197,7 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
+    goalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     recordings?: RecordingUncheckedUpdateManyWithoutSessionNestedInput
@@ -9647,6 +11220,7 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
+    goalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9667,6 +11241,7 @@ export namespace Prisma {
     isFavorited?: boolean
     isPublic?: boolean
     songId?: string | null
+    goalId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9691,6 +11266,7 @@ export namespace Prisma {
     song?: SongUpdateOneWithoutSessionsNestedInput
     tags?: TagUpdateManyWithoutSessionsNestedInput
     recordings?: RecordingUpdateManyWithoutSessionNestedInput
+    goal?: GoalUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateWithoutInstructorInput = {
@@ -9709,6 +11285,7 @@ export namespace Prisma {
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
+    goalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
@@ -9731,6 +11308,95 @@ export namespace Prisma {
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
+    goalId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionCreateManyGoalInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    duration: number
+    topic: string
+    notes?: string | null
+    bpm?: number | null
+    instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
+    songId?: string | null
+    instructorId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SessionUpdateWithoutGoalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration?: IntFieldUpdateOperationsInput | number
+    topic?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    song?: SongUpdateOneWithoutSessionsNestedInput
+    tags?: TagUpdateManyWithoutSessionsNestedInput
+    recordings?: RecordingUpdateManyWithoutSessionNestedInput
+    instructor?: InstructorUpdateOneWithoutSessionsNestedInput
+  }
+
+  export type SessionUncheckedUpdateWithoutGoalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration?: IntFieldUpdateOperationsInput | number
+    topic?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    songId?: NullableStringFieldUpdateOperationsInput | string | null
+    instructorId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
+    recordings?: RecordingUncheckedUpdateManyWithoutSessionNestedInput
+  }
+
+  export type SessionUncheckedUpdateManyWithoutGoalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration?: IntFieldUpdateOperationsInput | number
+    topic?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    songId?: NullableStringFieldUpdateOperationsInput | string | null
+    instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

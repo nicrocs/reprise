@@ -8,8 +8,10 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { getActiveSession, clearActiveSession, type ActiveSession } from '@/lib/active-session'
+import { createGoal } from '@/app/actions/goals'
 import { IntentionMetRadioGroup } from '@/components/intention-met-radio-group'
 import { createSession } from '@/app/actions/sessions'
+import { GoalTypeahead } from '@/components/goal-typeahead'
 
 const PRACTICE_DURATION_MS = 25 * 60 * 1000
 
@@ -19,7 +21,6 @@ export default function FinishSessionPage() {
     if (typeof window === 'undefined') return null
     return getActiveSession()
   })
-  const [topic, setTopic] = useState('')
   const [pickup, setPickup] = useState('')
   const [notes, setNotes] = useState('')
   const [intentionMet, setIntentionMet] = useState<boolean | null>(null)
@@ -33,9 +34,43 @@ export default function FinishSessionPage() {
 //   const [type, setType] = useState(SESSION_TYPES[0].value)
   const [saving, setSaving] = useState(false)
 
+  const [goal, setGoal] = useState<{ id: string | null; name: string } | null>(() => {
+    // initialize from session.goalId / session.goalName
+    if (!session?.goalId || !session?.goalName) return null
+    return { id: session.goalId, name: session.goalName }
+  })
+  const [isEditingGoal, setIsEditingGoal] = useState(false)
+  const [isCreatingGoal, setIsCreatingGoal] = useState(false)
+  const [editSelection, setEditSelection] = useState<{ id: string; name: string } | null>(null)
+  const [newGoalName, setNewGoalName] = useState('')
+
   useEffect(() => {
     if (!session) router.replace('/sessions/new')
   }, [session, router])
+
+  function handleSaveEdit() {
+  if (!editSelection) return
+  setGoal(editSelection)
+  setIsEditingGoal(false)
+  setEditSelection(null)
+}
+
+function handleCancelEdit() {
+  setIsEditingGoal(false)
+  setEditSelection(null)
+}
+
+async function handleCreateGoal() {
+  const created = await createGoal(newGoalName)
+  setGoal({ id: created.id, name: created.name })
+  setIsCreatingGoal(false)
+  setNewGoalName('')
+}
+
+function handleCancelCreate() {
+  setIsCreatingGoal(false)
+  setNewGoalName('')
+}
 
   async function handleSave() {
     if (!session) return
@@ -74,6 +109,61 @@ export default function FinishSessionPage() {
         )}
       </div>
 
+      {!isEditingGoal && !isCreatingGoal && (
+  <div className="space-y-2">
+    <Label className="text-base font-semibold">Goal</Label>
+    <div className="flex items-center justify-between">
+      <p className="text-sm">
+        {goal?.name ?? 'No goal set'}
+      </p>
+      <div className="flex gap-2">
+        <Button variant="outline" size="sm" onClick={() => setIsEditingGoal(true)}>
+          Edit
+        </Button>
+        <Button variant="outline" size="sm" onClick={() => setIsCreatingGoal(true)}>
+          New Goal
+        </Button>
+      </div>
+    </div>
+  </div>
+)}
+
+{isEditingGoal && (
+  <div className="space-y-2">
+    <Label className="text-base font-semibold">Goal</Label>
+    <GoalTypeahead
+      initialGoal={goal ?? undefined}
+      onSelect={(id, name) => {
+        // update local state
+        setEditSelection({ id, name })
+      }}
+    />
+    <div className="flex gap-2">
+      <Button size="sm" onClick={handleSaveEdit}>Save</Button>
+      <Button size="sm" variant="ghost" onClick={handleCancelEdit}>Cancel</Button>
+    </div>
+  </div>
+)}
+
+{isCreatingGoal && (
+  <div className="space-y-2">
+    <Label className="text-base font-semibold">New Goal</Label>
+    <Input
+      value={newGoalName}
+      onChange={e => setNewGoalName(e.target.value)}
+      placeholder="e.g. Improvisation"
+    />
+    <div className="flex gap-2">
+      <Button size="sm" onClick={handleCreateGoal} disabled={!newGoalName.trim()}>
+        Save
+      </Button>
+      <Button size="sm" variant="ghost" onClick={() => setIsCreatingGoal(false)}>
+        Cancel
+      </Button>
+    </div>
+  </div>
+)}
+
       <div className="rounded-lg border p-4 space-y-3">
         <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
           Your intention
@@ -92,19 +182,6 @@ export default function FinishSessionPage() {
             onChange={setIntentionMet}
           />    
         </div>
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="" className="text-base font-semibold">
-          What did you work on?
-        </Label>
-        <Textarea
-          id="topic"
-          value={topic}
-          onChange={e => setTopic(e.target.value)}
-          placeholder="e.g. Full song, Tune, Songwriting, etc"
-          rows={3}
-        />
       </div>
 
       <div className="space-y-2">

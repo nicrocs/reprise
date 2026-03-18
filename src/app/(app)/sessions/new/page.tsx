@@ -5,12 +5,13 @@ import { useRouter } from 'next/navigation'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import { buttonVariants } from '@/components/ui/button'
-import Link from 'next/link'
+import { Input } from '@/components/ui/input'
 import { SongTypeahead } from '@/components/song-typeahead'
+import { GoalTypeahead } from '@/components/goal-typeahead'
 import { SongDetails } from '@/components/song-details'
 import { saveActiveSession } from '@/lib/active-session'
 import { getSongById } from '@/app/actions/songs'
+import { getGoalById, createGoal } from '@/app/actions/goals'
 import { TUNING_LABELS, KEY_LABELS } from '@/lib/constants'
 import { SongInfo } from '@/components/song-details'
 
@@ -18,7 +19,10 @@ export default function NewSessionPage() {
   const router = useRouter()
   const [intention, setIntention] = useState('')
   const [song, setSong] = useState<SongInfo | null>(null)
+  const [goal, setGoal] = useState<{ id: string, name: string } | null>(null)
   const [editing, setEditing] = useState(false)
+  const [isCreatingGoal, setIsCreatingGoal] = useState(false)
+  const [newGoalName, setNewGoalName] = useState('')
 
   async function handleSongSelect(id: string, title: string) {
     const result = id ? await getSongById(id) : null
@@ -36,16 +40,43 @@ export default function NewSessionPage() {
     setEditing(false)
   }
 
+  async function handleGoalSelect(id: string, name: string) {
+    const result = id ? await getGoalById(id) : null
+    if (result) {
+      setGoal({
+        id,
+        name,
+      })
+    } else {
+      // New goal not yet in db — no tuning/key yet
+      setGoal({ id: '', name })
+    }
+  }
+
   function handleStart(destination: '/prepare' | '/sessions/active') {
     if (!intention.trim()) return
     saveActiveSession({
       intention: intention.trim(),
       songId: song?.id,
       songTitle: song?.title,
+      goalId: goal?.id,
+      goalName: goal?.name,
       tuning: song?.tuning ?? undefined,
       key: song?.key ?? undefined,
     })
     router.push(destination)
+  }
+
+  async function handleCreateGoal() {
+    const created = await createGoal(newGoalName)
+    setGoal({ id: created.id, name: created.name })
+    setIsCreatingGoal(false)
+    setNewGoalName('')
+  }
+
+  function handleCancelCreate() {
+    setIsCreatingGoal(false)
+    setNewGoalName('')
   }
 
   return (
@@ -91,6 +122,52 @@ export default function NewSessionPage() {
           />
         )}
       </div>
+
+{/* Goal section */}
+<div className="space-y-2">
+  <Label className="text-base font-semibold">Goal</Label>
+  
+  {!isCreatingGoal ? (
+    <>
+      <GoalTypeahead 
+        initialGoal={goal ?? undefined}
+        onSelect={handleGoalSelect}
+      />
+      <Button 
+        variant="outline" 
+        size="sm" 
+        onClick={() => setIsCreatingGoal(true)}
+      >
+        New Goal
+      </Button>
+    </>
+  ) : (
+    <div className="space-y-2">
+      <Input
+        value={newGoalName}
+        onChange={e => setNewGoalName(e.target.value)}
+        placeholder="e.g. Improvisation"
+      />
+      <div className="flex gap-2">
+        <Button 
+          size="sm" 
+          onClick={handleCreateGoal}
+          disabled={!newGoalName.trim()}
+        >
+          Save
+        </Button>
+        <Button 
+          size="sm" 
+          variant="ghost" 
+          onClick={handleCancelCreate}
+        >
+          Cancel
+        </Button>
+      </div>
+    </div>
+  )}
+</div>
+
 
       {/* Intention */}
       <div className="space-y-2">
