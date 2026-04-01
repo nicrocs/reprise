@@ -2,6 +2,7 @@ import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 
 export default async function GoalsPage() {
   const { userId } = await auth()
@@ -26,7 +27,11 @@ export default async function GoalsPage() {
   return (
     <main className="max-w-xl mx-auto p-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Goals</h1>
+        <h1 className="text-2xl font-bold">Goals</h1> <Button asChild>
+          <Link href="/goals/new">
+  Add Goals
+</Link>
+          </Button>
       </div>
       {sorted.length === 0 ? (
         <p className="text-gray-500">No goals yet. Log a session with a goal to get started.</p>

@@ -2,6 +2,7 @@
 
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
+import { redirect } from 'next/navigation'
 
 export async function getGoals(query: string) {
   const { userId } = await auth()
@@ -55,7 +56,7 @@ export async function updateGoal(id: string, name: string) {
   const { userId } = await auth()
   if (!userId) throw new Error('Unauthorized')
 
-  await prisma.goal.update({
+  return await prisma.goal.update({
     where: { id, userId },
     data: {
         name,
@@ -74,4 +75,47 @@ export async function createGoal(name: string) {
     update: {},
     create: { userId, name: trimmedName },
   })
+}
+
+export async function createGoals(names: string[]) {
+  // 1. Auth
+const { userId } = await auth()
+if (!userId) throw new Error('Unauthorized')
+
+// 2. Filter empty
+const nonEmpty = names.filter(n => n.trim() !== '')
+
+// 3. Dedupe input
+const uniqueNames = nonEmpty.reduce((acc, name) => {
+      const lower = name.trim().toLowerCase()
+      if (!acc.seen.has(lower)) {
+        acc.seen.add(lower)
+        acc.unique.push(name)
+      }
+      return acc
+    }, { seen: new Set<string>(), unique: [] as string[] }).unique
+
+  // 4. Fetch existing
+  const existing = await prisma.goal.findMany({
+    where: { userId },
+    select: { name: true }
+  })
+
+  const existingLower = new Set(existing.map(g => g.name.toLowerCase()))
+
+  // 5. Filter out existing
+  const namesToCreate = uniqueNames.filter(
+    name => !existingLower.has(name.toLowerCase())
+  )
+
+  // 6. Upsert
+  for (const name of namesToCreate) {
+    await prisma.goal.upsert({
+      where: { userId_name: { userId, name } },
+      update: {},
+      create: { userId, name }
+    })
+  }
+
+  redirect('/goals')
 }

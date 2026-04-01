@@ -7145,7 +7145,7 @@ export namespace Prisma {
     userId: string
     date: Date
     duration: number
-    topic: string
+    topic: string | null
     notes: string | null
     bpm: number | null
     instrument: string | null
@@ -7315,7 +7315,7 @@ export namespace Prisma {
       userId: string
       date: Date
       duration: number
-      topic: string
+      topic: string | null
       notes: string | null
       bpm: number | null
       instrument: string | null
@@ -8790,7 +8790,7 @@ export namespace Prisma {
     userId?: StringFilter<"Session"> | string
     date?: DateTimeFilter<"Session"> | Date | string
     duration?: IntFilter<"Session"> | number
-    topic?: StringFilter<"Session"> | string
+    topic?: StringNullableFilter<"Session"> | string | null
     notes?: StringNullableFilter<"Session"> | string | null
     bpm?: IntNullableFilter<"Session"> | number | null
     instrument?: StringNullableFilter<"Session"> | string | null
@@ -8817,7 +8817,7 @@ export namespace Prisma {
     userId?: SortOrder
     date?: SortOrder
     duration?: SortOrder
-    topic?: SortOrder
+    topic?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     bpm?: SortOrderInput | SortOrder
     instrument?: SortOrderInput | SortOrder
@@ -8847,7 +8847,7 @@ export namespace Prisma {
     userId?: StringFilter<"Session"> | string
     date?: DateTimeFilter<"Session"> | Date | string
     duration?: IntFilter<"Session"> | number
-    topic?: StringFilter<"Session"> | string
+    topic?: StringNullableFilter<"Session"> | string | null
     notes?: StringNullableFilter<"Session"> | string | null
     bpm?: IntNullableFilter<"Session"> | number | null
     instrument?: StringNullableFilter<"Session"> | string | null
@@ -8874,7 +8874,7 @@ export namespace Prisma {
     userId?: SortOrder
     date?: SortOrder
     duration?: SortOrder
-    topic?: SortOrder
+    topic?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     bpm?: SortOrderInput | SortOrder
     instrument?: SortOrderInput | SortOrder
@@ -8904,7 +8904,7 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Session"> | string
     date?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     duration?: IntWithAggregatesFilter<"Session"> | number
-    topic?: StringWithAggregatesFilter<"Session"> | string
+    topic?: StringNullableWithAggregatesFilter<"Session"> | string | null
     notes?: StringNullableWithAggregatesFilter<"Session"> | string | null
     bpm?: IntNullableWithAggregatesFilter<"Session"> | number | null
     instrument?: StringNullableWithAggregatesFilter<"Session"> | string | null
@@ -9207,7 +9207,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -9231,7 +9231,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -9255,7 +9255,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9279,7 +9279,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9303,7 +9303,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -9325,7 +9325,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9344,7 +9344,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10421,7 +10421,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -10444,7 +10444,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -10496,7 +10496,7 @@ export namespace Prisma {
     userId?: StringFilter<"Session"> | string
     date?: DateTimeFilter<"Session"> | Date | string
     duration?: IntFilter<"Session"> | number
-    topic?: StringFilter<"Session"> | string
+    topic?: StringNullableFilter<"Session"> | string | null
     notes?: StringNullableFilter<"Session"> | string | null
     bpm?: IntNullableFilter<"Session"> | number | null
     instrument?: StringNullableFilter<"Session"> | string | null
@@ -10518,7 +10518,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -10541,7 +10541,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -10585,7 +10585,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -10608,7 +10608,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -10647,7 +10647,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10670,7 +10670,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10693,7 +10693,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -10716,7 +10716,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -10765,7 +10765,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -10788,7 +10788,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -11074,7 +11074,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -11095,7 +11095,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11118,7 +11118,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11141,7 +11141,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11162,7 +11162,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11185,7 +11185,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11208,7 +11208,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11230,7 +11230,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -11251,7 +11251,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11274,7 +11274,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11297,7 +11297,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11318,7 +11318,7 @@ export namespace Prisma {
     userId: string
     date?: Date | string
     duration: number
-    topic: string
+    topic?: string | null
     notes?: string | null
     bpm?: number | null
     instrument?: string | null
@@ -11339,7 +11339,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11362,7 +11362,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11385,7 +11385,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: IntFieldUpdateOperationsInput | number
-    topic?: StringFieldUpdateOperationsInput | string
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bpm?: NullableIntFieldUpdateOperationsInput | number | null
     instrument?: NullableStringFieldUpdateOperationsInput | string | null

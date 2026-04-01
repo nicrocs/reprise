@@ -97,7 +97,7 @@ model Session {
   userId       String
   date         DateTime    @default(now())
   duration     Int
-  topic        String
+  topic        String?
   notes        String?
   bpm          Int?
   instrument   String?
