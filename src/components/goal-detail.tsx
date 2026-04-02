@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { updateGoal } from '@/app/actions/goals'
 import { BackButton } from '@/components/back-button'
 import { Input } from './ui/input'
+import { DeleteGoalButton } from './delete-goal-button'
 
 export type GoalInfo = {
   id: string
@@ -40,6 +41,7 @@ export function GoalDetails({ goal }: Props) {
           <BackButton />
           {isEditing ? <Button size="sm" variant="default" onClick={handleSave}>Save</Button> :
           <Button size="sm" variant="secondary" onClick={() => setIsEditing(true)}>Edit</Button>}
+          <DeleteGoalButton id={goal.id} />
         </div>
   )
 }

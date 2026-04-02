@@ -2,7 +2,7 @@ import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { Card, CardAction, CardContent, CardHeader, CardDescription, CardTitle, CardFooter } from '@/components/ui/card'
-import { DeleteButton } from '@/components/delete-button' 
+import { DeleteButton } from '@/components/delete-session-button' 
 import { buttonVariants } from '@/components/ui/button'
 
 export default async function SessionsPage() {

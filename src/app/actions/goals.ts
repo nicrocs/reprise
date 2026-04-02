@@ -119,3 +119,17 @@ const uniqueNames = nonEmpty.reduce((acc, name) => {
 
   redirect('/goals')
 }
+
+export async function deleteGoal(id: string) {
+  const { userId } = await auth()
+
+  if (!userId) {
+    throw new Error('Unauthorized')
+  }
+
+  await prisma.goal.delete({
+    where: { id, userId },
+  })
+
+  redirect('/goals')
+}

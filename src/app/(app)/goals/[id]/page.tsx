@@ -2,11 +2,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
-import { DeleteButton } from '@/components/delete-button'
-import Link from 'next/link'
-import { buttonVariants, Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { updateGoal } from '@/app/actions/goals'
 import { GoalDetails } from '@/components/goal-detail'
 
 export default async function GoalDetailPage({
@@ -99,15 +95,6 @@ export default async function GoalDetailPage({
                       {session.notes}
                     </p>
                   )}
-                  <div className="mt-4 flex gap-2">
-                    <Link
-                      href={`/sessions/${session.id}/edit`}
-                      className={buttonVariants({ variant: 'outline', size: 'sm' })}
-                    >
-                      Edit
-                    </Link>
-                    <DeleteButton id={session.id} />
-                  </div>
                 </CardContent>
               </Card>
             </li>
