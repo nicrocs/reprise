@@ -28,7 +28,7 @@ export default async function EditSessionPage({ params } : { params: Promise<{ i
         defaultValues={{
           date: session.date.toISOString().split('T')[0],
           duration: session.duration,
-          topic: session.topic,
+          topic: session.topic ?? undefined,
           songTitle: session.song?.title,
           bpm: session.bpm,
           notes: session.notes,

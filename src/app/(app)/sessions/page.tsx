@@ -70,7 +70,7 @@ export default async function SessionsPage() {
                     >
                         Edit
                     </Link>
-                    <DeleteButton id={session.id} />
+                    <DeleteSessionButton id={session.id} />
                 </CardFooter>
             </Card>
           ))}

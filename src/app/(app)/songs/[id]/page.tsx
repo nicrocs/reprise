@@ -2,9 +2,6 @@ import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import { TUNING_LABELS } from '@/lib/constants'
-import { DeleteButton } from '@/components/delete-session-button'
-import Link from 'next/link'
-import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { BpmChart } from '@/components/bpm-chart'
 import { BackButton } from '@/components/back-button'
@@ -131,15 +128,6 @@ export default async function SongDetailPage({
                       {session.notes}
                     </p>
                   )}
-                  <div className="mt-4 flex gap-2">
-                    <Link
-                      href={`/sessions/${session.id}/edit`}
-                      className={buttonVariants({ variant: 'outline', size: 'sm' })}
-                    >
-                      Edit
-                    </Link>
-                    <DeleteButton id={session.id} />
-                  </div>
                 </CardContent>
               </Card>
             </li>
