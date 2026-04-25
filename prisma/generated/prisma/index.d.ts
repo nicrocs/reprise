@@ -6923,6 +6923,7 @@ export namespace Prisma {
     songId: string | null
     instructorId: string | null
     goalId: string | null
+    pickup: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6945,6 +6946,7 @@ export namespace Prisma {
     songId: string | null
     instructorId: string | null
     goalId: string | null
+    pickup: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6967,6 +6969,7 @@ export namespace Prisma {
     songId: number
     instructorId: number
     goalId: number
+    pickup: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -7005,6 +7008,7 @@ export namespace Prisma {
     songId?: true
     instructorId?: true
     goalId?: true
+    pickup?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7027,6 +7031,7 @@ export namespace Prisma {
     songId?: true
     instructorId?: true
     goalId?: true
+    pickup?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7049,6 +7054,7 @@ export namespace Prisma {
     songId?: true
     instructorId?: true
     goalId?: true
+    pickup?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7158,6 +7164,7 @@ export namespace Prisma {
     songId: string | null
     instructorId: string | null
     goalId: string | null
+    pickup: string | null
     createdAt: Date
     updatedAt: Date
     _count: SessionCountAggregateOutputType | null
@@ -7199,6 +7206,7 @@ export namespace Prisma {
     songId?: boolean
     instructorId?: boolean
     goalId?: boolean
+    pickup?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     song?: boolean | Session$songArgs<ExtArgs>
@@ -7227,6 +7235,7 @@ export namespace Prisma {
     songId?: boolean
     instructorId?: boolean
     goalId?: boolean
+    pickup?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     song?: boolean | Session$songArgs<ExtArgs>
@@ -7252,6 +7261,7 @@ export namespace Prisma {
     songId?: boolean
     instructorId?: boolean
     goalId?: boolean
+    pickup?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     song?: boolean | Session$songArgs<ExtArgs>
@@ -7277,11 +7287,12 @@ export namespace Prisma {
     songId?: boolean
     instructorId?: boolean
     goalId?: boolean
+    pickup?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "duration" | "topic" | "notes" | "bpm" | "instrument" | "intention" | "intentionMet" | "mood" | "focus" | "isFavorited" | "isPublic" | "songId" | "instructorId" | "goalId" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
+  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "duration" | "topic" | "notes" | "bpm" | "instrument" | "intention" | "intentionMet" | "mood" | "focus" | "isFavorited" | "isPublic" | "songId" | "instructorId" | "goalId" | "pickup" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     song?: boolean | Session$songArgs<ExtArgs>
     tags?: boolean | Session$tagsArgs<ExtArgs>
@@ -7328,6 +7339,7 @@ export namespace Prisma {
       songId: string | null
       instructorId: string | null
       goalId: string | null
+      pickup: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["session"]>
@@ -7775,6 +7787,7 @@ export namespace Prisma {
     readonly songId: FieldRef<"Session", 'String'>
     readonly instructorId: FieldRef<"Session", 'String'>
     readonly goalId: FieldRef<"Session", 'String'>
+    readonly pickup: FieldRef<"Session", 'String'>
     readonly createdAt: FieldRef<"Session", 'DateTime'>
     readonly updatedAt: FieldRef<"Session", 'DateTime'>
   }
@@ -8381,6 +8394,7 @@ export namespace Prisma {
     songId: 'songId',
     instructorId: 'instructorId',
     goalId: 'goalId',
+    pickup: 'pickup',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8803,6 +8817,7 @@ export namespace Prisma {
     songId?: StringNullableFilter<"Session"> | string | null
     instructorId?: StringNullableFilter<"Session"> | string | null
     goalId?: StringNullableFilter<"Session"> | string | null
+    pickup?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
     song?: XOR<SongNullableScalarRelationFilter, SongWhereInput> | null
@@ -8830,6 +8845,7 @@ export namespace Prisma {
     songId?: SortOrderInput | SortOrder
     instructorId?: SortOrderInput | SortOrder
     goalId?: SortOrderInput | SortOrder
+    pickup?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     song?: SongOrderByWithRelationInput
@@ -8860,6 +8876,7 @@ export namespace Prisma {
     songId?: StringNullableFilter<"Session"> | string | null
     instructorId?: StringNullableFilter<"Session"> | string | null
     goalId?: StringNullableFilter<"Session"> | string | null
+    pickup?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
     song?: XOR<SongNullableScalarRelationFilter, SongWhereInput> | null
@@ -8887,6 +8904,7 @@ export namespace Prisma {
     songId?: SortOrderInput | SortOrder
     instructorId?: SortOrderInput | SortOrder
     goalId?: SortOrderInput | SortOrder
+    pickup?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SessionCountOrderByAggregateInput
@@ -8917,6 +8935,7 @@ export namespace Prisma {
     songId?: StringNullableWithAggregatesFilter<"Session"> | string | null
     instructorId?: StringNullableWithAggregatesFilter<"Session"> | string | null
     goalId?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    pickup?: StringNullableWithAggregatesFilter<"Session"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
   }
@@ -9217,6 +9236,7 @@ export namespace Prisma {
     focus?: number | null
     isFavorited?: boolean
     isPublic?: boolean
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     song?: SongCreateNestedOneWithoutSessionsInput
@@ -9244,6 +9264,7 @@ export namespace Prisma {
     songId?: string | null
     instructorId?: string | null
     goalId?: string | null
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
@@ -9265,6 +9286,7 @@ export namespace Prisma {
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     song?: SongUpdateOneWithoutSessionsNestedInput
@@ -9292,6 +9314,7 @@ export namespace Prisma {
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
@@ -9316,6 +9339,7 @@ export namespace Prisma {
     songId?: string | null
     instructorId?: string | null
     goalId?: string | null
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9335,6 +9359,7 @@ export namespace Prisma {
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9357,6 +9382,7 @@ export namespace Prisma {
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9749,6 +9775,7 @@ export namespace Prisma {
     songId?: SortOrder
     instructorId?: SortOrder
     goalId?: SortOrder
+    pickup?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9778,6 +9805,7 @@ export namespace Prisma {
     songId?: SortOrder
     instructorId?: SortOrder
     goalId?: SortOrder
+    pickup?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9800,6 +9828,7 @@ export namespace Prisma {
     songId?: SortOrder
     instructorId?: SortOrder
     goalId?: SortOrder
+    pickup?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10431,6 +10460,7 @@ export namespace Prisma {
     focus?: number | null
     isFavorited?: boolean
     isPublic?: boolean
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagCreateNestedManyWithoutSessionsInput
@@ -10456,6 +10486,7 @@ export namespace Prisma {
     isPublic?: boolean
     instructorId?: string | null
     goalId?: string | null
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
@@ -10509,6 +10540,7 @@ export namespace Prisma {
     songId?: StringNullableFilter<"Session"> | string | null
     instructorId?: StringNullableFilter<"Session"> | string | null
     goalId?: StringNullableFilter<"Session"> | string | null
+    pickup?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
   }
@@ -10528,6 +10560,7 @@ export namespace Prisma {
     focus?: number | null
     isFavorited?: boolean
     isPublic?: boolean
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     song?: SongCreateNestedOneWithoutSessionsInput
@@ -10554,6 +10587,7 @@ export namespace Prisma {
     songId?: string | null
     instructorId?: string | null
     goalId?: string | null
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     recordings?: RecordingUncheckedCreateNestedManyWithoutSessionInput
@@ -10595,6 +10629,7 @@ export namespace Prisma {
     focus?: number | null
     isFavorited?: boolean
     isPublic?: boolean
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     song?: SongCreateNestedOneWithoutSessionsInput
@@ -10621,6 +10656,7 @@ export namespace Prisma {
     songId?: string | null
     instructorId?: string | null
     goalId?: string | null
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
@@ -10657,6 +10693,7 @@ export namespace Prisma {
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     song?: SongUpdateOneWithoutSessionsNestedInput
@@ -10683,6 +10720,7 @@ export namespace Prisma {
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
@@ -10703,6 +10741,7 @@ export namespace Prisma {
     focus?: number | null
     isFavorited?: boolean
     isPublic?: boolean
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     song?: SongCreateNestedOneWithoutSessionsInput
@@ -10728,6 +10767,7 @@ export namespace Prisma {
     isPublic?: boolean
     songId?: string | null
     goalId?: string | null
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
@@ -10775,6 +10815,7 @@ export namespace Prisma {
     focus?: number | null
     isFavorited?: boolean
     isPublic?: boolean
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     song?: SongCreateNestedOneWithoutSessionsInput
@@ -10800,6 +10841,7 @@ export namespace Prisma {
     isPublic?: boolean
     songId?: string | null
     instructorId?: string | null
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
@@ -11086,6 +11128,7 @@ export namespace Prisma {
     isPublic?: boolean
     instructorId?: string | null
     goalId?: string | null
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11105,6 +11148,7 @@ export namespace Prisma {
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUpdateManyWithoutSessionsNestedInput
@@ -11130,6 +11174,7 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
@@ -11153,6 +11198,7 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11172,6 +11218,7 @@ export namespace Prisma {
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     song?: SongUpdateOneWithoutSessionsNestedInput
@@ -11198,6 +11245,7 @@ export namespace Prisma {
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     recordings?: RecordingUncheckedUpdateManyWithoutSessionNestedInput
@@ -11221,6 +11269,7 @@ export namespace Prisma {
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11242,6 +11291,7 @@ export namespace Prisma {
     isPublic?: boolean
     songId?: string | null
     goalId?: string | null
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11261,6 +11311,7 @@ export namespace Prisma {
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     song?: SongUpdateOneWithoutSessionsNestedInput
@@ -11286,6 +11337,7 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
@@ -11309,6 +11361,7 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11330,6 +11383,7 @@ export namespace Prisma {
     isPublic?: boolean
     songId?: string | null
     instructorId?: string | null
+    pickup?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11349,6 +11403,7 @@ export namespace Prisma {
     focus?: NullableIntFieldUpdateOperationsInput | number | null
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     song?: SongUpdateOneWithoutSessionsNestedInput
@@ -11374,6 +11429,7 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
@@ -11397,6 +11453,7 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -1,9 +1,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
-import { Card, CardAction, CardContent, CardHeader, CardDescription, CardTitle, CardFooter } from '@/components/ui/card'
 import { DeleteSessionButton } from '@/components/delete-session-button'
-import { buttonVariants } from '@/components/ui/button'
 
 export default async function SessionsPage() {
   const { userId } = await auth()
@@ -13,68 +11,60 @@ export default async function SessionsPage() {
     const sessions = await prisma.session.findMany({
         where: { userId },
         orderBy: { date: 'desc' },
-        include: { song: true },
+        include: { song: true, tags: true },
     })
 
   return (
-    <main className="max-w-xl mx-auto p-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Practice Sessions</h1>
-        <Link
-          href="/sessions/new"
-          className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
-        >
-          Log Session
-        </Link>
+    <main className="p-2">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-xl font-semibold">Sessions</h1>        
       </div>
       {sessions.length === 0 ? (
         <p className="text-gray-500">No sessions yet. Log your first one!</p>
       ) : (
-        <div className="flex flex-col gap-4">
-          {sessions.map((session) => (
-            <Card key={session.id}>
-              <CardHeader>
+          <div className="grid grid-cols-1 divide-y divide-zinc-200 divide-solid">
+          {sessions.map((session, index) => (
+            <Link href={`/sessions/${session.id}/edit`} key={session.id}>
+            <div className='flex items-start justify-between py-4 gap-4'>
+              <div className='flex items-stretch gap-3 min-w-0'> 
+                <div className={`w-0.75 rounded-full place-self-stretch shrink-0 ${index === 0 ? 'bg-warm' : 'bg-border'}`} />                
+                <div className='min-w-0'>
                 {session.song && (
-                  <CardTitle>
-                    <Link href={`/songs/${session.songId}`}>{session.song.title}</Link>
-                  </CardTitle>
+                  <h2 className='text-sm font-medium'>
+                    {session.song.title}
+                  </h2>
                 )}
-                <span className="text-sm text-muted-foreground">{session.topic}</span>
-                {session.intention && (
-                  <p className="text-base font-medium text-foreground leading-snug mt-1 pl-3 border-l-2 border-primary">
-                    {session.intention}
-                  </p>
-                )}
-              </CardHeader>
-                <CardContent>
-                    <div className="flex gap-4 text-sm">
-                        <span><span className="text-gray-400">Duration</span> {session.duration}m</span>
-                        {session.bpm && <span><span className="text-gray-400">BPM</span> {session.bpm}</span>}
-                        {session.song?.tuning && (
-                            <span>
-                                <span className="text-gray-400">Tuning</span>{' '}
-                                <span className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs">
-                                {session.song.tuning.replace('_', ' ')}
-                                </span>
-                            </span>
-                        )}
+                  <p className="text-sm text-muted-foreground truncate">{session.intention}</p>
+                  {session.tags.length > 0 && (
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {session.tags.map((tag) => (
+                        <span
+                          key={tag.id}
+                          className="rounded-full bg-[#FBF0EB] px-2.5 py-1 text-xs text-foreground"
+                        >
+                          {tag.name}
+                        </span>
+                      ))}
                     </div>
-                    {session.notes && (
-                        <p className="text-sm text-gray-500 mt-2 border-t pt-3">{session.notes}</p>
-                    )}
-                </CardContent>
-                <CardFooter>
-                    <Link
-                        href={`/sessions/${session.id}/edit`}
-                        className={`${buttonVariants({ variant: 'link', size: 'sm' })} mr-2`}
-                    >
-                        Edit
-                    </Link>
-                    <DeleteSessionButton id={session.id} />
-                </CardFooter>
-            </Card>
+                  )}
+                  <div className="flex gap-4 text-sm">
+                      <span><span className="text-gray-400">Duration</span> {session.duration}m</span>
+                      {session.bpm && <span><span className="text-gray-400">BPM</span> {session.bpm}</span>}
+                    
+                  </div>
+                </div>
+              </div>
+
+
+                  
+
+                <DeleteSessionButton id={session.id} />                    
+
+            </div>
+            </Link>
           ))}
         </div>
+
       )}
     </main>
   )

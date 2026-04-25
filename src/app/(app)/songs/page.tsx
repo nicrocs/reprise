@@ -1,9 +1,9 @@
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
-import { buttonVariants } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { TUNING_LABELS } from '@/lib/constants'
+
+const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
 
 export default async function SongsPage() {
   const { userId } = await auth()
@@ -25,62 +25,49 @@ export default async function SongsPage() {
     return bDate.getTime() - aDate.getTime()
   })
 
-  return (
-    <main className="max-w-xl mx-auto p-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Songs</h1>
-      </div>
-      {sorted.length === 0 ? (
-        <p className="text-gray-500">No songs yet. Log a session with a song to get started.</p>
-      ) : (
-        <ul className="flex flex-col gap-4">
-          {sorted.map((song) => {
-            const lastSession = song.sessions[0]
-            return (
-              <li key={song.id}>
-                <Link href={`/songs/${song.id}`}>
-                  <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                    <CardContent className="pt-6">
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <p className="font-semibold text-lg">{song.title}</p>
-                          <div className="flex gap-2 mt-1 flex-wrap">
-                            <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
-                              {TUNING_LABELS[song.tuning]}
-                            </span>
-                            {song.key && (
-                              <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
-                                {song.key.replace('_', ' ')}
-                              </span>
-                            )}
-                            {song.capo && (
-                              <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
-                                Capo {song.capo}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          {lastSession ? (
-                            <>
-                              <p className="text-sm text-gray-400">Last practiced</p>
-                              <p className="text-sm text-gray-600">
-                                {new Date(lastSession.date).toLocaleDateString()}
-                              </p>
-                            </>
-                          ) : (
-                            <p className="text-sm text-gray-400">No sessions yet</p>
-                          )}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
-      )}
-    </main>
-  )
+return (
+  <main className="p-2">
+    <div className="flex justify-between items-center mb-4">
+      <h1 className="text-xl font-semibold">Songs</h1>
+    </div>
+    {sorted.length === 0 ? (
+      <p className="text-muted-foreground">No songs yet. Log a session with a song to get started.</p>
+    ) : (
+      <ul className="divide-y">
+        {sorted.map((song, index) => {
+          const lastSession = song.sessions[0]
+          const isStale = lastSession && lastSession.date < thirtyDaysAgo
+          return (
+            <li key={song.id}>
+              <Link href={`/songs/${song.id}`} className="flex items-center justify-between py-4 hover:bg-zinc-50 transition-colors gap-4">
+                <div className="flex items-stretch gap-3 min-w-0">
+                  <div className={`w-0.75 self-stretch rounded-full shrink-0 ${index === 0 ? 'bg-[#B85C2A]' : 'bg-border'}`} />
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium">{song.title}</p>
+                    <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                      <span className="text-xs border border-border rounded px-1.5 py-0.5 text-muted-foreground">
+                        {TUNING_LABELS[song.tuning]}
+                      </span>
+                      {song.key && <span className="text-sm text-muted-foreground">{song.key.replace('_', ' ')}</span>}
+                      {song.capo && <span className="text-sm text-muted-foreground">capo {song.capo}</span>}
+                    </div>
+                  </div>
+                </div>
+                <div className="text-right shrink-0">
+                  {lastSession ? (
+                    <p className={`text-sm ${isStale ? 'text-amber-600' : 'text-muted-foreground'}`}>
+                      {lastSession.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    </p>
+                  ) : (
+                    <p className="text-sm text-muted-foreground">No sessions yet</p>
+                  )}
+                </div>
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
+    )}
+  </main>
+)
 }

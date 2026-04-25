@@ -108,13 +108,14 @@ model Session {
   isFavorited  Boolean     @default(false)
   isPublic     Boolean     @default(false)
   songId       String?
-  song         Song?       @relation(fields: [songId], references: [id])
+  song         Song?       @relation(fields: [songId], references: [id], onDelete: SetNull)
   tags         Tag[]
   recordings   Recording[]
   instructorId String?
   instructor   Instructor? @relation(fields: [instructorId], references: [id])
   goalId       String?
-  goal         Goal?       @relation(fields: [goalId], references: [id])
+  goal         Goal?       @relation(fields: [goalId], references: [id], onDelete: SetNull)
+  pickup       String? // where to pick up next time
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
 }

@@ -1,15 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { getGoalById, createGoals } from '@/app/actions/goals'
+import { createGoals } from '@/app/actions/goals'
 
 
 export default function NewGoalsPage() {
-  const router = useRouter()
   const [saving, setSaving] = useState<boolean>(false)
   const [rows, setRows] = useState<{ id: string, name: string }[]>([{id: "1", name: ""}])
   const [nextId, setNextId] = useState<string>("2")

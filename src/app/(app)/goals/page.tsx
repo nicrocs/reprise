@@ -1,8 +1,9 @@
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
-import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+
+const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
 
 export default async function GoalsPage() {
   const { userId } = await auth()
@@ -13,7 +14,6 @@ export default async function GoalsPage() {
     include: {
       sessions: {
         orderBy: { date: 'desc' },
-        take: 1,
       },
     },
   })
@@ -24,45 +24,44 @@ export default async function GoalsPage() {
     return bDate.getTime() - aDate.getTime()
   })
 
+
   return (
-    <main className="max-w-xl mx-auto p-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Goals</h1> <Button asChild>
+    <main className="p-2">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-xl font-semibold">Goals</h1> 
+        <Button asChild>
           <Link href="/goals/new">
-  Add Goals
-</Link>
-          </Button>
+            Add Goals
+          </Link>
+        </Button>
       </div>
       {sorted.length === 0 ? (
         <p className="text-gray-500">No goals yet. Log a session with a goal to get started.</p>
       ) : (
-        <ul className="flex flex-col gap-4">
-          {sorted.map((goal) => {
+        <ul className="grid grid-cols-1 divide-y divide-zinc-200 divide-solid">
+          {sorted.map((goal, index) => {
             const lastSession = goal.sessions[0]
+              const isStale = lastSession &&
+                lastSession.date < thirtyDaysAgo
             return (
               <li key={goal.id}>
-                <Link href={`/goals/${goal.id}`}>
-                  <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                    <CardContent className="pt-6">
-                      <div className="flex justify-between items-start">
-                        <div>
+                <Link href={`/goals/${goal.id}`} className="flex items-center justify-between py-4 hover:bg-zinc-50 transition-colors gap-4">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className={`w-0.75 place-self-stretch rounded-full shrink-0 ${index === 0 ? 'bg-warm' : 'bg-border'}`} />
+                        <div className="min-w-0">
                           <p className="font-semibold text-lg">{goal.name}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {goal.sessions.length} sessions
+                              {lastSession && (
+                                <span className={isStale ? 'text-amber-600' : ''}>
+                                  {' · last practiced '}
+                                  {new Date(lastSession.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                </span>
+                              )}
+                            </p>
                         </div>
-                        <div className="text-right">
-                          {lastSession ? (
-                            <>
-                              <p className="text-sm text-gray-400">Last practiced</p>
-                              <p className="text-sm text-gray-600">
-                                {new Date(lastSession.date).toLocaleDateString()}
-                              </p>
-                            </>
-                          ) : (
-                            <p className="text-sm text-gray-400">No sessions yet</p>
-                          )}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+
+                    </div>
                 </Link>
               </li>
             )

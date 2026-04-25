@@ -35,3 +35,16 @@ export function clearActiveSession(): void {
 export function hasActiveSession(): boolean {
   return localStorage.getItem(STORAGE_KEY) !== null
 }
+
+export function savePrefill(data: Partial<ActiveSession>) {
+  localStorage.setItem(`${STORAGE_KEY}:prefill`, JSON.stringify(data))
+}
+
+export function getPrefill(): Partial<ActiveSession> | null {
+  const raw = localStorage.getItem(`${STORAGE_KEY}:prefill`)
+  return raw ? JSON.parse(raw) : null
+}
+
+export function clearPrefill() {
+  localStorage.removeItem(`${STORAGE_KEY}:prefill`)
+}

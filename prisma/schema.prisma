@@ -115,6 +115,7 @@ model Session {
   instructor   Instructor? @relation(fields: [instructorId], references: [id])
   goalId    String?
   goal      Goal?     @relation(fields: [goalId], references: [id], onDelete: SetNull)
+  pickup      String?   // where to pick up next time
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

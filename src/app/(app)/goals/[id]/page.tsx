@@ -2,8 +2,8 @@
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
-import { Card, CardContent } from '@/components/ui/card'
 import { GoalDetails } from '@/components/goal-detail'
+import { formatDate } from '@/lib/utils'
 
 export default async function GoalDetailPage({
   params,
@@ -34,73 +34,54 @@ export default async function GoalDetailPage({
     const minutes = totalMinutes % 60
 
   return (
-    <main className="max-w-xl mx-auto p-8">
-
-      {/* Header */}
-      <div className="mb-6">
-        <GoalDetails goal={goal} />
-        <div className="flex gap-2 mt-4">
-            <p>
-                {goal.sessions.length} {goal.sessions.length === 1 ? 'session' : 'sessions'}
-            </p>
-            {totalMinutes > 0 && (
-                <>
-                <span>·</span>
-                <p>
-                    {hours > 0 && `${hours}h `}{minutes > 0 && `${minutes}m`} total practice time
-                </p>
-                </>
-            )}
-            {goal.sessions.length > 0 && (
-                <>
-                <span>·</span>
-                <p>Last practiced {new Date(goal.sessions[0].date).toLocaleDateString()}</p>
-                </>
-            )}
-        </div>
-      </div>
-
-      {/* Sessions */}
-      <h2 className="text-lg font-semibold mb-3">Sessions</h2>
-      {goal.sessions.length === 0 ? (
-        <p className="text-gray-500">No sessions logged for this goal yet.</p>
-      ) : (
-        <ul className="flex flex-col gap-4">
-          {goal.sessions.map((session) => (
-            <li key={session.id}>
-              <Card>
-                <CardContent className="pt-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <p className="text-sm text-gray-500">
-                      {session.song?.title}
-                    </p>
-                    <p className="text-sm text-gray-400">
-                      {new Date(session.date).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <div className="flex gap-4 text-sm">
-                    <span>
-                      <span className="text-gray-400">Duration</span>{' '}
-                      {session.duration}m
-                    </span>
-                    {session.bpm && (
-                      <span>
-                        <span className="text-gray-400">BPM</span>{' '}
-                        {session.bpm}
-                      </span>
-                    )}
-                  </div>
-                  {session.notes && (
-                    <p className="text-sm text-gray-500 mt-3 border-t pt-3">
-                      {session.notes}
-                    </p>
-                  )}
-                </CardContent>
-              </Card>
-            </li>
-          ))}
-        </ul>
+<main className="p-8">
+  {/* header rendered by GoalDetails */}
+  <div className="mb-6">
+    <GoalDetails goal={goal} />
+    <p className="text-sm text-muted-foreground mt-2 flex gap-2">
+      <span>{goal.sessions.length} {goal.sessions.length === 1 ? 'session' : 'sessions'}</span>
+      {totalMinutes > 0 && (
+        <>
+          <span>·</span>
+          <span>{hours > 0 && `${hours}h `}{minutes > 0 && `${minutes}m`} total</span>
+        </>
       )}
-    </main>
+      {goal.sessions.length > 0 && (
+        <>
+          <span>·</span>
+          <span>Last practiced {formatDate(goal.sessions[0].date)}</span>
+        </>
+      )}
+    </p>
+  </div>
+
+  <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Sessions</p>
+  {goal.sessions.length === 0 ? (
+    <p className="text-muted-foreground text-sm">No sessions logged for this goal yet.</p>
+  ) : (
+    <ul className="divide-y">
+      {goal.sessions.map((session, index) => (
+        <li key={session.id}>
+          <div className="flex items-start gap-3 py-4">
+            <div className={`w-[3px] self-stretch rounded-full shrink-0 ${index === 0 ? 'bg-[#B85C2A]' : 'bg-border'}`} />
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center justify-between gap-4">
+                <p className="text-sm font-medium">{session.song?.title ?? 'No song'}</p>
+                <p className="text-sm text-muted-foreground shrink-0">{formatDate(session.date)}</p>
+              </div>
+              <div className="flex gap-4 text-sm mt-0.5">
+                <span><span className="text-muted-foreground">Duration</span> {session.duration}m</span>
+                {session.bpm && <span><span className="text-muted-foreground">BPM</span> {session.bpm}</span>}
+              </div>
+              {session.notes && (
+                <p className="text-sm text-muted-foreground mt-2">{session.notes}</p>
+              )}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  )}
+</main>
   )
 }

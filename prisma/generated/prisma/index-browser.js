@@ -176,6 +176,7 @@ exports.Prisma.SessionScalarFieldEnum = {
   songId: 'songId',
   instructorId: 'instructorId',
   goalId: 'goalId',
+  pickup: 'pickup',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

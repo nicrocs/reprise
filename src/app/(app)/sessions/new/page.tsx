@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
@@ -14,12 +14,45 @@ import { getSongById } from '@/app/actions/songs'
 import { getGoalById, createGoal } from '@/app/actions/goals'
 import { TUNING_LABELS, KEY_LABELS } from '@/lib/constants'
 import { SongInfo } from '@/components/song-details'
+import { ActiveSession, clearPrefill } from '@/lib/active-session'
 
 export default function NewSessionPage() {
   const router = useRouter()
-  const [intention, setIntention] = useState('')
-  const [song, setSong] = useState<SongInfo | null>(null)
-  const [goal, setGoal] = useState<{ id: string, name: string } | null>(null)
+const [song, setSong] = useState<SongInfo | null>(() => {
+  if (typeof window === 'undefined') return null
+  const raw = localStorage.getItem('reprise_active_session:prefill')
+  console.log({ raw })
+  if (!raw) return null
+  const prefill = JSON.parse(raw) as Partial<ActiveSession>
+  console.log({prefill})
+  if (!prefill.songId || !prefill.songTitle) return null
+  return {
+    id: prefill.songId,
+    title: prefill.songTitle,
+    tuning: prefill.tuning ?? 'STANDARD',
+    key: prefill.key ?? null,
+  }
+})
+
+console.log({ song })
+
+const [intention, setIntention] = useState(() => {
+  if (typeof window === 'undefined') return ''
+  const raw = localStorage.getItem('reprise_active_session:prefill')
+  if (!raw) return ''
+  const prefill = JSON.parse(raw) as Partial<ActiveSession>
+  return prefill.intention ?? ''
+})
+
+const [goal, setGoal] = useState<{ id: string, name: string } | null>(() => {
+  if (typeof window === 'undefined') return null
+  const raw = localStorage.getItem('reprise_active_session:prefill')
+  if (!raw) return null
+  const prefill = JSON.parse(raw) as Partial<ActiveSession>
+  if (!prefill.goalId || !prefill.goalName) return null
+  return { id: prefill.goalId, name: prefill.goalName }
+})
+
   const [editing, setEditing] = useState(false)
   const [isCreatingGoal, setIsCreatingGoal] = useState(false)
   const [newGoalName, setNewGoalName] = useState('')
@@ -79,6 +112,10 @@ export default function NewSessionPage() {
     setNewGoalName('')
   }
 
+  useEffect(() => {
+    clearPrefill()
+  }, [])
+
   return (
     <main className="max-w-xl mx-auto p-8 flex flex-col gap-8">
       <div>
@@ -91,7 +128,7 @@ export default function NewSessionPage() {
       {/* Song */}
       <div className="space-y-2">
         <Label className="text-base font-semibold">Song</Label>
-        <SongTypeahead onSelect={handleSongSelect} />
+        <SongTypeahead onSelect={handleSongSelect} defaultValue={song?.title} />
 
         {/* Tuning + key — read only with edit toggle */}
         {song && !editing && song.tuning && (

@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { updateGoal } from '@/app/actions/goals'
 import { BackButton } from '@/components/back-button'
@@ -35,13 +34,22 @@ export function GoalDetails({ goal }: Props) {
 
 
 
-  return (
-        <div className="flex justify-between items-start">
-          {isEditing ? <Input value={name} onChange={(e) => setName(e.target.value)} /> : <h1 className="text-2xl font-bold">{name}</h1>}
-          <BackButton />
-          {isEditing ? <Button size="sm" variant="default" onClick={handleSave}>Save</Button> :
-          <Button size="sm" variant="secondary" onClick={() => setIsEditing(true)}>Edit</Button>}
-          <DeleteGoalButton id={goal.id} />
-        </div>
-  )
+return (
+  <div>
+    <BackButton />
+    <div className="flex items-center justify-between mt-1">
+      {isEditing 
+        ? <Input value={name} onChange={(e) => setName(e.target.value)} className="text-xl font-semibold" />
+        : <h1 className="text-xl font-semibold">{name}</h1>
+      }
+      <div className="flex items-center gap-2">
+        {isEditing 
+          ? <Button size="sm" variant="warm" onClick={handleSave}>Save</Button>
+          : <Button size="sm" variant="ghost" onClick={() => setIsEditing(true)}>Edit</Button>
+        }
+        <DeleteGoalButton id={goal.id} />
+      </div>
+    </div>
+  </div>
+)
 }

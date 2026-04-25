@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { ConfirmDeleteDialog } from '@/components/confirm-delete-dialog'
 import { deleteSession } from '@/app/actions/sessions'
+import { Trash2 } from 'lucide-react'
 
 export function DeleteSessionButton({ id }: { id: string }) {
   const [open, setOpen] = useState(false)
@@ -15,11 +16,12 @@ export function DeleteSessionButton({ id }: { id: string }) {
   return (
     <>
       <Button
-        variant="destructive"
+        variant="ghost"
         size="sm"
         onClick={() => setOpen(true)}
+        className="text-muted-foreground hover:text-destructive hover:bg-transparent shrink-0"
       >
-        Delete
+        <Trash2 size={16} />
       </Button>
       <ConfirmDeleteDialog
         open={open}

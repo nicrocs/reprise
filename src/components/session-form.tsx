@@ -1,15 +1,19 @@
+"use client"
+
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { SubmitButton } from '@/components/submit-button'
-import { Separator } from '@/components/ui/separator'
 import { SongTypeahead } from '@/components/song-typeahead'
+import { TagsTypeahead } from '@/components/tags-typeahead'
 // import { IntentionMetRadioGroup } from './intention-met-radio-group'
 import { toLocalDateTimeString } from '@/lib/utils'
+import { DeleteSessionButton } from './delete-session-button'
 
 type SessionFormProps = {
   action: (formData: FormData) => Promise<void>
   defaultValues?: {
+    id?: string
     date?: string
     duration?: number
     topic?: string
@@ -18,51 +22,31 @@ type SessionFormProps = {
     notes?: string | null
     intention?: string | null
     intentionMet?: boolean | null
+    tags?: { id: string; name: string }[]
   }
   submitLabel?: string
 }
 
 export function SessionForm({ action, defaultValues, submitLabel }: SessionFormProps) {
-    
   return (
     <form action={action} className="flex flex-col gap-4">
-        {defaultValues?.intention && (
-        <div className="rounded-lg border p-4 space-y-3">
-            <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
-            Your intention
-            </p>
-            <p
-            className="text-base font-medium text-foreground leading-snug"
-            style={{ borderLeft: '2px solid var(--primary)', paddingLeft: '0.75rem' }}
-            >
-            {defaultValues.intention}
-            </p>
-            <Separator />
-            {/* <IntentionMetRadioGroup defaultValue={defaultValues.intentionMet} /> */}
-        </div>
-        )}
+      <div className="bg-[#FBF0EB]/40 rounded-lg p-5 flex flex-col gap-5">
         <div className="space-y-2">
-        <Label htmlFor="intention" className="text-base font-semibold">
-            What do you want to accomplish in this session?
-        </Label>
-        <p className="text-sm text-muted-foreground">
-            {'Be specific. "nail the bridge transition at 120bpm" beats "practice song."'}
-        </p>
-        <Textarea
+          <Label className="text-xs uppercase tracking-widest text-muted-foreground">
+            Intention
+          </Label>
+          <Textarea
             id="intention"
             name="intention"
             defaultValue={defaultValues?.intention ?? ""}
-            placeholder="e.g. Work through the first 8 bars of the solo slowly, hands separately"
-            className="min-h-[100px] text-base"
             rows={3}
-        />
+          />
         </div>
+        {/* intentionMet and pickup would go here if the form supports them */}
+      </div>
 
-        <Separator />
-
-{/* rest of the form fields below */}
       <div>
-        <Label htmlFor="date">Date</Label>
+        <Label htmlFor="date" className='text-xs uppercase tracking-widest text-muted-foreground mb-2'>Date</Label>
         <Input
           type="datetime-local"
           id="date"
@@ -74,7 +58,7 @@ export function SessionForm({ action, defaultValues, submitLabel }: SessionFormP
         />
       </div>
       <div>
-        <Label htmlFor="duration">Duration (minutes)</Label>
+        <Label htmlFor="duration" className='text-xs uppercase tracking-widest text-muted-foreground mb-2'>Duration (minutes)</Label>
         <Input
           type="number"
           id="duration"
@@ -85,21 +69,11 @@ export function SessionForm({ action, defaultValues, submitLabel }: SessionFormP
         />
       </div>
       <div>
-        <Label htmlFor="topic">What did you practice?</Label>
-        <Input
-          type="text"
-          id="topic"
-          name="topic"
-          required
-          defaultValue={defaultValues?.topic}
-        />
-      </div>
-      <div>
-        <Label>Song</Label>
+        <Label className='text-xs uppercase tracking-widest text-muted-foreground mb-2'>Song</Label>
         <SongTypeahead defaultValue={defaultValues?.songTitle} />
       </div>
       <div>
-        <Label htmlFor="bpm">BPM (optional)</Label>
+        <Label htmlFor="bpm" className='text-xs uppercase tracking-widest text-muted-foreground mb-2'>BPM (optional)</Label>
         <Input
           type="number"
           id="bpm"
@@ -109,7 +83,7 @@ export function SessionForm({ action, defaultValues, submitLabel }: SessionFormP
         />
       </div>
       <div>
-        <Label htmlFor="notes">Notes</Label>
+        <Label htmlFor="notes" className='text-xs uppercase tracking-widest text-muted-foreground mb-2'>Notes</Label>
         <Textarea
           id="notes"
           name="notes"
@@ -117,7 +91,14 @@ export function SessionForm({ action, defaultValues, submitLabel }: SessionFormP
           defaultValue={defaultValues?.notes ?? undefined}
         />
       </div>
-      <SubmitButton label={submitLabel} />
+      <div>
+        <Label className='text-xs uppercase tracking-widest text-muted-foreground mb-2'>Tags</Label>
+        <TagsTypeahead initialTags={defaultValues?.tags} />
+      </div>
+      <div className="flex items-center gap-3 mt-6">
+        <SubmitButton label={submitLabel} />
+        {defaultValues?.id && <DeleteSessionButton id={defaultValues?.id} />}
+      </div>
     </form>
   )
 }

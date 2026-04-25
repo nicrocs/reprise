@@ -39,13 +39,6 @@ useEffect(() => {
     onSelect?.(goal.id, goal.name)
   }
 
-  function handleClear() {
-    setSelected(null)
-    setQuery('')
-    setSuggestions([])
-    onSelect?.('', '')
-  }
-
   return (
     <>
       {/* Hidden input for FormData compatibility */}

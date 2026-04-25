@@ -5,6 +5,32 @@ import { prisma } from '@/lib/prisma'
 import { redirect } from 'next/navigation'
 import { Tuning } from '../../../prisma/generated/prisma'
 
+async function upsertTags(userId: string, tagsRaw: string | null) {
+  if (!tagsRaw) return []
+
+  const tagNames = Array.from(
+    new Set(
+      (JSON.parse(tagsRaw) as string[])
+        .map((tagName) => tagName.trim())
+        .filter(Boolean)
+    )
+  )
+
+  if (tagNames.length === 0) return []
+
+  const tags = await Promise.all(
+    tagNames.map((tagName) =>
+      prisma.tag.upsert({
+        where: { userId_name: { userId, name: tagName } },
+        update: {},
+        create: { userId, name: tagName },
+      })
+    )
+  )
+
+  return tags.map((tag) => tag.id)
+}
+
 export async function createSession(formData: FormData) {
   const { userId } = await auth()
   if (!userId) throw new Error('Unauthorized')
@@ -18,6 +44,10 @@ export async function createSession(formData: FormData) {
   const songTitle = formData.get('songTitle') as string
   const songTuning = formData.get('songTuning') as string || 'STANDARD'
   const intention = formData.get('intention') as string
+  const tagsRaw = formData.get('tags') as string
+  const pickup = formData.get('pickup') as string
+  const goalId = formData.get('goalId') as string
+  const tagIds = await upsertTags(userId, tagsRaw)
 
   let songId = null
 
@@ -43,7 +73,12 @@ export async function createSession(formData: FormData) {
       date,
       bpm: bpm ?? undefined,
       songId,
-      intention
+      intention,
+      tags: {
+        connect: tagIds.map(id => ({ id }))
+      },
+      goalId: goalId || undefined,
+      pickup
     },
   })
 
@@ -61,9 +96,13 @@ export async function updateSession(id: string, formData: FormData) {
   const bpm = formData.get('bpm') ? parseInt(formData.get('bpm') as string) : null
   const songTitle = formData.get('songTitle') as string
   const songTuning = formData.get('songTuning') as string || 'STANDARD'
-    const intention = formData.get('intention') as string
-    const intentionMetRaw = formData.get('intentionMet')
-    const intentionMet = intentionMetRaw === 'true' ? true : intentionMetRaw === 'false' ? false : null
+  const intention = formData.get('intention') as string
+  const intentionMetRaw = formData.get('intentionMet')
+  const intentionMet = intentionMetRaw === 'true' ? true : intentionMetRaw === 'false' ? false : null
+  const tagsRaw = formData.get('tags') as string
+  const pickup = formData.get('pickup') as string
+  const goalId = formData.get('goalId') as string
+  const tagIds = await upsertTags(userId, tagsRaw)
 
   let songId = null
   if (songTitle) {
@@ -85,7 +124,12 @@ export async function updateSession(id: string, formData: FormData) {
       bpm: bpm ?? undefined,
       songId,
       intention,
-      intentionMet
+      intentionMet,
+      tags: {
+        set: tagIds.map(id => ({ id }))
+      },
+      goalId: goalId || null,
+      pickup
     },
   })
 

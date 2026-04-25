@@ -45,12 +45,17 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+  /* Warm terracotta palette for sessions */
+  --color-warm: var(--warm);
+  --color-warm-foreground: var(--warm-foreground);
+  --color-warm-muted: var(--warm-muted);
+  --color-warm-muted-foreground: var(--warm-muted-foreground);
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
+  --background: oklch(96.74% 0.003 84.56);
+  --foreground: oklch(21.78% 0.000 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);
   --popover: oklch(1 0 0);
@@ -79,7 +84,12 @@
   --sidebar-accent: oklch(0.967 0.001 286.375);
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.705 0.015 286.067);
+  --sidebar-ring: oklch(0.705 0.015 286.067);  
+  /* Warm accent - matches design's #B85C2A */
+  --warm: oklch(0.52 0.18 35);
+  --warm-foreground: oklch(0.98 0 0);
+  --warm-muted: oklch(0.95 0.03 35);
+  --warm-muted-foreground: oklch(0.35 0.08 35);
 }
 
 .dark {

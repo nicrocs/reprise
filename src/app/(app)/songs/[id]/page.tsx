@@ -2,9 +2,9 @@ import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import { TUNING_LABELS } from '@/lib/constants'
-import { Card, CardContent } from '@/components/ui/card'
 import { BpmChart } from '@/components/bpm-chart'
 import { BackButton } from '@/components/back-button'
+import { formatDate } from '@/lib/utils'
 
 export default async function SongDetailPage({
   params,
@@ -20,6 +20,9 @@ export default async function SongDetailPage({
     include: {
       sessions: {
         orderBy: { date: 'desc' },
+        include: { 
+            goal: true
+        }
       },
     },
   })
@@ -33,25 +36,21 @@ export default async function SongDetailPage({
   const sessionsWithBpm = song.sessions.filter((s) => s.bpm !== null)
 
   return (
-    <main className="max-w-xl mx-auto p-8">
-
-      {/* Header */}
+    <main className="p-2">
       <div className="mb-6">
-        <div className="flex justify-between items-start">
-          <h1 className="text-2xl font-bold">{song.title}</h1>
-          <BackButton />
-        </div>
+        <BackButton />
+        <h1 className="text-xl font-semibold">{song.title}</h1>
         <div className="flex gap-2 mt-2 flex-wrap">
-          <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+          <span className="text-xs border border-border rounded px-1.5 py-0.5 text-muted-foreground">
             {TUNING_LABELS[song.tuning]}
           </span>
           {song.key && (
-            <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+            <span className="text-xs border border-border rounded px-1.5 py-0.5 text-muted-foreground">
               {song.key.replace(/_/g, ' ')}
             </span>
           )}
           {song.capo && (
-            <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+            <span className="text-xs border border-border rounded px-1.5 py-0.5 text-muted-foreground">
               Capo {song.capo}
             </span>
           )}
@@ -71,12 +70,11 @@ export default async function SongDetailPage({
             {song.sessions.length > 0 && (
                 <>
                 <span>·</span>
-                <p>Last practiced {new Date(song.sessions[0].date).toLocaleDateString()}</p>
+                <p>Last practiced {formatDate(song.sessions[0].date)}</p>
                 </>
             )}
         </div>
       </div>
-
       {/* BPM Chart */}
       {sessionsWithBpm.length > 1 && (
         <div className="mb-8">
@@ -92,44 +90,30 @@ export default async function SongDetailPage({
           />
         </div>
       )}
-
-      {/* Sessions */}
-      <h2 className="text-lg font-semibold mb-3">Sessions</h2>
+    
+      <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Sessions</p>
       {song.sessions.length === 0 ? (
-        <p className="text-gray-500">No sessions logged for this song yet.</p>
+        <p className="text-muted-foreground text-sm">No sessions logged for this song yet.</p>
       ) : (
-        <ul className="flex flex-col gap-4">
-          {song.sessions.map((session) => (
+        <ul className="divide-y">
+          {song.sessions.map((session, index) => (
             <li key={session.id}>
-              <Card>
-                <CardContent className="pt-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <p className="text-sm text-gray-500">
-                      {session.topic}
-                    </p>
-                    <p className="text-sm text-gray-400">
-                      {new Date(session.date).toLocaleDateString()}
-                    </p>
+              <div className="flex items-start gap-3 py-4">
+                <div className={`w-0.75 self-stretch rounded-full shrink-0 ${index === 0 ? 'bg-[#B85C2A]' : 'bg-border'}`} />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-4">
+                    <p className="text-sm font-medium">{session.goal?.name ?? 'No goal'}</p>
+                    <p className="text-sm text-muted-foreground shrink-0">{formatDate(session.date)}</p>
                   </div>
-                  <div className="flex gap-4 text-sm">
-                    <span>
-                      <span className="text-gray-400">Duration</span>{' '}
-                      {session.duration}m
-                    </span>
-                    {session.bpm && (
-                      <span>
-                        <span className="text-gray-400">BPM</span>{' '}
-                        {session.bpm}
-                      </span>
-                    )}
+                  <div className="flex gap-4 text-sm mt-0.5">
+                    <span><span className="text-muted-foreground">Duration</span> {session.duration}m</span>
+                    {session.bpm && <span><span className="text-muted-foreground">BPM</span> {session.bpm}</span>}
                   </div>
                   {session.notes && (
-                    <p className="text-sm text-gray-500 mt-3 border-t pt-3">
-                      {session.notes}
-                    </p>
+                    <p className="text-sm text-muted-foreground mt-2">{session.notes}</p>
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </li>
           ))}
         </ul>

@@ -8,16 +8,13 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { getActiveSession, clearActiveSession, type ActiveSession } from '@/lib/active-session'
-import { createGoal } from '@/app/actions/goals'
 import { IntentionMetRadioGroup } from '@/components/intention-met-radio-group'
 import { createSession } from '@/app/actions/sessions'
-import { GoalTypeahead } from '@/components/goal-typeahead'
-
-const PRACTICE_DURATION_MS = 25 * 60 * 1000
+import { TagsTypeahead } from '@/components/tags-typeahead'
 
 export default function FinishSessionPage() {
   const router = useRouter()
-  const [session, setSession] = useState<ActiveSession | null>(() => {
+  const [session] = useState<ActiveSession | null>(() => {
     if (typeof window === 'undefined') return null
     return getActiveSession()
   })
@@ -31,46 +28,17 @@ export default function FinishSessionPage() {
     return Math.max(1, Math.round((Date.now() - active.startedAt) / 60000))
   })
   const [bpm, setBpm] = useState<number>(80)
-//   const [type, setType] = useState(SESSION_TYPES[0].value)
   const [saving, setSaving] = useState(false)
+  const [tags, setTags] = useState<{ id: string; name: string }[]>([])
 
-  const [goal, setGoal] = useState<{ id: string | null; name: string } | null>(() => {
-    // initialize from session.goalId / session.goalName
+  const [goal] = useState<{ id: string | null; name: string } | null>(() => {
     if (!session?.goalId || !session?.goalName) return null
     return { id: session.goalId, name: session.goalName }
   })
-  const [isEditingGoal, setIsEditingGoal] = useState(false)
-  const [isCreatingGoal, setIsCreatingGoal] = useState(false)
-  const [editSelection, setEditSelection] = useState<{ id: string; name: string } | null>(null)
-  const [newGoalName, setNewGoalName] = useState('')
 
   useEffect(() => {
     if (!session) router.replace('/sessions/new')
   }, [session, router])
-
-  function handleSaveEdit() {
-  if (!editSelection) return
-  setGoal(editSelection)
-  setIsEditingGoal(false)
-  setEditSelection(null)
-}
-
-function handleCancelEdit() {
-  setIsEditingGoal(false)
-  setEditSelection(null)
-}
-
-async function handleCreateGoal() {
-  const created = await createGoal(newGoalName)
-  setGoal({ id: created.id, name: created.name })
-  setIsCreatingGoal(false)
-  setNewGoalName('')
-}
-
-function handleCancelCreate() {
-  setIsCreatingGoal(false)
-  setNewGoalName('')
-}
 
   async function handleSave() {
     if (!session) return
@@ -92,7 +60,8 @@ function handleCancelCreate() {
 
     if (session.songId) formData.set('songId', session.songId)
     if (session.songTitle) formData.set('songTitle', session.songTitle)
-    if (session.goalId) formData.set('goalId', session.goalId)
+    if (goal?.id) formData.set('goalId', goal.id)
+    formData.set('tags', JSON.stringify(tags.map((tag) => tag.name)))
 
     await createSession(formData)
     clearActiveSession()
@@ -102,7 +71,7 @@ function handleCancelCreate() {
   if (!session) return null
 
   return (
-    <main className="max-w-xl mx-auto p-8 flex flex-col gap-6">
+    <main className="flex flex-col gap-6">
       <div>
         <h1 className="text-2xl font-bold">Session Complete</h1>
         {session.songTitle && (
@@ -110,74 +79,25 @@ function handleCancelCreate() {
         )}
       </div>
 
-      {!isEditingGoal && !isCreatingGoal && (
-  <div className="space-y-2">
-    <Label className="text-base font-semibold">Goal</Label>
-    <div className="flex items-center justify-between">
-      <p className="text-sm">
-        {goal?.name ?? 'No goal set'}
-      </p>
-      <div className="flex gap-2">
-        <Button variant="outline" size="sm" onClick={() => setIsEditingGoal(true)}>
-          Edit
-        </Button>
-        <Button variant="outline" size="sm" onClick={() => setIsCreatingGoal(true)}>
-          New Goal
-        </Button>
+      <div className="flex flex-col gap-1">
+        <Label className="text-xs uppercase tracking-widest text-muted-foreground">Goal</Label>
+        <p className="text-sm">{goal?.name ?? 'No goal set'}</p>
       </div>
-    </div>
-  </div>
-)}
 
-{isEditingGoal && (
-  <div className="space-y-2">
-    <Label className="text-base font-semibold">Goal</Label>
-    <GoalTypeahead
-      initialGoal={goal ?? undefined}
-      onSelect={(id, name) => {
-        // update local state
-        setEditSelection({ id, name })
-      }}
-    />
-    <div className="flex gap-2">
-      <Button size="sm" onClick={handleSaveEdit}>Save</Button>
-      <Button size="sm" variant="ghost" onClick={handleCancelEdit}>Cancel</Button>
-    </div>
-  </div>
-)}
-
-{isCreatingGoal && (
-  <div className="space-y-2">
-    <Label className="text-base font-semibold">New Goal</Label>
-    <Input
-      value={newGoalName}
-      onChange={e => setNewGoalName(e.target.value)}
-      placeholder="e.g. Improvisation"
-    />
-    <div className="flex gap-2">
-      <Button size="sm" onClick={handleCreateGoal} disabled={!newGoalName.trim()}>
-        Save
-      </Button>
-      <Button size="sm" variant="ghost" onClick={() => setIsCreatingGoal(false)}>
-        Cancel
-      </Button>
-    </div>
-  </div>
-)}
-
-      <div className="rounded-lg border p-4 space-y-3">
-        <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
-          Your intention
+<div className="bg-[#FBF0EB]/40 rounded-lg p-5 flex flex-col gap-5">
+        <div className="space-y-3">
+        <p className="text-xs text-muted-foreground font-medium uppercase tracking-widest">
+          Intention
         </p>
         <p
           className="text-base font-medium text-foreground leading-snug"
-          style={{ borderLeft: '2px solid var(--primary)', paddingLeft: '0.75rem' }}
+          style={{ borderLeft: '2px solid var(--warm)', paddingLeft: '0.75rem' }}
         >
           {session.intention}
         </p>
         <Separator />
-        <div className="space-y-2">
-          <Label className="text-sm">Did this happen?</Label>
+        <div className="space-y-2 mb-2">
+          <Label className="text-xs uppercase tracking-widest text-muted-foreground">Did this happen?</Label>
           <IntentionMetRadioGroup
             value={intentionMet}
             onChange={setIntentionMet}
@@ -186,7 +106,7 @@ function handleCancelCreate() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="pickup" className="text-base font-semibold">
+        <Label htmlFor="pickup" className="text-xs uppercase tracking-widest text-muted-foreground">
           Where to pick up next time
         </Label>
         <p className="text-sm text-muted-foreground">
@@ -198,12 +118,12 @@ function handleCancelCreate() {
           onChange={e => setPickup(e.target.value)}
           placeholder="e.g. Start with the measure I had the most trouble with"
           rows={3}
-          className="border-primary"
         />
       </div>
+</div>
 
       <div className="space-y-2">
-        <Label htmlFor="duration">Duration (minutes)</Label>
+        <Label htmlFor="duration" className="text-xs uppercase tracking-widest text-muted-foreground">Duration (minutes)</Label>
         <Input
           id="duration"
           type="number"
@@ -213,8 +133,12 @@ function handleCancelCreate() {
           className="w-24"
         />
       </div>
+      <div className="space-y-2">
+        <Label className="text-xs uppercase tracking-widest text-muted-foreground">Tags</Label>
+        <TagsTypeahead onChange={setTags} />
+      </div>
         <div className="space-y-2">
-        <Label htmlFor="duration">BPM</Label>
+        <Label htmlFor="bpm" className="text-xs uppercase tracking-widest text-muted-foreground">BPM</Label>
         <Input
           id="bpm"
           type="number"
@@ -226,7 +150,7 @@ function handleCancelCreate() {
       </div>
       {/* add notes */}
     <div>
-        <Label htmlFor="notes">Notes</Label>
+        <Label htmlFor="notes" className="text-xs uppercase tracking-widest text-muted-foreground">Notes</Label>
         <Textarea
           id="notes"
           name="notes"
@@ -237,15 +161,9 @@ function handleCancelCreate() {
       </div>
       {/* add mood */}
       {/* add focus */}
-        {/* <div className='space-y-2'>
-            <span className="text-sm text-gray-500">
-              What type of work did you do?
-            </span>
-            <TypeSelect onChange={setType} />
-        </div> */}
             
 
-      <Button onClick={handleSave} disabled={saving} size="lg" className="w-full">
+      <Button onClick={handleSave} disabled={saving} size="lg" variant="warm" className="w-fit">
         {saving ? 'Saving...' : 'Save Session'}
       </Button>
     </main>

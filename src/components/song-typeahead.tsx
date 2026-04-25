@@ -7,26 +7,27 @@ import { TUNING_LABELS } from '@/lib/constants'
 type Song = { id: string; title: string; tuning: string }
 
 type Props = {
+  initialSong?: Song
   defaultValue?: string
   onSelect?: (id: string, title: string) => void
 }
 
-export function SongTypeahead({ defaultValue, onSelect }: Props) {
+export function SongTypeahead({ initialSong, defaultValue, onSelect }: Props) {
   // const [open, setOpen] = useState(false)
-  const [query, setQuery] = useState(defaultValue ?? '')
+  const [query, setQuery] = useState(initialSong?.title ?? defaultValue ?? '')
   const [suggestions, setSuggestions] = useState<Song[]>([])
-  const [selected, setSelected] = useState<Song | null>(null)
+  const [selected, setSelected] = useState<Song | null>(
+    initialSong ? initialSong : null
+  )
 
 useEffect(() => {
   if (query.length < 1) return  // just return, don't setState
-  // Don't fetch if the query matches the selected goal — this happens after
-  // selection when we've just set the query to the goal name. We don't want
-  // to re-show the dropdown in that case.
-  if (selected && query === selected.title) return
+  // Don't fetch if there's already a song selected
+  if (selected) return
 
   const timeout = setTimeout(() => {
     getSongs(query).then(setSuggestions)
-  }, 200)
+  }, 100)
 
   return () => clearTimeout(timeout)
 }, [query, selected])
@@ -36,13 +37,6 @@ useEffect(() => {
     setQuery(song.title)
     setSuggestions([])
     onSelect?.(song.id, song.title)
-  }
-
-  function handleClear() {
-    setSelected(null)
-    setQuery('')
-    setSuggestions([])
-    onSelect?.('', '')
   }
 
   return (
