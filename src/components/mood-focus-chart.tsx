@@ -41,10 +41,9 @@ export function MoodFocusChart({ data }: Props) {
           allowDecimals={false}
         />
         <Tooltip
-          formatter={(value: number | null, name: string) => [
-            value === null ? 'No rating' : value.toFixed(1),
-            name === 'mood' ? 'Mood' : 'Focus',
-          ]}
+          formatter={(value, name) =>
+            `${name === 'mood' ? 'Mood' : 'Focus'}: ${typeof value === 'number' ? value.toFixed(1) : 'No rating'}`
+          }
           contentStyle={{
             border: '1px solid #ecd7c4',
             borderRadius: '12px',

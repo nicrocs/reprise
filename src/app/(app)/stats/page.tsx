@@ -70,7 +70,7 @@ function buildTopItems(
 
     items.set(relation.id, {
       id: relation.id,
-      label: key === 'song' ? relation.title : relation.name,
+      label: 'title' in relation ? relation.title : relation.name,
       sessions: 1,
       minutes: session.duration,
     })
