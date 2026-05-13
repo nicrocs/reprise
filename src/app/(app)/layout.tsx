@@ -1,23 +1,27 @@
-import { TopBar } from '@/components/topbar'
-import { Sidebar } from '@/components/sidebar'
+import { auth } from '@clerk/nextjs/server'
+import { AppShell } from '@/components/app-shell'
+import { prisma } from '@/lib/prisma'
+import { getBadgeProgress } from '@/lib/guitar-badges'
 
-export default function AppLayout({
+export default async function AppLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <div className='container mx-auto max-w-4xl px-4 py-6'>
+  const { userId } = await auth()
 
-      <div className='border border-border rounded-xl bg-white overflow-hidden min-h-[80vh] flex flex-col'>
-        <TopBar />
-        <div className='flex flex-1'>
-          <Sidebar />
-          <main className='flex-1 min-w-0 p-8'>
-            {children}
-          </main>
-        </div>
-      </div>
-    </div>
+  const sessionDates = userId
+    ? await prisma.session.findMany({
+        where: { userId },
+        select: { date: true },
+      })
+    : []
+
+  const badgeProgress = getBadgeProgress(sessionDates.map((session) => session.date))
+
+  return (
+    <AppShell currentGuitar={badgeProgress.currentBadge} streak={badgeProgress.streak}>
+      {children}
+    </AppShell>
   )
 }

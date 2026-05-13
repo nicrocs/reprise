@@ -24,7 +24,12 @@ export function PickupButton({ pickup, songId, songTitle, goalId, goalName }: Pr
   }
 
   return (
-    <Button variant="warm" size="sm" onClick={handleClick}>
+    <Button
+      variant="warm"
+      size="sm"
+      className="w-full sm:w-auto"
+      onClick={handleClick}
+    >
       Pick up where you left off
     </Button>
   )

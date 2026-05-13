@@ -58,34 +58,35 @@ export default async function DashboardPage() {
   })
 
   return (
-    <main className="p-8 flex flex-col gap-8">
-
+    <div className="flex flex-col gap-8 sm:gap-10">
       {/* Pickup */}
       {lastSession?.pickup && (
-        <div className="bg-[#FBF0EB]/40 rounded-lg p-5">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
+        <section className="rounded-lg bg-[#FBF0EB]/40 p-4 sm:p-5">
+          <p className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
             Pick up where you left off
           </p>
           <div
-            className="text-sm font-medium leading-snug mb-4"
+            className="mb-4 text-sm leading-snug font-medium sm:text-base"
             style={{ borderLeft: '2px solid #B85C2A', paddingLeft: '0.75rem' }}
           >
             {lastSession.pickup}
           </div>
-          <div className="flex items-center gap-3">
-            <PickupButton
-              pickup={lastSession.pickup}
-              songId={lastSession.songId}
-              songTitle={lastSession.song?.title}
-              goalId={lastSession.goalId}
-              goalName={lastSession.goal?.name}
-            />
-            <span className="text-xs text-muted-foreground">
+          <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="w-full sm:w-auto">
+              <PickupButton
+                pickup={lastSession.pickup}
+                songId={lastSession.songId}
+                songTitle={lastSession.song?.title}
+                goalId={lastSession.goalId}
+                goalName={lastSession.goal?.name}
+              />
+            </div>
+            <span className="max-w-full text-xs leading-relaxed text-muted-foreground sm:text-right">
               {lastSession.song?.title && `${lastSession.song.title} · `}
               {formatDate(lastSession.date)}
             </span>
           </div>
-        </div>
+        </section>
       )}
 
       {/* 5-day calendar */}
@@ -152,7 +153,6 @@ export default async function DashboardPage() {
           </ul>
         </div>
       )}
-
-    </main>
+    </div>
   )
 }
