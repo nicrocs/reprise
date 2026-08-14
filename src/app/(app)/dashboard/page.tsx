@@ -4,6 +4,7 @@ import { formatDate } from '@/lib/utils'
 import { PickupButton } from '@/components/pickup-button'
 import { StartSessionButton } from '@/components/start-session-button'
 import Link from 'next/link'
+import type { ChecklistItem } from '@/lib/types'
 
 export default async function DashboardPage() {
   const { userId } = await auth()
@@ -12,7 +13,7 @@ export default async function DashboardPage() {
   const lastSession = await prisma.session.findFirst({
     where: { userId },
     orderBy: { date: 'desc' },
-    include: { song: true, goal: true },
+    include: { song: true, goal: true, template: true },
   })
 
     const allSongs = await prisma.song.findMany({
@@ -79,6 +80,12 @@ export default async function DashboardPage() {
                 songTitle={lastSession.song?.title}
                 goalId={lastSession.goalId}
                 goalName={lastSession.goal?.name}
+                templateId={lastSession.templateId}
+                templateName={lastSession.template?.name}
+                templateChecklistItems={lastSession.template?.checklistItems as ChecklistItem[] | null | undefined}
+                templateShowMetronome={lastSession.template?.showMetronome ?? undefined}
+                templateShowSongPicker={lastSession.template?.showSongPicker ?? undefined}
+                templateShowGoalPicker={lastSession.template?.showGoalPicker ?? undefined}
               />
             </div>
             <span className="max-w-full text-xs leading-relaxed text-muted-foreground sm:text-right">

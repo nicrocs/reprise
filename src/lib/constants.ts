@@ -7,6 +7,31 @@ export const TUNING_LABELS: Record<string, string> = {
   DADGAD: 'DADGAD',
 }
 
+export const SONG_STATUS_LABELS: Record<string, string> = {
+  LEARNING: 'Learning',
+  MAINTENANCE: 'Maintenance',
+  WRITING: 'Writing',
+  RECORDING: 'Recording',
+  MIXING: 'Mixing',
+  STALLED: 'Stalled',
+  RELEASED: 'Released',
+}
+
+export const SONG_STATUS_ORDER: string[] = [
+  'LEARNING',
+  'MAINTENANCE',
+  'WRITING',
+  'RECORDING',
+  'MIXING',
+  'STALLED',
+  'RELEASED',
+]
+
+export const THUMB_STYLE_LABELS: Record<string, string> = {
+  STEADY: 'Steady bass',
+  ALTERNATING: 'Alternating bass',
+}
+
 export const KEY_LABELS: Record<string, string> = {
   E_MAJOR: 'E Major',
   A_MAJOR: 'A Major',

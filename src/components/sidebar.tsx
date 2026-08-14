@@ -11,6 +11,7 @@ const sections = [
     links: [
       { href: '/dashboard', label: 'Dashboard' },
       { href: '/goals', label: 'Goals' },
+      { href: '/templates', label: 'Templates' },
       { href: '/sessions', label: 'Sessions' },
       { href: '/songs', label: 'Songs' },
     ],

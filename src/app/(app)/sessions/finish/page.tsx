@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { getActiveSession, clearActiveSession, type ActiveSession } from '@/lib/active-session'
+import { getSongBpm } from '@/lib/metronome/song-bpm'
 import { IntentionMetRadioGroup } from '@/components/intention-met-radio-group'
 import { createSession } from '@/app/actions/sessions'
 import { TagsTypeahead } from '@/components/tags-typeahead'
@@ -27,7 +28,16 @@ export default function FinishSessionPage() {
     if (!active || !active.startedAt) return 25
     return Math.max(1, Math.round((Date.now() - active.startedAt) / 60000))
   })
-  const [bpm, setBpm] = useState<number>(80)
+  const [bpm, setBpm] = useState<number>(() => {
+    if (typeof window === 'undefined') return 80
+    const active = getActiveSession()
+    if (active?.bpm) return active.bpm
+    if (active?.songId) {
+      const saved = getSongBpm(active.songId)
+      if (saved) return saved
+    }
+    return 80
+  })
   const [saving, setSaving] = useState(false)
   const [tags, setTags] = useState<{ id: string; name: string }[]>([])
 
@@ -50,8 +60,8 @@ export default function FinishSessionPage() {
     formData.set('pickup', pickup)
     formData.set('intentionMet', intentionMet === null ? '' : String(intentionMet))
     formData.set('duration', String(duration))
-    formData.set('date', session.startedAt 
-        ? new Date(session.startedAt).toISOString() 
+    formData.set('date', session.startedAt
+        ? new Date(session.startedAt).toISOString()
         : new Date().toISOString()
     )
     formData.set('bpm', String(bpm))
@@ -60,7 +70,14 @@ export default function FinishSessionPage() {
 
     if (session.songId) formData.set('songId', session.songId)
     if (session.songTitle) formData.set('songTitle', session.songTitle)
+    if (session.tuning) formData.set('songTuning', session.tuning)
+    if (session.key) formData.set('songKey', session.key)
+    if (session.thumbStyle) formData.set('songThumbStyle', session.thumbStyle)
     if (goal?.id) formData.set('goalId', goal.id)
+    if (session.templateId) formData.set('templateId', session.templateId)
+    if (session.checklistAnswers && Object.keys(session.checklistAnswers).length > 0) {
+      formData.set('checklistAnswers', JSON.stringify(session.checklistAnswers))
+    }
     formData.set('tags', JSON.stringify(tags.map((tag) => tag.name)))
 
     await createSession(formData)
@@ -76,6 +93,11 @@ export default function FinishSessionPage() {
         <h1 className="text-2xl font-bold">Session Complete</h1>
         {session.songTitle && (
           <p className="text-sm text-muted-foreground mt-1">{session.songTitle}</p>
+        )}
+        {session.templateName && (
+          <p className="text-xs text-muted-foreground mt-1 uppercase tracking-widest">
+            {session.templateName}
+          </p>
         )}
       </div>
 
@@ -101,7 +123,7 @@ export default function FinishSessionPage() {
           <IntentionMetRadioGroup
             value={intentionMet}
             onChange={setIntentionMet}
-          />    
+          />
         </div>
       </div>
 
@@ -161,7 +183,7 @@ export default function FinishSessionPage() {
       </div>
       {/* add mood */}
       {/* add focus */}
-            
+
 
       <Button onClick={handleSave} disabled={saving} size="lg" variant="warm" className="w-fit">
         {saving ? 'Saving...' : 'Save Session'}

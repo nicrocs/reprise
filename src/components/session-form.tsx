@@ -9,6 +9,7 @@ import { TagsTypeahead } from '@/components/tags-typeahead'
 // import { IntentionMetRadioGroup } from './intention-met-radio-group'
 import { toLocalDateTimeString } from '@/lib/utils'
 import { DeleteSessionButton } from './delete-session-button'
+import type { ChecklistItem, ChecklistAnswers } from '@/lib/types'
 
 type SessionFormProps = {
   action: (formData: FormData) => Promise<void>
@@ -23,8 +24,41 @@ type SessionFormProps = {
     intention?: string | null
     intentionMet?: boolean | null
     tags?: { id: string; name: string }[]
+    templateName?: string | null
+    checklistItems?: ChecklistItem[]
+    checklistAnswers?: ChecklistAnswers
   }
   submitLabel?: string
+}
+
+function ChecklistSummary({
+  templateName,
+  items,
+  answers,
+}: {
+  templateName?: string | null
+  items: ChecklistItem[]
+  answers?: ChecklistAnswers
+}) {
+  const answerCount = items.filter((item) => answers?.[item.question]?.trim()).length
+
+  return (
+    <div className="bg-[#FBF0EB]/40 rounded-lg p-5 space-y-4">
+      <p className="text-xs uppercase tracking-widest text-muted-foreground">
+        {templateName ? `${templateName} · ${answerCount} answer${answerCount === 1 ? '' : 's'}` : 'Checklist answers'}
+      </p>
+      <dl className="space-y-3">
+        {items.map((item) => (
+          <div key={item.question}>
+            <dt className="text-sm font-medium">{item.question}</dt>
+            <dd className="text-sm text-muted-foreground">
+              {answers?.[item.question]?.trim() ?? '—'}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  )
 }
 
 export function SessionForm({ action, defaultValues, submitLabel }: SessionFormProps) {
@@ -44,6 +78,14 @@ export function SessionForm({ action, defaultValues, submitLabel }: SessionFormP
         </div>
         {/* intentionMet and pickup would go here if the form supports them */}
       </div>
+
+      {defaultValues?.checklistItems && defaultValues.checklistItems.length > 0 && (
+        <ChecklistSummary
+          templateName={defaultValues.templateName}
+          items={defaultValues.checklistItems}
+          answers={defaultValues.checklistAnswers}
+        />
+      )}
 
       <div>
         <Label htmlFor="date" className='text-xs uppercase tracking-widest text-muted-foreground mb-2'>Date</Label>

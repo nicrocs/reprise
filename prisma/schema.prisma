@@ -41,15 +41,33 @@ enum Tuning {
   DADGAD
 }
 
+enum ThumbStyle {
+  STEADY
+  ALTERNATING
+}
+
+enum SongStatus {
+  LEARNING
+  MAINTENANCE
+  WRITING
+  RECORDING
+  MIXING
+  STALLED
+  RELEASED
+}
+
 model Song {
-  id        String   @id @default(cuid())
-  userId    String
-  title     String
-  key       Key?
-  capo      Int?     //fret number, null means no capo
-  tuning    Tuning   @default(STANDARD)
-  createdAt DateTime @default(now())
-  sessions  Session[]
+  id             String     @id @default(cuid())
+  userId         String
+  title          String
+  key            Key?
+  capo           Int?     //fret number, null means no capo
+  tuning         Tuning     @default(STANDARD)
+  thumbStyle     ThumbStyle?
+  status         SongStatus @default(LEARNING)
+  currentBlocker String?
+  createdAt      DateTime   @default(now())
+  sessions       Session[]
 
   @@unique([userId, title])
 }
@@ -84,10 +102,24 @@ model Instructor {
 
 model Goal {
   id        String    @id @default(cuid())
-  userId    String
-  name      String
+  userId   String
+  name     String
   createdAt DateTime  @default(now())
-  sessions  Session[]
+  sessions Session[]
+
+  @@unique([userId, name])
+}
+
+model SessionTemplate {
+  id             String    @id @default(cuid())
+  userId         String
+  name           String
+  showMetronome  Boolean   @default(false)
+  showSongPicker Boolean   @default(true)
+  showGoalPicker Boolean   @default(false)
+  checklistItems Json?
+  createdAt      DateTime  @default(now())
+  sessions       Session[]
 
   @@unique([userId, name])
 }
@@ -116,6 +148,9 @@ model Session {
   goalId    String?
   goal      Goal?     @relation(fields: [goalId], references: [id], onDelete: SetNull)
   pickup      String?   // where to pick up next time
+  templateId        String?
+  template          SessionTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  checklistAnswers  Json?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

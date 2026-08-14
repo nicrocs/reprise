@@ -1,10 +1,11 @@
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
-import { TUNING_LABELS } from '@/lib/constants'
 import { BpmChart } from '@/components/bpm-chart'
 import { BackButton } from '@/components/back-button'
 import { formatDate } from '@/lib/utils'
+import { SongStatusEditor } from '@/components/song-status-editor'
+import { SongMetadataEditor } from '@/components/song-metadata-editor'
 
 export default async function SongDetailPage({
   params,
@@ -20,7 +21,7 @@ export default async function SongDetailPage({
     include: {
       sessions: {
         orderBy: { date: 'desc' },
-        include: { 
+        include: {
             goal: true
         }
       },
@@ -40,21 +41,36 @@ export default async function SongDetailPage({
       <div className="mb-6">
         <BackButton />
         <h1 className="text-xl font-semibold">{song.title}</h1>
-        <div className="flex gap-2 mt-2 flex-wrap">
-          <span className="text-xs border border-border rounded px-1.5 py-0.5 text-muted-foreground">
-            {TUNING_LABELS[song.tuning]}
-          </span>
-          {song.key && (
-            <span className="text-xs border border-border rounded px-1.5 py-0.5 text-muted-foreground">
-              {song.key.replace(/_/g, ' ')}
-            </span>
-          )}
-          {song.capo && (
+        <div className="flex flex-wrap items-center gap-2 mt-2">
+          <SongMetadataEditor
+            song={{
+              id: song.id,
+              title: song.title,
+              tuning: song.tuning,
+              key: song.key,
+              thumbStyle: song.thumbStyle,
+            }}
+          />
+          {song.capo !== null && song.capo !== undefined && (
             <span className="text-xs border border-border rounded px-1.5 py-0.5 text-muted-foreground">
               Capo {song.capo}
             </span>
           )}
         </div>
+        <div className="mt-3">
+          <SongStatusEditor songId={song.id} initialStatus={song.status} />
+        </div>
+        {song.currentBlocker && (
+          <div
+            className="mt-4 bg-[#FBF0EB]/40 rounded-lg p-4"
+            style={{ borderLeft: '2px solid var(--warm)' }}
+          >
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
+              Where I left off
+            </p>
+            <p className="text-sm leading-snug">{song.currentBlocker}</p>
+          </div>
+        )}
         <div className="flex gap-2 mt-4">
             <p>
                 {song.sessions.length} {song.sessions.length === 1 ? 'session' : 'sessions'}
@@ -90,7 +106,7 @@ export default async function SongDetailPage({
           />
         </div>
       )}
-    
+
       <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Sessions</p>
       {song.sessions.length === 0 ? (
         <p className="text-muted-foreground text-sm">No sessions logged for this song yet.</p>

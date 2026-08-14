@@ -5,6 +5,7 @@ import { SessionForm } from '@/components/session-form'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
+import type { ChecklistItem, ChecklistAnswers } from '@/lib/types'
 
 export default async function EditSessionPage({ params } : { params: Promise<{ id: string }> 
 }) {
@@ -14,7 +15,7 @@ export default async function EditSessionPage({ params } : { params: Promise<{ i
 
   const session = await prisma.session.findUnique({
     where: { id, userId },
-    include: { song: true, tags: true },
+    include: { song: true, tags: true, template: true },
   })
 
   if (!session) notFound()
@@ -34,6 +35,7 @@ export default async function EditSessionPage({ params } : { params: Promise<{ i
         action={updateWithId}
         submitLabel="Update Session"
         defaultValues={{
+          id: session.id,
           date: session.date.toISOString(),
           duration: session.duration,
           topic: session.topic ?? undefined,
@@ -43,6 +45,9 @@ export default async function EditSessionPage({ params } : { params: Promise<{ i
           intention: session.intention,
           intentionMet: session.intentionMet,
           tags: session.tags,
+          templateName: session.template?.name,
+          checklistItems: (session.template?.checklistItems as ChecklistItem[] | undefined) ?? undefined,
+          checklistAnswers: (session.checklistAnswers as ChecklistAnswers | undefined) ?? undefined,
         }}
       />
     </main>

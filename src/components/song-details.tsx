@@ -5,14 +5,16 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { TuningSelect } from '@/components/tuning-select'
 import { KeySelect } from '@/components/key-select'
+import { ThumbStyleSelect } from '@/components/thumb-style-select'
 import { updateSong } from '@/app/actions/songs'
-import { Tuning, Key } from '../../prisma/generated/prisma'
+import { Tuning, Key, ThumbStyle } from '../../prisma/generated/prisma'
 
 export type SongInfo = {
   id: string
   title: string
   tuning: Tuning | null
   key: Key | null
+  thumbStyle: ThumbStyle | null
 }
 
 type Props = {
@@ -24,10 +26,11 @@ type Props = {
 export function SongDetails({ song, onSave, onCancel }: Props) {
   const [tuning, setTuning] = useState(song.tuning)
   const [key, setKey] = useState(song.key)
+  const [thumbStyle, setThumbStyle] = useState(song.thumbStyle)
 
   async function handleSave() {
-    if (song.id) await updateSong(song.id, { tuning, key })
-    onSave({ ...song, tuning, key })
+    if (song.id) await updateSong(song.id, { tuning, key, thumbStyle })
+    onSave({ ...song, tuning, key, thumbStyle })
   }
 
   return (
@@ -44,6 +47,13 @@ export function SongDetails({ song, onSave, onCancel }: Props) {
         <KeySelect
           defaultValue={key}
           onChange={setKey}
+        />
+      </div>
+      <div className="space-y-2">
+        <Label>Thumb style</Label>
+        <ThumbStyleSelect
+          defaultValue={thumbStyle}
+          onChange={setThumbStyle}
         />
       </div>
       <div className="flex gap-2">

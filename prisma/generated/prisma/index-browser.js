@@ -127,6 +127,9 @@ exports.Prisma.SongScalarFieldEnum = {
   key: 'key',
   capo: 'capo',
   tuning: 'tuning',
+  thumbStyle: 'thumbStyle',
+  status: 'status',
+  currentBlocker: 'currentBlocker',
   createdAt: 'createdAt'
 };
 
@@ -158,6 +161,17 @@ exports.Prisma.GoalScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.SessionTemplateScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  showMetronome: 'showMetronome',
+  showSongPicker: 'showSongPicker',
+  showGoalPicker: 'showGoalPicker',
+  checklistItems: 'checklistItems',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -177,6 +191,8 @@ exports.Prisma.SessionScalarFieldEnum = {
   instructorId: 'instructorId',
   goalId: 'goalId',
   pickup: 'pickup',
+  templateId: 'templateId',
+  checklistAnswers: 'checklistAnswers',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -184,6 +200,11 @@ exports.Prisma.SessionScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -194,6 +215,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Key = exports.$Enums.Key = {
   E_MAJOR: 'E_MAJOR',
@@ -229,12 +256,28 @@ exports.Tuning = exports.$Enums.Tuning = {
   DADGAD: 'DADGAD'
 };
 
+exports.ThumbStyle = exports.$Enums.ThumbStyle = {
+  STEADY: 'STEADY',
+  ALTERNATING: 'ALTERNATING'
+};
+
+exports.SongStatus = exports.$Enums.SongStatus = {
+  LEARNING: 'LEARNING',
+  MAINTENANCE: 'MAINTENANCE',
+  WRITING: 'WRITING',
+  RECORDING: 'RECORDING',
+  MIXING: 'MIXING',
+  STALLED: 'STALLED',
+  RELEASED: 'RELEASED'
+};
+
 exports.Prisma.ModelName = {
   Song: 'Song',
   Tag: 'Tag',
   Recording: 'Recording',
   Instructor: 'Instructor',
   Goal: 'Goal',
+  SessionTemplate: 'SessionTemplate',
   Session: 'Session'
 };
 

@@ -39,6 +39,11 @@ export type Instructor = $Result.DefaultSelection<Prisma.$InstructorPayload>
  */
 export type Goal = $Result.DefaultSelection<Prisma.$GoalPayload>
 /**
+ * Model SessionTemplate
+ * 
+ */
+export type SessionTemplate = $Result.DefaultSelection<Prisma.$SessionTemplatePayload>
+/**
  * Model Session
  * 
  */
@@ -87,6 +92,27 @@ export const Tuning: {
 
 export type Tuning = (typeof Tuning)[keyof typeof Tuning]
 
+
+export const ThumbStyle: {
+  STEADY: 'STEADY',
+  ALTERNATING: 'ALTERNATING'
+};
+
+export type ThumbStyle = (typeof ThumbStyle)[keyof typeof ThumbStyle]
+
+
+export const SongStatus: {
+  LEARNING: 'LEARNING',
+  MAINTENANCE: 'MAINTENANCE',
+  WRITING: 'WRITING',
+  RECORDING: 'RECORDING',
+  MIXING: 'MIXING',
+  STALLED: 'STALLED',
+  RELEASED: 'RELEASED'
+};
+
+export type SongStatus = (typeof SongStatus)[keyof typeof SongStatus]
+
 }
 
 export type Key = $Enums.Key
@@ -96,6 +122,14 @@ export const Key: typeof $Enums.Key
 export type Tuning = $Enums.Tuning
 
 export const Tuning: typeof $Enums.Tuning
+
+export type ThumbStyle = $Enums.ThumbStyle
+
+export const ThumbStyle: typeof $Enums.ThumbStyle
+
+export type SongStatus = $Enums.SongStatus
+
+export const SongStatus: typeof $Enums.SongStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -263,6 +297,16 @@ export class PrismaClient<
     * ```
     */
   get goal(): Prisma.GoalDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sessionTemplate`: Exposes CRUD operations for the **SessionTemplate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SessionTemplates
+    * const sessionTemplates = await prisma.sessionTemplate.findMany()
+    * ```
+    */
+  get sessionTemplate(): Prisma.SessionTemplateDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.session`: Exposes CRUD operations for the **Session** model.
@@ -712,6 +756,7 @@ export namespace Prisma {
     Recording: 'Recording',
     Instructor: 'Instructor',
     Goal: 'Goal',
+    SessionTemplate: 'SessionTemplate',
     Session: 'Session'
   };
 
@@ -728,7 +773,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "song" | "tag" | "recording" | "instructor" | "goal" | "session"
+      modelProps: "song" | "tag" | "recording" | "instructor" | "goal" | "sessionTemplate" | "session"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1102,6 +1147,80 @@ export namespace Prisma {
           }
         }
       }
+      SessionTemplate: {
+        payload: Prisma.$SessionTemplatePayload<ExtArgs>
+        fields: Prisma.SessionTemplateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SessionTemplateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionTemplatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SessionTemplateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionTemplatePayload>
+          }
+          findFirst: {
+            args: Prisma.SessionTemplateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionTemplatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SessionTemplateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionTemplatePayload>
+          }
+          findMany: {
+            args: Prisma.SessionTemplateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionTemplatePayload>[]
+          }
+          create: {
+            args: Prisma.SessionTemplateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionTemplatePayload>
+          }
+          createMany: {
+            args: Prisma.SessionTemplateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SessionTemplateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionTemplatePayload>[]
+          }
+          delete: {
+            args: Prisma.SessionTemplateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionTemplatePayload>
+          }
+          update: {
+            args: Prisma.SessionTemplateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionTemplatePayload>
+          }
+          deleteMany: {
+            args: Prisma.SessionTemplateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SessionTemplateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SessionTemplateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionTemplatePayload>[]
+          }
+          upsert: {
+            args: Prisma.SessionTemplateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionTemplatePayload>
+          }
+          aggregate: {
+            args: Prisma.SessionTemplateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSessionTemplate>
+          }
+          groupBy: {
+            args: Prisma.SessionTemplateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SessionTemplateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SessionTemplateCountArgs<ExtArgs>
+            result: $Utils.Optional<SessionTemplateCountAggregateOutputType> | number
+          }
+        }
+      }
       Session: {
         payload: Prisma.$SessionPayload<ExtArgs>
         fields: Prisma.SessionFieldRefs
@@ -1289,6 +1408,7 @@ export namespace Prisma {
     recording?: RecordingOmit
     instructor?: InstructorOmit
     goal?: GoalOmit
+    sessionTemplate?: SessionTemplateOmit
     session?: SessionOmit
   }
 
@@ -1490,6 +1610,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type SessionTemplateCountOutputType
+   */
+
+  export type SessionTemplateCountOutputType = {
+    sessions: number
+  }
+
+  export type SessionTemplateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sessions?: boolean | SessionTemplateCountOutputTypeCountSessionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SessionTemplateCountOutputType without action
+   */
+  export type SessionTemplateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplateCountOutputType
+     */
+    select?: SessionTemplateCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SessionTemplateCountOutputType without action
+   */
+  export type SessionTemplateCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionWhereInput
+  }
+
+
+  /**
    * Count Type SessionCountOutputType
    */
 
@@ -1560,6 +1711,9 @@ export namespace Prisma {
     key: $Enums.Key | null
     capo: number | null
     tuning: $Enums.Tuning | null
+    thumbStyle: $Enums.ThumbStyle | null
+    status: $Enums.SongStatus | null
+    currentBlocker: string | null
     createdAt: Date | null
   }
 
@@ -1570,6 +1724,9 @@ export namespace Prisma {
     key: $Enums.Key | null
     capo: number | null
     tuning: $Enums.Tuning | null
+    thumbStyle: $Enums.ThumbStyle | null
+    status: $Enums.SongStatus | null
+    currentBlocker: string | null
     createdAt: Date | null
   }
 
@@ -1580,6 +1737,9 @@ export namespace Prisma {
     key: number
     capo: number
     tuning: number
+    thumbStyle: number
+    status: number
+    currentBlocker: number
     createdAt: number
     _all: number
   }
@@ -1600,6 +1760,9 @@ export namespace Prisma {
     key?: true
     capo?: true
     tuning?: true
+    thumbStyle?: true
+    status?: true
+    currentBlocker?: true
     createdAt?: true
   }
 
@@ -1610,6 +1773,9 @@ export namespace Prisma {
     key?: true
     capo?: true
     tuning?: true
+    thumbStyle?: true
+    status?: true
+    currentBlocker?: true
     createdAt?: true
   }
 
@@ -1620,6 +1786,9 @@ export namespace Prisma {
     key?: true
     capo?: true
     tuning?: true
+    thumbStyle?: true
+    status?: true
+    currentBlocker?: true
     createdAt?: true
     _all?: true
   }
@@ -1717,6 +1886,9 @@ export namespace Prisma {
     key: $Enums.Key | null
     capo: number | null
     tuning: $Enums.Tuning
+    thumbStyle: $Enums.ThumbStyle | null
+    status: $Enums.SongStatus
+    currentBlocker: string | null
     createdAt: Date
     _count: SongCountAggregateOutputType | null
     _avg: SongAvgAggregateOutputType | null
@@ -1746,6 +1918,9 @@ export namespace Prisma {
     key?: boolean
     capo?: boolean
     tuning?: boolean
+    thumbStyle?: boolean
+    status?: boolean
+    currentBlocker?: boolean
     createdAt?: boolean
     sessions?: boolean | Song$sessionsArgs<ExtArgs>
     _count?: boolean | SongCountOutputTypeDefaultArgs<ExtArgs>
@@ -1758,6 +1933,9 @@ export namespace Prisma {
     key?: boolean
     capo?: boolean
     tuning?: boolean
+    thumbStyle?: boolean
+    status?: boolean
+    currentBlocker?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["song"]>
 
@@ -1768,6 +1946,9 @@ export namespace Prisma {
     key?: boolean
     capo?: boolean
     tuning?: boolean
+    thumbStyle?: boolean
+    status?: boolean
+    currentBlocker?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["song"]>
 
@@ -1778,10 +1959,13 @@ export namespace Prisma {
     key?: boolean
     capo?: boolean
     tuning?: boolean
+    thumbStyle?: boolean
+    status?: boolean
+    currentBlocker?: boolean
     createdAt?: boolean
   }
 
-  export type SongOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "key" | "capo" | "tuning" | "createdAt", ExtArgs["result"]["song"]>
+  export type SongOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "key" | "capo" | "tuning" | "thumbStyle" | "status" | "currentBlocker" | "createdAt", ExtArgs["result"]["song"]>
   export type SongInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | Song$sessionsArgs<ExtArgs>
     _count?: boolean | SongCountOutputTypeDefaultArgs<ExtArgs>
@@ -1801,6 +1985,9 @@ export namespace Prisma {
       key: $Enums.Key | null
       capo: number | null
       tuning: $Enums.Tuning
+      thumbStyle: $Enums.ThumbStyle | null
+      status: $Enums.SongStatus
+      currentBlocker: string | null
       createdAt: Date
     }, ExtArgs["result"]["song"]>
     composites: {}
@@ -2232,6 +2419,9 @@ export namespace Prisma {
     readonly key: FieldRef<"Song", 'Key'>
     readonly capo: FieldRef<"Song", 'Int'>
     readonly tuning: FieldRef<"Song", 'Tuning'>
+    readonly thumbStyle: FieldRef<"Song", 'ThumbStyle'>
+    readonly status: FieldRef<"Song", 'SongStatus'>
+    readonly currentBlocker: FieldRef<"Song", 'String'>
     readonly createdAt: FieldRef<"Song", 'DateTime'>
   }
     
@@ -6880,6 +7070,1111 @@ export namespace Prisma {
 
 
   /**
+   * Model SessionTemplate
+   */
+
+  export type AggregateSessionTemplate = {
+    _count: SessionTemplateCountAggregateOutputType | null
+    _min: SessionTemplateMinAggregateOutputType | null
+    _max: SessionTemplateMaxAggregateOutputType | null
+  }
+
+  export type SessionTemplateMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    showMetronome: boolean | null
+    showSongPicker: boolean | null
+    showGoalPicker: boolean | null
+    createdAt: Date | null
+  }
+
+  export type SessionTemplateMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    showMetronome: boolean | null
+    showSongPicker: boolean | null
+    showGoalPicker: boolean | null
+    createdAt: Date | null
+  }
+
+  export type SessionTemplateCountAggregateOutputType = {
+    id: number
+    userId: number
+    name: number
+    showMetronome: number
+    showSongPicker: number
+    showGoalPicker: number
+    checklistItems: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SessionTemplateMinAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    showMetronome?: true
+    showSongPicker?: true
+    showGoalPicker?: true
+    createdAt?: true
+  }
+
+  export type SessionTemplateMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    showMetronome?: true
+    showSongPicker?: true
+    showGoalPicker?: true
+    createdAt?: true
+  }
+
+  export type SessionTemplateCountAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    showMetronome?: true
+    showSongPicker?: true
+    showGoalPicker?: true
+    checklistItems?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SessionTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SessionTemplate to aggregate.
+     */
+    where?: SessionTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionTemplates to fetch.
+     */
+    orderBy?: SessionTemplateOrderByWithRelationInput | SessionTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SessionTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SessionTemplates
+    **/
+    _count?: true | SessionTemplateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SessionTemplateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SessionTemplateMaxAggregateInputType
+  }
+
+  export type GetSessionTemplateAggregateType<T extends SessionTemplateAggregateArgs> = {
+        [P in keyof T & keyof AggregateSessionTemplate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSessionTemplate[P]>
+      : GetScalarType<T[P], AggregateSessionTemplate[P]>
+  }
+
+
+
+
+  export type SessionTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionTemplateWhereInput
+    orderBy?: SessionTemplateOrderByWithAggregationInput | SessionTemplateOrderByWithAggregationInput[]
+    by: SessionTemplateScalarFieldEnum[] | SessionTemplateScalarFieldEnum
+    having?: SessionTemplateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SessionTemplateCountAggregateInputType | true
+    _min?: SessionTemplateMinAggregateInputType
+    _max?: SessionTemplateMaxAggregateInputType
+  }
+
+  export type SessionTemplateGroupByOutputType = {
+    id: string
+    userId: string
+    name: string
+    showMetronome: boolean
+    showSongPicker: boolean
+    showGoalPicker: boolean
+    checklistItems: JsonValue | null
+    createdAt: Date
+    _count: SessionTemplateCountAggregateOutputType | null
+    _min: SessionTemplateMinAggregateOutputType | null
+    _max: SessionTemplateMaxAggregateOutputType | null
+  }
+
+  type GetSessionTemplateGroupByPayload<T extends SessionTemplateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SessionTemplateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SessionTemplateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SessionTemplateGroupByOutputType[P]>
+            : GetScalarType<T[P], SessionTemplateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SessionTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    showMetronome?: boolean
+    showSongPicker?: boolean
+    showGoalPicker?: boolean
+    checklistItems?: boolean
+    createdAt?: boolean
+    sessions?: boolean | SessionTemplate$sessionsArgs<ExtArgs>
+    _count?: boolean | SessionTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sessionTemplate"]>
+
+  export type SessionTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    showMetronome?: boolean
+    showSongPicker?: boolean
+    showGoalPicker?: boolean
+    checklistItems?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["sessionTemplate"]>
+
+  export type SessionTemplateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    showMetronome?: boolean
+    showSongPicker?: boolean
+    showGoalPicker?: boolean
+    checklistItems?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["sessionTemplate"]>
+
+  export type SessionTemplateSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    showMetronome?: boolean
+    showSongPicker?: boolean
+    showGoalPicker?: boolean
+    checklistItems?: boolean
+    createdAt?: boolean
+  }
+
+  export type SessionTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "showMetronome" | "showSongPicker" | "showGoalPicker" | "checklistItems" | "createdAt", ExtArgs["result"]["sessionTemplate"]>
+  export type SessionTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sessions?: boolean | SessionTemplate$sessionsArgs<ExtArgs>
+    _count?: boolean | SessionTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SessionTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SessionTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $SessionTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SessionTemplate"
+    objects: {
+      sessions: Prisma.$SessionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      name: string
+      showMetronome: boolean
+      showSongPicker: boolean
+      showGoalPicker: boolean
+      checklistItems: Prisma.JsonValue | null
+      createdAt: Date
+    }, ExtArgs["result"]["sessionTemplate"]>
+    composites: {}
+  }
+
+  type SessionTemplateGetPayload<S extends boolean | null | undefined | SessionTemplateDefaultArgs> = $Result.GetResult<Prisma.$SessionTemplatePayload, S>
+
+  type SessionTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SessionTemplateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SessionTemplateCountAggregateInputType | true
+    }
+
+  export interface SessionTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SessionTemplate'], meta: { name: 'SessionTemplate' } }
+    /**
+     * Find zero or one SessionTemplate that matches the filter.
+     * @param {SessionTemplateFindUniqueArgs} args - Arguments to find a SessionTemplate
+     * @example
+     * // Get one SessionTemplate
+     * const sessionTemplate = await prisma.sessionTemplate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SessionTemplateFindUniqueArgs>(args: SelectSubset<T, SessionTemplateFindUniqueArgs<ExtArgs>>): Prisma__SessionTemplateClient<$Result.GetResult<Prisma.$SessionTemplatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SessionTemplate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SessionTemplateFindUniqueOrThrowArgs} args - Arguments to find a SessionTemplate
+     * @example
+     * // Get one SessionTemplate
+     * const sessionTemplate = await prisma.sessionTemplate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SessionTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, SessionTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SessionTemplateClient<$Result.GetResult<Prisma.$SessionTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SessionTemplate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionTemplateFindFirstArgs} args - Arguments to find a SessionTemplate
+     * @example
+     * // Get one SessionTemplate
+     * const sessionTemplate = await prisma.sessionTemplate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SessionTemplateFindFirstArgs>(args?: SelectSubset<T, SessionTemplateFindFirstArgs<ExtArgs>>): Prisma__SessionTemplateClient<$Result.GetResult<Prisma.$SessionTemplatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SessionTemplate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionTemplateFindFirstOrThrowArgs} args - Arguments to find a SessionTemplate
+     * @example
+     * // Get one SessionTemplate
+     * const sessionTemplate = await prisma.sessionTemplate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SessionTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, SessionTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__SessionTemplateClient<$Result.GetResult<Prisma.$SessionTemplatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SessionTemplates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SessionTemplates
+     * const sessionTemplates = await prisma.sessionTemplate.findMany()
+     * 
+     * // Get first 10 SessionTemplates
+     * const sessionTemplates = await prisma.sessionTemplate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sessionTemplateWithIdOnly = await prisma.sessionTemplate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SessionTemplateFindManyArgs>(args?: SelectSubset<T, SessionTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SessionTemplate.
+     * @param {SessionTemplateCreateArgs} args - Arguments to create a SessionTemplate.
+     * @example
+     * // Create one SessionTemplate
+     * const SessionTemplate = await prisma.sessionTemplate.create({
+     *   data: {
+     *     // ... data to create a SessionTemplate
+     *   }
+     * })
+     * 
+     */
+    create<T extends SessionTemplateCreateArgs>(args: SelectSubset<T, SessionTemplateCreateArgs<ExtArgs>>): Prisma__SessionTemplateClient<$Result.GetResult<Prisma.$SessionTemplatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SessionTemplates.
+     * @param {SessionTemplateCreateManyArgs} args - Arguments to create many SessionTemplates.
+     * @example
+     * // Create many SessionTemplates
+     * const sessionTemplate = await prisma.sessionTemplate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SessionTemplateCreateManyArgs>(args?: SelectSubset<T, SessionTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SessionTemplates and returns the data saved in the database.
+     * @param {SessionTemplateCreateManyAndReturnArgs} args - Arguments to create many SessionTemplates.
+     * @example
+     * // Create many SessionTemplates
+     * const sessionTemplate = await prisma.sessionTemplate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SessionTemplates and only return the `id`
+     * const sessionTemplateWithIdOnly = await prisma.sessionTemplate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SessionTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, SessionTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionTemplatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SessionTemplate.
+     * @param {SessionTemplateDeleteArgs} args - Arguments to delete one SessionTemplate.
+     * @example
+     * // Delete one SessionTemplate
+     * const SessionTemplate = await prisma.sessionTemplate.delete({
+     *   where: {
+     *     // ... filter to delete one SessionTemplate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SessionTemplateDeleteArgs>(args: SelectSubset<T, SessionTemplateDeleteArgs<ExtArgs>>): Prisma__SessionTemplateClient<$Result.GetResult<Prisma.$SessionTemplatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SessionTemplate.
+     * @param {SessionTemplateUpdateArgs} args - Arguments to update one SessionTemplate.
+     * @example
+     * // Update one SessionTemplate
+     * const sessionTemplate = await prisma.sessionTemplate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SessionTemplateUpdateArgs>(args: SelectSubset<T, SessionTemplateUpdateArgs<ExtArgs>>): Prisma__SessionTemplateClient<$Result.GetResult<Prisma.$SessionTemplatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SessionTemplates.
+     * @param {SessionTemplateDeleteManyArgs} args - Arguments to filter SessionTemplates to delete.
+     * @example
+     * // Delete a few SessionTemplates
+     * const { count } = await prisma.sessionTemplate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SessionTemplateDeleteManyArgs>(args?: SelectSubset<T, SessionTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SessionTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionTemplateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SessionTemplates
+     * const sessionTemplate = await prisma.sessionTemplate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SessionTemplateUpdateManyArgs>(args: SelectSubset<T, SessionTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SessionTemplates and returns the data updated in the database.
+     * @param {SessionTemplateUpdateManyAndReturnArgs} args - Arguments to update many SessionTemplates.
+     * @example
+     * // Update many SessionTemplates
+     * const sessionTemplate = await prisma.sessionTemplate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SessionTemplates and only return the `id`
+     * const sessionTemplateWithIdOnly = await prisma.sessionTemplate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SessionTemplateUpdateManyAndReturnArgs>(args: SelectSubset<T, SessionTemplateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionTemplatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SessionTemplate.
+     * @param {SessionTemplateUpsertArgs} args - Arguments to update or create a SessionTemplate.
+     * @example
+     * // Update or create a SessionTemplate
+     * const sessionTemplate = await prisma.sessionTemplate.upsert({
+     *   create: {
+     *     // ... data to create a SessionTemplate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SessionTemplate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SessionTemplateUpsertArgs>(args: SelectSubset<T, SessionTemplateUpsertArgs<ExtArgs>>): Prisma__SessionTemplateClient<$Result.GetResult<Prisma.$SessionTemplatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SessionTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionTemplateCountArgs} args - Arguments to filter SessionTemplates to count.
+     * @example
+     * // Count the number of SessionTemplates
+     * const count = await prisma.sessionTemplate.count({
+     *   where: {
+     *     // ... the filter for the SessionTemplates we want to count
+     *   }
+     * })
+    **/
+    count<T extends SessionTemplateCountArgs>(
+      args?: Subset<T, SessionTemplateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SessionTemplateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SessionTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SessionTemplateAggregateArgs>(args: Subset<T, SessionTemplateAggregateArgs>): Prisma.PrismaPromise<GetSessionTemplateAggregateType<T>>
+
+    /**
+     * Group by SessionTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionTemplateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SessionTemplateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SessionTemplateGroupByArgs['orderBy'] }
+        : { orderBy?: SessionTemplateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SessionTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSessionTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SessionTemplate model
+   */
+  readonly fields: SessionTemplateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SessionTemplate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SessionTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    sessions<T extends SessionTemplate$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, SessionTemplate$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SessionTemplate model
+   */
+  interface SessionTemplateFieldRefs {
+    readonly id: FieldRef<"SessionTemplate", 'String'>
+    readonly userId: FieldRef<"SessionTemplate", 'String'>
+    readonly name: FieldRef<"SessionTemplate", 'String'>
+    readonly showMetronome: FieldRef<"SessionTemplate", 'Boolean'>
+    readonly showSongPicker: FieldRef<"SessionTemplate", 'Boolean'>
+    readonly showGoalPicker: FieldRef<"SessionTemplate", 'Boolean'>
+    readonly checklistItems: FieldRef<"SessionTemplate", 'Json'>
+    readonly createdAt: FieldRef<"SessionTemplate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SessionTemplate findUnique
+   */
+  export type SessionTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplate
+     */
+    select?: SessionTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionTemplate
+     */
+    omit?: SessionTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionTemplate to fetch.
+     */
+    where: SessionTemplateWhereUniqueInput
+  }
+
+  /**
+   * SessionTemplate findUniqueOrThrow
+   */
+  export type SessionTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplate
+     */
+    select?: SessionTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionTemplate
+     */
+    omit?: SessionTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionTemplate to fetch.
+     */
+    where: SessionTemplateWhereUniqueInput
+  }
+
+  /**
+   * SessionTemplate findFirst
+   */
+  export type SessionTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplate
+     */
+    select?: SessionTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionTemplate
+     */
+    omit?: SessionTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionTemplate to fetch.
+     */
+    where?: SessionTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionTemplates to fetch.
+     */
+    orderBy?: SessionTemplateOrderByWithRelationInput | SessionTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SessionTemplates.
+     */
+    cursor?: SessionTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SessionTemplates.
+     */
+    distinct?: SessionTemplateScalarFieldEnum | SessionTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * SessionTemplate findFirstOrThrow
+   */
+  export type SessionTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplate
+     */
+    select?: SessionTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionTemplate
+     */
+    omit?: SessionTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionTemplate to fetch.
+     */
+    where?: SessionTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionTemplates to fetch.
+     */
+    orderBy?: SessionTemplateOrderByWithRelationInput | SessionTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SessionTemplates.
+     */
+    cursor?: SessionTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SessionTemplates.
+     */
+    distinct?: SessionTemplateScalarFieldEnum | SessionTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * SessionTemplate findMany
+   */
+  export type SessionTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplate
+     */
+    select?: SessionTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionTemplate
+     */
+    omit?: SessionTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionTemplates to fetch.
+     */
+    where?: SessionTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionTemplates to fetch.
+     */
+    orderBy?: SessionTemplateOrderByWithRelationInput | SessionTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SessionTemplates.
+     */
+    cursor?: SessionTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionTemplates.
+     */
+    skip?: number
+    distinct?: SessionTemplateScalarFieldEnum | SessionTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * SessionTemplate create
+   */
+  export type SessionTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplate
+     */
+    select?: SessionTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionTemplate
+     */
+    omit?: SessionTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SessionTemplate.
+     */
+    data: XOR<SessionTemplateCreateInput, SessionTemplateUncheckedCreateInput>
+  }
+
+  /**
+   * SessionTemplate createMany
+   */
+  export type SessionTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SessionTemplates.
+     */
+    data: SessionTemplateCreateManyInput | SessionTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SessionTemplate createManyAndReturn
+   */
+  export type SessionTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplate
+     */
+    select?: SessionTemplateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionTemplate
+     */
+    omit?: SessionTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to create many SessionTemplates.
+     */
+    data: SessionTemplateCreateManyInput | SessionTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SessionTemplate update
+   */
+  export type SessionTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplate
+     */
+    select?: SessionTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionTemplate
+     */
+    omit?: SessionTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SessionTemplate.
+     */
+    data: XOR<SessionTemplateUpdateInput, SessionTemplateUncheckedUpdateInput>
+    /**
+     * Choose, which SessionTemplate to update.
+     */
+    where: SessionTemplateWhereUniqueInput
+  }
+
+  /**
+   * SessionTemplate updateMany
+   */
+  export type SessionTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SessionTemplates.
+     */
+    data: XOR<SessionTemplateUpdateManyMutationInput, SessionTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which SessionTemplates to update
+     */
+    where?: SessionTemplateWhereInput
+    /**
+     * Limit how many SessionTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SessionTemplate updateManyAndReturn
+   */
+  export type SessionTemplateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplate
+     */
+    select?: SessionTemplateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionTemplate
+     */
+    omit?: SessionTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to update SessionTemplates.
+     */
+    data: XOR<SessionTemplateUpdateManyMutationInput, SessionTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which SessionTemplates to update
+     */
+    where?: SessionTemplateWhereInput
+    /**
+     * Limit how many SessionTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SessionTemplate upsert
+   */
+  export type SessionTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplate
+     */
+    select?: SessionTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionTemplate
+     */
+    omit?: SessionTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionTemplateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SessionTemplate to update in case it exists.
+     */
+    where: SessionTemplateWhereUniqueInput
+    /**
+     * In case the SessionTemplate found by the `where` argument doesn't exist, create a new SessionTemplate with this data.
+     */
+    create: XOR<SessionTemplateCreateInput, SessionTemplateUncheckedCreateInput>
+    /**
+     * In case the SessionTemplate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SessionTemplateUpdateInput, SessionTemplateUncheckedUpdateInput>
+  }
+
+  /**
+   * SessionTemplate delete
+   */
+  export type SessionTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplate
+     */
+    select?: SessionTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionTemplate
+     */
+    omit?: SessionTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionTemplateInclude<ExtArgs> | null
+    /**
+     * Filter which SessionTemplate to delete.
+     */
+    where: SessionTemplateWhereUniqueInput
+  }
+
+  /**
+   * SessionTemplate deleteMany
+   */
+  export type SessionTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SessionTemplates to delete
+     */
+    where?: SessionTemplateWhereInput
+    /**
+     * Limit how many SessionTemplates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SessionTemplate.sessions
+   */
+  export type SessionTemplate$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    where?: SessionWhereInput
+    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
+    cursor?: SessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+  }
+
+  /**
+   * SessionTemplate without action
+   */
+  export type SessionTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplate
+     */
+    select?: SessionTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionTemplate
+     */
+    omit?: SessionTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Session
    */
 
@@ -6924,6 +8219,7 @@ export namespace Prisma {
     instructorId: string | null
     goalId: string | null
     pickup: string | null
+    templateId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6947,6 +8243,7 @@ export namespace Prisma {
     instructorId: string | null
     goalId: string | null
     pickup: string | null
+    templateId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6970,6 +8267,8 @@ export namespace Prisma {
     instructorId: number
     goalId: number
     pickup: number
+    templateId: number
+    checklistAnswers: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -7009,6 +8308,7 @@ export namespace Prisma {
     instructorId?: true
     goalId?: true
     pickup?: true
+    templateId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7032,6 +8332,7 @@ export namespace Prisma {
     instructorId?: true
     goalId?: true
     pickup?: true
+    templateId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7055,6 +8356,8 @@ export namespace Prisma {
     instructorId?: true
     goalId?: true
     pickup?: true
+    templateId?: true
+    checklistAnswers?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7165,6 +8468,8 @@ export namespace Prisma {
     instructorId: string | null
     goalId: string | null
     pickup: string | null
+    templateId: string | null
+    checklistAnswers: JsonValue | null
     createdAt: Date
     updatedAt: Date
     _count: SessionCountAggregateOutputType | null
@@ -7207,6 +8512,8 @@ export namespace Prisma {
     instructorId?: boolean
     goalId?: boolean
     pickup?: boolean
+    templateId?: boolean
+    checklistAnswers?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     song?: boolean | Session$songArgs<ExtArgs>
@@ -7214,6 +8521,7 @@ export namespace Prisma {
     recordings?: boolean | Session$recordingsArgs<ExtArgs>
     instructor?: boolean | Session$instructorArgs<ExtArgs>
     goal?: boolean | Session$goalArgs<ExtArgs>
+    template?: boolean | Session$templateArgs<ExtArgs>
     _count?: boolean | SessionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
 
@@ -7236,11 +8544,14 @@ export namespace Prisma {
     instructorId?: boolean
     goalId?: boolean
     pickup?: boolean
+    templateId?: boolean
+    checklistAnswers?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     song?: boolean | Session$songArgs<ExtArgs>
     instructor?: boolean | Session$instructorArgs<ExtArgs>
     goal?: boolean | Session$goalArgs<ExtArgs>
+    template?: boolean | Session$templateArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
 
   export type SessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7262,11 +8573,14 @@ export namespace Prisma {
     instructorId?: boolean
     goalId?: boolean
     pickup?: boolean
+    templateId?: boolean
+    checklistAnswers?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     song?: boolean | Session$songArgs<ExtArgs>
     instructor?: boolean | Session$instructorArgs<ExtArgs>
     goal?: boolean | Session$goalArgs<ExtArgs>
+    template?: boolean | Session$templateArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
 
   export type SessionSelectScalar = {
@@ -7288,28 +8602,33 @@ export namespace Prisma {
     instructorId?: boolean
     goalId?: boolean
     pickup?: boolean
+    templateId?: boolean
+    checklistAnswers?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "duration" | "topic" | "notes" | "bpm" | "instrument" | "intention" | "intentionMet" | "mood" | "focus" | "isFavorited" | "isPublic" | "songId" | "instructorId" | "goalId" | "pickup" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
+  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "duration" | "topic" | "notes" | "bpm" | "instrument" | "intention" | "intentionMet" | "mood" | "focus" | "isFavorited" | "isPublic" | "songId" | "instructorId" | "goalId" | "pickup" | "templateId" | "checklistAnswers" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     song?: boolean | Session$songArgs<ExtArgs>
     tags?: boolean | Session$tagsArgs<ExtArgs>
     recordings?: boolean | Session$recordingsArgs<ExtArgs>
     instructor?: boolean | Session$instructorArgs<ExtArgs>
     goal?: boolean | Session$goalArgs<ExtArgs>
+    template?: boolean | Session$templateArgs<ExtArgs>
     _count?: boolean | SessionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     song?: boolean | Session$songArgs<ExtArgs>
     instructor?: boolean | Session$instructorArgs<ExtArgs>
     goal?: boolean | Session$goalArgs<ExtArgs>
+    template?: boolean | Session$templateArgs<ExtArgs>
   }
   export type SessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     song?: boolean | Session$songArgs<ExtArgs>
     instructor?: boolean | Session$instructorArgs<ExtArgs>
     goal?: boolean | Session$goalArgs<ExtArgs>
+    template?: boolean | Session$templateArgs<ExtArgs>
   }
 
   export type $SessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7320,6 +8639,7 @@ export namespace Prisma {
       recordings: Prisma.$RecordingPayload<ExtArgs>[]
       instructor: Prisma.$InstructorPayload<ExtArgs> | null
       goal: Prisma.$GoalPayload<ExtArgs> | null
+      template: Prisma.$SessionTemplatePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7340,6 +8660,8 @@ export namespace Prisma {
       instructorId: string | null
       goalId: string | null
       pickup: string | null
+      templateId: string | null
+      checklistAnswers: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["session"]>
@@ -7741,6 +9063,7 @@ export namespace Prisma {
     recordings<T extends Session$recordingsArgs<ExtArgs> = {}>(args?: Subset<T, Session$recordingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     instructor<T extends Session$instructorArgs<ExtArgs> = {}>(args?: Subset<T, Session$instructorArgs<ExtArgs>>): Prisma__InstructorClient<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     goal<T extends Session$goalArgs<ExtArgs> = {}>(args?: Subset<T, Session$goalArgs<ExtArgs>>): Prisma__GoalClient<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    template<T extends Session$templateArgs<ExtArgs> = {}>(args?: Subset<T, Session$templateArgs<ExtArgs>>): Prisma__SessionTemplateClient<$Result.GetResult<Prisma.$SessionTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7788,6 +9111,8 @@ export namespace Prisma {
     readonly instructorId: FieldRef<"Session", 'String'>
     readonly goalId: FieldRef<"Session", 'String'>
     readonly pickup: FieldRef<"Session", 'String'>
+    readonly templateId: FieldRef<"Session", 'String'>
+    readonly checklistAnswers: FieldRef<"Session", 'Json'>
     readonly createdAt: FieldRef<"Session", 'DateTime'>
     readonly updatedAt: FieldRef<"Session", 'DateTime'>
   }
@@ -8291,6 +9616,25 @@ export namespace Prisma {
   }
 
   /**
+   * Session.template
+   */
+  export type Session$templateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplate
+     */
+    select?: SessionTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionTemplate
+     */
+    omit?: SessionTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionTemplateInclude<ExtArgs> | null
+    where?: SessionTemplateWhereInput
+  }
+
+  /**
    * Session without action
    */
   export type SessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8330,6 +9674,9 @@ export namespace Prisma {
     key: 'key',
     capo: 'capo',
     tuning: 'tuning',
+    thumbStyle: 'thumbStyle',
+    status: 'status',
+    currentBlocker: 'currentBlocker',
     createdAt: 'createdAt'
   };
 
@@ -8376,6 +9723,20 @@ export namespace Prisma {
   export type GoalScalarFieldEnum = (typeof GoalScalarFieldEnum)[keyof typeof GoalScalarFieldEnum]
 
 
+  export const SessionTemplateScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    name: 'name',
+    showMetronome: 'showMetronome',
+    showSongPicker: 'showSongPicker',
+    showGoalPicker: 'showGoalPicker',
+    checklistItems: 'checklistItems',
+    createdAt: 'createdAt'
+  };
+
+  export type SessionTemplateScalarFieldEnum = (typeof SessionTemplateScalarFieldEnum)[keyof typeof SessionTemplateScalarFieldEnum]
+
+
   export const SessionScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -8395,6 +9756,8 @@ export namespace Prisma {
     instructorId: 'instructorId',
     goalId: 'goalId',
     pickup: 'pickup',
+    templateId: 'templateId',
+    checklistAnswers: 'checklistAnswers',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8408,6 +9771,14 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -8424,6 +9795,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -8488,6 +9868,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'ThumbStyle'
+   */
+  export type EnumThumbStyleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ThumbStyle'>
+    
+
+
+  /**
+   * Reference to a field of type 'ThumbStyle[]'
+   */
+  export type ListEnumThumbStyleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ThumbStyle[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SongStatus'
+   */
+  export type EnumSongStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SongStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'SongStatus[]'
+   */
+  export type ListEnumSongStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SongStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -8505,6 +9913,20 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -8535,6 +9957,9 @@ export namespace Prisma {
     key?: EnumKeyNullableFilter<"Song"> | $Enums.Key | null
     capo?: IntNullableFilter<"Song"> | number | null
     tuning?: EnumTuningFilter<"Song"> | $Enums.Tuning
+    thumbStyle?: EnumThumbStyleNullableFilter<"Song"> | $Enums.ThumbStyle | null
+    status?: EnumSongStatusFilter<"Song"> | $Enums.SongStatus
+    currentBlocker?: StringNullableFilter<"Song"> | string | null
     createdAt?: DateTimeFilter<"Song"> | Date | string
     sessions?: SessionListRelationFilter
   }
@@ -8546,6 +9971,9 @@ export namespace Prisma {
     key?: SortOrderInput | SortOrder
     capo?: SortOrderInput | SortOrder
     tuning?: SortOrder
+    thumbStyle?: SortOrderInput | SortOrder
+    status?: SortOrder
+    currentBlocker?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     sessions?: SessionOrderByRelationAggregateInput
   }
@@ -8561,6 +9989,9 @@ export namespace Prisma {
     key?: EnumKeyNullableFilter<"Song"> | $Enums.Key | null
     capo?: IntNullableFilter<"Song"> | number | null
     tuning?: EnumTuningFilter<"Song"> | $Enums.Tuning
+    thumbStyle?: EnumThumbStyleNullableFilter<"Song"> | $Enums.ThumbStyle | null
+    status?: EnumSongStatusFilter<"Song"> | $Enums.SongStatus
+    currentBlocker?: StringNullableFilter<"Song"> | string | null
     createdAt?: DateTimeFilter<"Song"> | Date | string
     sessions?: SessionListRelationFilter
   }, "id" | "userId_title">
@@ -8572,6 +10003,9 @@ export namespace Prisma {
     key?: SortOrderInput | SortOrder
     capo?: SortOrderInput | SortOrder
     tuning?: SortOrder
+    thumbStyle?: SortOrderInput | SortOrder
+    status?: SortOrder
+    currentBlocker?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: SongCountOrderByAggregateInput
     _avg?: SongAvgOrderByAggregateInput
@@ -8590,6 +10024,9 @@ export namespace Prisma {
     key?: EnumKeyNullableWithAggregatesFilter<"Song"> | $Enums.Key | null
     capo?: IntNullableWithAggregatesFilter<"Song"> | number | null
     tuning?: EnumTuningWithAggregatesFilter<"Song"> | $Enums.Tuning
+    thumbStyle?: EnumThumbStyleNullableWithAggregatesFilter<"Song"> | $Enums.ThumbStyle | null
+    status?: EnumSongStatusWithAggregatesFilter<"Song"> | $Enums.SongStatus
+    currentBlocker?: StringNullableWithAggregatesFilter<"Song"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Song"> | Date | string
   }
 
@@ -8796,6 +10233,77 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Goal"> | Date | string
   }
 
+  export type SessionTemplateWhereInput = {
+    AND?: SessionTemplateWhereInput | SessionTemplateWhereInput[]
+    OR?: SessionTemplateWhereInput[]
+    NOT?: SessionTemplateWhereInput | SessionTemplateWhereInput[]
+    id?: StringFilter<"SessionTemplate"> | string
+    userId?: StringFilter<"SessionTemplate"> | string
+    name?: StringFilter<"SessionTemplate"> | string
+    showMetronome?: BoolFilter<"SessionTemplate"> | boolean
+    showSongPicker?: BoolFilter<"SessionTemplate"> | boolean
+    showGoalPicker?: BoolFilter<"SessionTemplate"> | boolean
+    checklistItems?: JsonNullableFilter<"SessionTemplate">
+    createdAt?: DateTimeFilter<"SessionTemplate"> | Date | string
+    sessions?: SessionListRelationFilter
+  }
+
+  export type SessionTemplateOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    showMetronome?: SortOrder
+    showSongPicker?: SortOrder
+    showGoalPicker?: SortOrder
+    checklistItems?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    sessions?: SessionOrderByRelationAggregateInput
+  }
+
+  export type SessionTemplateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_name?: SessionTemplateUserIdNameCompoundUniqueInput
+    AND?: SessionTemplateWhereInput | SessionTemplateWhereInput[]
+    OR?: SessionTemplateWhereInput[]
+    NOT?: SessionTemplateWhereInput | SessionTemplateWhereInput[]
+    userId?: StringFilter<"SessionTemplate"> | string
+    name?: StringFilter<"SessionTemplate"> | string
+    showMetronome?: BoolFilter<"SessionTemplate"> | boolean
+    showSongPicker?: BoolFilter<"SessionTemplate"> | boolean
+    showGoalPicker?: BoolFilter<"SessionTemplate"> | boolean
+    checklistItems?: JsonNullableFilter<"SessionTemplate">
+    createdAt?: DateTimeFilter<"SessionTemplate"> | Date | string
+    sessions?: SessionListRelationFilter
+  }, "id" | "userId_name">
+
+  export type SessionTemplateOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    showMetronome?: SortOrder
+    showSongPicker?: SortOrder
+    showGoalPicker?: SortOrder
+    checklistItems?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: SessionTemplateCountOrderByAggregateInput
+    _max?: SessionTemplateMaxOrderByAggregateInput
+    _min?: SessionTemplateMinOrderByAggregateInput
+  }
+
+  export type SessionTemplateScalarWhereWithAggregatesInput = {
+    AND?: SessionTemplateScalarWhereWithAggregatesInput | SessionTemplateScalarWhereWithAggregatesInput[]
+    OR?: SessionTemplateScalarWhereWithAggregatesInput[]
+    NOT?: SessionTemplateScalarWhereWithAggregatesInput | SessionTemplateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SessionTemplate"> | string
+    userId?: StringWithAggregatesFilter<"SessionTemplate"> | string
+    name?: StringWithAggregatesFilter<"SessionTemplate"> | string
+    showMetronome?: BoolWithAggregatesFilter<"SessionTemplate"> | boolean
+    showSongPicker?: BoolWithAggregatesFilter<"SessionTemplate"> | boolean
+    showGoalPicker?: BoolWithAggregatesFilter<"SessionTemplate"> | boolean
+    checklistItems?: JsonNullableWithAggregatesFilter<"SessionTemplate">
+    createdAt?: DateTimeWithAggregatesFilter<"SessionTemplate"> | Date | string
+  }
+
   export type SessionWhereInput = {
     AND?: SessionWhereInput | SessionWhereInput[]
     OR?: SessionWhereInput[]
@@ -8818,6 +10326,8 @@ export namespace Prisma {
     instructorId?: StringNullableFilter<"Session"> | string | null
     goalId?: StringNullableFilter<"Session"> | string | null
     pickup?: StringNullableFilter<"Session"> | string | null
+    templateId?: StringNullableFilter<"Session"> | string | null
+    checklistAnswers?: JsonNullableFilter<"Session">
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
     song?: XOR<SongNullableScalarRelationFilter, SongWhereInput> | null
@@ -8825,6 +10335,7 @@ export namespace Prisma {
     recordings?: RecordingListRelationFilter
     instructor?: XOR<InstructorNullableScalarRelationFilter, InstructorWhereInput> | null
     goal?: XOR<GoalNullableScalarRelationFilter, GoalWhereInput> | null
+    template?: XOR<SessionTemplateNullableScalarRelationFilter, SessionTemplateWhereInput> | null
   }
 
   export type SessionOrderByWithRelationInput = {
@@ -8846,6 +10357,8 @@ export namespace Prisma {
     instructorId?: SortOrderInput | SortOrder
     goalId?: SortOrderInput | SortOrder
     pickup?: SortOrderInput | SortOrder
+    templateId?: SortOrderInput | SortOrder
+    checklistAnswers?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     song?: SongOrderByWithRelationInput
@@ -8853,6 +10366,7 @@ export namespace Prisma {
     recordings?: RecordingOrderByRelationAggregateInput
     instructor?: InstructorOrderByWithRelationInput
     goal?: GoalOrderByWithRelationInput
+    template?: SessionTemplateOrderByWithRelationInput
   }
 
   export type SessionWhereUniqueInput = Prisma.AtLeast<{
@@ -8877,6 +10391,8 @@ export namespace Prisma {
     instructorId?: StringNullableFilter<"Session"> | string | null
     goalId?: StringNullableFilter<"Session"> | string | null
     pickup?: StringNullableFilter<"Session"> | string | null
+    templateId?: StringNullableFilter<"Session"> | string | null
+    checklistAnswers?: JsonNullableFilter<"Session">
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
     song?: XOR<SongNullableScalarRelationFilter, SongWhereInput> | null
@@ -8884,6 +10400,7 @@ export namespace Prisma {
     recordings?: RecordingListRelationFilter
     instructor?: XOR<InstructorNullableScalarRelationFilter, InstructorWhereInput> | null
     goal?: XOR<GoalNullableScalarRelationFilter, GoalWhereInput> | null
+    template?: XOR<SessionTemplateNullableScalarRelationFilter, SessionTemplateWhereInput> | null
   }, "id">
 
   export type SessionOrderByWithAggregationInput = {
@@ -8905,6 +10422,8 @@ export namespace Prisma {
     instructorId?: SortOrderInput | SortOrder
     goalId?: SortOrderInput | SortOrder
     pickup?: SortOrderInput | SortOrder
+    templateId?: SortOrderInput | SortOrder
+    checklistAnswers?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SessionCountOrderByAggregateInput
@@ -8936,6 +10455,8 @@ export namespace Prisma {
     instructorId?: StringNullableWithAggregatesFilter<"Session"> | string | null
     goalId?: StringNullableWithAggregatesFilter<"Session"> | string | null
     pickup?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    templateId?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    checklistAnswers?: JsonNullableWithAggregatesFilter<"Session">
     createdAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
   }
@@ -8947,6 +10468,9 @@ export namespace Prisma {
     key?: $Enums.Key | null
     capo?: number | null
     tuning?: $Enums.Tuning
+    thumbStyle?: $Enums.ThumbStyle | null
+    status?: $Enums.SongStatus
+    currentBlocker?: string | null
     createdAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutSongInput
   }
@@ -8958,6 +10482,9 @@ export namespace Prisma {
     key?: $Enums.Key | null
     capo?: number | null
     tuning?: $Enums.Tuning
+    thumbStyle?: $Enums.ThumbStyle | null
+    status?: $Enums.SongStatus
+    currentBlocker?: string | null
     createdAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutSongInput
   }
@@ -8969,6 +10496,9 @@ export namespace Prisma {
     key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
     capo?: NullableIntFieldUpdateOperationsInput | number | null
     tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
+    thumbStyle?: NullableEnumThumbStyleFieldUpdateOperationsInput | $Enums.ThumbStyle | null
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutSongNestedInput
   }
@@ -8980,6 +10510,9 @@ export namespace Prisma {
     key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
     capo?: NullableIntFieldUpdateOperationsInput | number | null
     tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
+    thumbStyle?: NullableEnumThumbStyleFieldUpdateOperationsInput | $Enums.ThumbStyle | null
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutSongNestedInput
   }
@@ -8991,6 +10524,9 @@ export namespace Prisma {
     key?: $Enums.Key | null
     capo?: number | null
     tuning?: $Enums.Tuning
+    thumbStyle?: $Enums.ThumbStyle | null
+    status?: $Enums.SongStatus
+    currentBlocker?: string | null
     createdAt?: Date | string
   }
 
@@ -9001,6 +10537,9 @@ export namespace Prisma {
     key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
     capo?: NullableIntFieldUpdateOperationsInput | number | null
     tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
+    thumbStyle?: NullableEnumThumbStyleFieldUpdateOperationsInput | $Enums.ThumbStyle | null
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9011,6 +10550,9 @@ export namespace Prisma {
     key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
     capo?: NullableIntFieldUpdateOperationsInput | number | null
     tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
+    thumbStyle?: NullableEnumThumbStyleFieldUpdateOperationsInput | $Enums.ThumbStyle | null
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9221,6 +10763,87 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SessionTemplateCreateInput = {
+    id?: string
+    userId: string
+    name: string
+    showMetronome?: boolean
+    showSongPicker?: boolean
+    showGoalPicker?: boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutTemplateInput
+  }
+
+  export type SessionTemplateUncheckedCreateInput = {
+    id?: string
+    userId: string
+    name: string
+    showMetronome?: boolean
+    showSongPicker?: boolean
+    showGoalPicker?: boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type SessionTemplateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    showMetronome?: BoolFieldUpdateOperationsInput | boolean
+    showSongPicker?: BoolFieldUpdateOperationsInput | boolean
+    showGoalPicker?: BoolFieldUpdateOperationsInput | boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type SessionTemplateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    showMetronome?: BoolFieldUpdateOperationsInput | boolean
+    showSongPicker?: BoolFieldUpdateOperationsInput | boolean
+    showGoalPicker?: BoolFieldUpdateOperationsInput | boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type SessionTemplateCreateManyInput = {
+    id?: string
+    userId: string
+    name: string
+    showMetronome?: boolean
+    showSongPicker?: boolean
+    showGoalPicker?: boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SessionTemplateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    showMetronome?: BoolFieldUpdateOperationsInput | boolean
+    showSongPicker?: BoolFieldUpdateOperationsInput | boolean
+    showGoalPicker?: BoolFieldUpdateOperationsInput | boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionTemplateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    showMetronome?: BoolFieldUpdateOperationsInput | boolean
+    showSongPicker?: BoolFieldUpdateOperationsInput | boolean
+    showGoalPicker?: BoolFieldUpdateOperationsInput | boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SessionCreateInput = {
     id?: string
     userId: string
@@ -9237,6 +10860,7 @@ export namespace Prisma {
     isFavorited?: boolean
     isPublic?: boolean
     pickup?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     song?: SongCreateNestedOneWithoutSessionsInput
@@ -9244,6 +10868,7 @@ export namespace Prisma {
     recordings?: RecordingCreateNestedManyWithoutSessionInput
     instructor?: InstructorCreateNestedOneWithoutSessionsInput
     goal?: GoalCreateNestedOneWithoutSessionsInput
+    template?: SessionTemplateCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateInput = {
@@ -9265,6 +10890,8 @@ export namespace Prisma {
     instructorId?: string | null
     goalId?: string | null
     pickup?: string | null
+    templateId?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
@@ -9287,6 +10914,7 @@ export namespace Prisma {
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     song?: SongUpdateOneWithoutSessionsNestedInput
@@ -9294,6 +10922,7 @@ export namespace Prisma {
     recordings?: RecordingUpdateManyWithoutSessionNestedInput
     instructor?: InstructorUpdateOneWithoutSessionsNestedInput
     goal?: GoalUpdateOneWithoutSessionsNestedInput
+    template?: SessionTemplateUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateInput = {
@@ -9315,6 +10944,8 @@ export namespace Prisma {
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
@@ -9340,6 +10971,8 @@ export namespace Prisma {
     instructorId?: string | null
     goalId?: string | null
     pickup?: string | null
+    templateId?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9360,6 +10993,7 @@ export namespace Prisma {
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9383,6 +11017,8 @@ export namespace Prisma {
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9427,6 +11063,35 @@ export namespace Prisma {
     not?: NestedEnumTuningFilter<$PrismaModel> | $Enums.Tuning
   }
 
+  export type EnumThumbStyleNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ThumbStyle | EnumThumbStyleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ThumbStyle[] | ListEnumThumbStyleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ThumbStyle[] | ListEnumThumbStyleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumThumbStyleNullableFilter<$PrismaModel> | $Enums.ThumbStyle | null
+  }
+
+  export type EnumSongStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SongStatus | EnumSongStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SongStatus[] | ListEnumSongStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SongStatus[] | ListEnumSongStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSongStatusFilter<$PrismaModel> | $Enums.SongStatus
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -9465,6 +11130,9 @@ export namespace Prisma {
     key?: SortOrder
     capo?: SortOrder
     tuning?: SortOrder
+    thumbStyle?: SortOrder
+    status?: SortOrder
+    currentBlocker?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -9479,6 +11147,9 @@ export namespace Prisma {
     key?: SortOrder
     capo?: SortOrder
     tuning?: SortOrder
+    thumbStyle?: SortOrder
+    status?: SortOrder
+    currentBlocker?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -9489,6 +11160,9 @@ export namespace Prisma {
     key?: SortOrder
     capo?: SortOrder
     tuning?: SortOrder
+    thumbStyle?: SortOrder
+    status?: SortOrder
+    currentBlocker?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -9550,6 +11224,44 @@ export namespace Prisma {
     _max?: NestedEnumTuningFilter<$PrismaModel>
   }
 
+  export type EnumThumbStyleNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ThumbStyle | EnumThumbStyleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ThumbStyle[] | ListEnumThumbStyleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ThumbStyle[] | ListEnumThumbStyleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumThumbStyleNullableWithAggregatesFilter<$PrismaModel> | $Enums.ThumbStyle | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumThumbStyleNullableFilter<$PrismaModel>
+    _max?: NestedEnumThumbStyleNullableFilter<$PrismaModel>
+  }
+
+  export type EnumSongStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SongStatus | EnumSongStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SongStatus[] | ListEnumSongStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SongStatus[] | ListEnumSongStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSongStatusWithAggregatesFilter<$PrismaModel> | $Enums.SongStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSongStatusFilter<$PrismaModel>
+    _max?: NestedEnumSongStatusFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -9587,21 +11299,6 @@ export namespace Prisma {
     name?: SortOrder
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type SessionScalarRelationFilter = {
     is?: SessionWhereInput
     isNot?: SessionWhereInput
@@ -9629,24 +11326,6 @@ export namespace Prisma {
     url?: SortOrder
     label?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type InstructorUserIdNameCompoundUniqueInput = {
@@ -9701,6 +11380,104 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type SessionTemplateUserIdNameCompoundUniqueInput = {
+    userId: string
+    name: string
+  }
+
+  export type SessionTemplateCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    showMetronome?: SortOrder
+    showSongPicker?: SortOrder
+    showGoalPicker?: SortOrder
+    checklistItems?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SessionTemplateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    showMetronome?: SortOrder
+    showSongPicker?: SortOrder
+    showGoalPicker?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SessionTemplateMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    showMetronome?: SortOrder
+    showSongPicker?: SortOrder
+    showGoalPicker?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -9715,11 +11492,6 @@ export namespace Prisma {
   export type BoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type SongNullableScalarRelationFilter = {
@@ -9749,6 +11521,11 @@ export namespace Prisma {
     isNot?: GoalWhereInput | null
   }
 
+  export type SessionTemplateNullableScalarRelationFilter = {
+    is?: SessionTemplateWhereInput | null
+    isNot?: SessionTemplateWhereInput | null
+  }
+
   export type TagOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -9776,6 +11553,8 @@ export namespace Prisma {
     instructorId?: SortOrder
     goalId?: SortOrder
     pickup?: SortOrder
+    templateId?: SortOrder
+    checklistAnswers?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9806,6 +11585,7 @@ export namespace Prisma {
     instructorId?: SortOrder
     goalId?: SortOrder
     pickup?: SortOrder
+    templateId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9829,6 +11609,7 @@ export namespace Prisma {
     instructorId?: SortOrder
     goalId?: SortOrder
     pickup?: SortOrder
+    templateId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9864,14 +11645,6 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type SessionCreateNestedManyWithoutSongInput = {
     create?: XOR<SessionCreateWithoutSongInput, SessionUncheckedCreateWithoutSongInput> | SessionCreateWithoutSongInput[] | SessionUncheckedCreateWithoutSongInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutSongInput | SessionCreateOrConnectWithoutSongInput[]
@@ -9904,6 +11677,18 @@ export namespace Prisma {
 
   export type EnumTuningFieldUpdateOperationsInput = {
     set?: $Enums.Tuning
+  }
+
+  export type NullableEnumThumbStyleFieldUpdateOperationsInput = {
+    set?: $Enums.ThumbStyle | null
+  }
+
+  export type EnumSongStatusFieldUpdateOperationsInput = {
+    set?: $Enums.SongStatus
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -9980,10 +11765,6 @@ export namespace Prisma {
     create?: XOR<SessionCreateWithoutRecordingsInput, SessionUncheckedCreateWithoutRecordingsInput>
     connectOrCreate?: SessionCreateOrConnectWithoutRecordingsInput
     connect?: SessionWhereUniqueInput
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type SessionUpdateOneRequiredWithoutRecordingsNestedInput = {
@@ -10078,6 +11859,52 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type SessionCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<SessionCreateWithoutTemplateInput, SessionUncheckedCreateWithoutTemplateInput> | SessionCreateWithoutTemplateInput[] | SessionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutTemplateInput | SessionCreateOrConnectWithoutTemplateInput[]
+    createMany?: SessionCreateManyTemplateInputEnvelope
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type SessionUncheckedCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<SessionCreateWithoutTemplateInput, SessionUncheckedCreateWithoutTemplateInput> | SessionCreateWithoutTemplateInput[] | SessionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutTemplateInput | SessionCreateOrConnectWithoutTemplateInput[]
+    createMany?: SessionCreateManyTemplateInputEnvelope
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type SessionUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<SessionCreateWithoutTemplateInput, SessionUncheckedCreateWithoutTemplateInput> | SessionCreateWithoutTemplateInput[] | SessionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutTemplateInput | SessionCreateOrConnectWithoutTemplateInput[]
+    upsert?: SessionUpsertWithWhereUniqueWithoutTemplateInput | SessionUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: SessionCreateManyTemplateInputEnvelope
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    update?: SessionUpdateWithWhereUniqueWithoutTemplateInput | SessionUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: SessionUpdateManyWithWhereWithoutTemplateInput | SessionUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type SessionUncheckedUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<SessionCreateWithoutTemplateInput, SessionUncheckedCreateWithoutTemplateInput> | SessionCreateWithoutTemplateInput[] | SessionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutTemplateInput | SessionCreateOrConnectWithoutTemplateInput[]
+    upsert?: SessionUpsertWithWhereUniqueWithoutTemplateInput | SessionUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: SessionCreateManyTemplateInputEnvelope
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    update?: SessionUpdateWithWhereUniqueWithoutTemplateInput | SessionUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: SessionUpdateManyWithWhereWithoutTemplateInput | SessionUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
   export type SongCreateNestedOneWithoutSessionsInput = {
     create?: XOR<SongCreateWithoutSessionsInput, SongUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: SongCreateOrConnectWithoutSessionsInput
@@ -10109,6 +11936,12 @@ export namespace Prisma {
     connect?: GoalWhereUniqueInput
   }
 
+  export type SessionTemplateCreateNestedOneWithoutSessionsInput = {
+    create?: XOR<SessionTemplateCreateWithoutSessionsInput, SessionTemplateUncheckedCreateWithoutSessionsInput>
+    connectOrCreate?: SessionTemplateCreateOrConnectWithoutSessionsInput
+    connect?: SessionTemplateWhereUniqueInput
+  }
+
   export type TagUncheckedCreateNestedManyWithoutSessionsInput = {
     create?: XOR<TagCreateWithoutSessionsInput, TagUncheckedCreateWithoutSessionsInput> | TagCreateWithoutSessionsInput[] | TagUncheckedCreateWithoutSessionsInput[]
     connectOrCreate?: TagCreateOrConnectWithoutSessionsInput | TagCreateOrConnectWithoutSessionsInput[]
@@ -10132,10 +11965,6 @@ export namespace Prisma {
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type SongUpdateOneWithoutSessionsNestedInput = {
@@ -10193,6 +12022,16 @@ export namespace Prisma {
     delete?: GoalWhereInput | boolean
     connect?: GoalWhereUniqueInput
     update?: XOR<XOR<GoalUpdateToOneWithWhereWithoutSessionsInput, GoalUpdateWithoutSessionsInput>, GoalUncheckedUpdateWithoutSessionsInput>
+  }
+
+  export type SessionTemplateUpdateOneWithoutSessionsNestedInput = {
+    create?: XOR<SessionTemplateCreateWithoutSessionsInput, SessionTemplateUncheckedCreateWithoutSessionsInput>
+    connectOrCreate?: SessionTemplateCreateOrConnectWithoutSessionsInput
+    upsert?: SessionTemplateUpsertWithoutSessionsInput
+    disconnect?: SessionTemplateWhereInput | boolean
+    delete?: SessionTemplateWhereInput | boolean
+    connect?: SessionTemplateWhereUniqueInput
+    update?: XOR<XOR<SessionTemplateUpdateToOneWithWhereWithoutSessionsInput, SessionTemplateUpdateWithoutSessionsInput>, SessionTemplateUncheckedUpdateWithoutSessionsInput>
   }
 
   export type TagUncheckedUpdateManyWithoutSessionsNestedInput = {
@@ -10259,6 +12098,34 @@ export namespace Prisma {
     in?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel>
     notIn?: $Enums.Tuning[] | ListEnumTuningFieldRefInput<$PrismaModel>
     not?: NestedEnumTuningFilter<$PrismaModel> | $Enums.Tuning
+  }
+
+  export type NestedEnumThumbStyleNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ThumbStyle | EnumThumbStyleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ThumbStyle[] | ListEnumThumbStyleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ThumbStyle[] | ListEnumThumbStyleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumThumbStyleNullableFilter<$PrismaModel> | $Enums.ThumbStyle | null
+  }
+
+  export type NestedEnumSongStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SongStatus | EnumSongStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SongStatus[] | ListEnumSongStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SongStatus[] | ListEnumSongStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSongStatusFilter<$PrismaModel> | $Enums.SongStatus
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -10347,32 +12214,24 @@ export namespace Prisma {
     _max?: NestedEnumTuningFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+  export type NestedEnumThumbStyleNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ThumbStyle | EnumThumbStyleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ThumbStyle[] | ListEnumThumbStyleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ThumbStyle[] | ListEnumThumbStyleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumThumbStyleNullableWithAggregatesFilter<$PrismaModel> | $Enums.ThumbStyle | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumThumbStyleNullableFilter<$PrismaModel>
+    _max?: NestedEnumThumbStyleNullableFilter<$PrismaModel>
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  export type NestedEnumSongStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SongStatus | EnumSongStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SongStatus[] | ListEnumSongStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SongStatus[] | ListEnumSongStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSongStatusWithAggregatesFilter<$PrismaModel> | $Enums.SongStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSongStatusFilter<$PrismaModel>
+    _max?: NestedEnumSongStatusFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -10392,14 +12251,59 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedBoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -10437,14 +12341,6 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type SessionCreateWithoutSongInput = {
     id?: string
     userId: string
@@ -10461,12 +12357,14 @@ export namespace Prisma {
     isFavorited?: boolean
     isPublic?: boolean
     pickup?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagCreateNestedManyWithoutSessionsInput
     recordings?: RecordingCreateNestedManyWithoutSessionInput
     instructor?: InstructorCreateNestedOneWithoutSessionsInput
     goal?: GoalCreateNestedOneWithoutSessionsInput
+    template?: SessionTemplateCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateWithoutSongInput = {
@@ -10487,6 +12385,8 @@ export namespace Prisma {
     instructorId?: string | null
     goalId?: string | null
     pickup?: string | null
+    templateId?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
@@ -10541,6 +12441,8 @@ export namespace Prisma {
     instructorId?: StringNullableFilter<"Session"> | string | null
     goalId?: StringNullableFilter<"Session"> | string | null
     pickup?: StringNullableFilter<"Session"> | string | null
+    templateId?: StringNullableFilter<"Session"> | string | null
+    checklistAnswers?: JsonNullableFilter<"Session">
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
   }
@@ -10561,12 +12463,14 @@ export namespace Prisma {
     isFavorited?: boolean
     isPublic?: boolean
     pickup?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     song?: SongCreateNestedOneWithoutSessionsInput
     recordings?: RecordingCreateNestedManyWithoutSessionInput
     instructor?: InstructorCreateNestedOneWithoutSessionsInput
     goal?: GoalCreateNestedOneWithoutSessionsInput
+    template?: SessionTemplateCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateWithoutTagsInput = {
@@ -10588,6 +12492,8 @@ export namespace Prisma {
     instructorId?: string | null
     goalId?: string | null
     pickup?: string | null
+    templateId?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     recordings?: RecordingUncheckedCreateNestedManyWithoutSessionInput
@@ -10630,12 +12536,14 @@ export namespace Prisma {
     isFavorited?: boolean
     isPublic?: boolean
     pickup?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     song?: SongCreateNestedOneWithoutSessionsInput
     tags?: TagCreateNestedManyWithoutSessionsInput
     instructor?: InstructorCreateNestedOneWithoutSessionsInput
     goal?: GoalCreateNestedOneWithoutSessionsInput
+    template?: SessionTemplateCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateWithoutRecordingsInput = {
@@ -10657,6 +12565,8 @@ export namespace Prisma {
     instructorId?: string | null
     goalId?: string | null
     pickup?: string | null
+    templateId?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
@@ -10694,12 +12604,14 @@ export namespace Prisma {
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     song?: SongUpdateOneWithoutSessionsNestedInput
     tags?: TagUpdateManyWithoutSessionsNestedInput
     instructor?: InstructorUpdateOneWithoutSessionsNestedInput
     goal?: GoalUpdateOneWithoutSessionsNestedInput
+    template?: SessionTemplateUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateWithoutRecordingsInput = {
@@ -10721,6 +12633,8 @@ export namespace Prisma {
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
@@ -10742,12 +12656,14 @@ export namespace Prisma {
     isFavorited?: boolean
     isPublic?: boolean
     pickup?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     song?: SongCreateNestedOneWithoutSessionsInput
     tags?: TagCreateNestedManyWithoutSessionsInput
     recordings?: RecordingCreateNestedManyWithoutSessionInput
     goal?: GoalCreateNestedOneWithoutSessionsInput
+    template?: SessionTemplateCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateWithoutInstructorInput = {
@@ -10768,6 +12684,8 @@ export namespace Prisma {
     songId?: string | null
     goalId?: string | null
     pickup?: string | null
+    templateId?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
@@ -10816,12 +12734,14 @@ export namespace Prisma {
     isFavorited?: boolean
     isPublic?: boolean
     pickup?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     song?: SongCreateNestedOneWithoutSessionsInput
     tags?: TagCreateNestedManyWithoutSessionsInput
     recordings?: RecordingCreateNestedManyWithoutSessionInput
     instructor?: InstructorCreateNestedOneWithoutSessionsInput
+    template?: SessionTemplateCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateWithoutGoalInput = {
@@ -10842,6 +12762,8 @@ export namespace Prisma {
     songId?: string | null
     instructorId?: string | null
     pickup?: string | null
+    templateId?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
@@ -10874,6 +12796,84 @@ export namespace Prisma {
     data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutGoalInput>
   }
 
+  export type SessionCreateWithoutTemplateInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    duration: number
+    topic?: string | null
+    notes?: string | null
+    bpm?: number | null
+    instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
+    pickup?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    song?: SongCreateNestedOneWithoutSessionsInput
+    tags?: TagCreateNestedManyWithoutSessionsInput
+    recordings?: RecordingCreateNestedManyWithoutSessionInput
+    instructor?: InstructorCreateNestedOneWithoutSessionsInput
+    goal?: GoalCreateNestedOneWithoutSessionsInput
+  }
+
+  export type SessionUncheckedCreateWithoutTemplateInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    duration: number
+    topic?: string | null
+    notes?: string | null
+    bpm?: number | null
+    instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
+    songId?: string | null
+    instructorId?: string | null
+    goalId?: string | null
+    pickup?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tags?: TagUncheckedCreateNestedManyWithoutSessionsInput
+    recordings?: RecordingUncheckedCreateNestedManyWithoutSessionInput
+  }
+
+  export type SessionCreateOrConnectWithoutTemplateInput = {
+    where: SessionWhereUniqueInput
+    create: XOR<SessionCreateWithoutTemplateInput, SessionUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type SessionCreateManyTemplateInputEnvelope = {
+    data: SessionCreateManyTemplateInput | SessionCreateManyTemplateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SessionUpsertWithWhereUniqueWithoutTemplateInput = {
+    where: SessionWhereUniqueInput
+    update: XOR<SessionUpdateWithoutTemplateInput, SessionUncheckedUpdateWithoutTemplateInput>
+    create: XOR<SessionCreateWithoutTemplateInput, SessionUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type SessionUpdateWithWhereUniqueWithoutTemplateInput = {
+    where: SessionWhereUniqueInput
+    data: XOR<SessionUpdateWithoutTemplateInput, SessionUncheckedUpdateWithoutTemplateInput>
+  }
+
+  export type SessionUpdateManyWithWhereWithoutTemplateInput = {
+    where: SessionScalarWhereInput
+    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutTemplateInput>
+  }
+
   export type SongCreateWithoutSessionsInput = {
     id?: string
     userId: string
@@ -10881,6 +12881,9 @@ export namespace Prisma {
     key?: $Enums.Key | null
     capo?: number | null
     tuning?: $Enums.Tuning
+    thumbStyle?: $Enums.ThumbStyle | null
+    status?: $Enums.SongStatus
+    currentBlocker?: string | null
     createdAt?: Date | string
   }
 
@@ -10891,6 +12894,9 @@ export namespace Prisma {
     key?: $Enums.Key | null
     capo?: number | null
     tuning?: $Enums.Tuning
+    thumbStyle?: $Enums.ThumbStyle | null
+    status?: $Enums.SongStatus
+    currentBlocker?: string | null
     createdAt?: Date | string
   }
 
@@ -10978,6 +12984,33 @@ export namespace Prisma {
     create: XOR<GoalCreateWithoutSessionsInput, GoalUncheckedCreateWithoutSessionsInput>
   }
 
+  export type SessionTemplateCreateWithoutSessionsInput = {
+    id?: string
+    userId: string
+    name: string
+    showMetronome?: boolean
+    showSongPicker?: boolean
+    showGoalPicker?: boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SessionTemplateUncheckedCreateWithoutSessionsInput = {
+    id?: string
+    userId: string
+    name: string
+    showMetronome?: boolean
+    showSongPicker?: boolean
+    showGoalPicker?: boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SessionTemplateCreateOrConnectWithoutSessionsInput = {
+    where: SessionTemplateWhereUniqueInput
+    create: XOR<SessionTemplateCreateWithoutSessionsInput, SessionTemplateUncheckedCreateWithoutSessionsInput>
+  }
+
   export type SongUpsertWithoutSessionsInput = {
     update: XOR<SongUpdateWithoutSessionsInput, SongUncheckedUpdateWithoutSessionsInput>
     create: XOR<SongCreateWithoutSessionsInput, SongUncheckedCreateWithoutSessionsInput>
@@ -10996,6 +13029,9 @@ export namespace Prisma {
     key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
     capo?: NullableIntFieldUpdateOperationsInput | number | null
     tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
+    thumbStyle?: NullableEnumThumbStyleFieldUpdateOperationsInput | $Enums.ThumbStyle | null
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11006,6 +13042,9 @@ export namespace Prisma {
     key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
     capo?: NullableIntFieldUpdateOperationsInput | number | null
     tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
+    thumbStyle?: NullableEnumThumbStyleFieldUpdateOperationsInput | $Enums.ThumbStyle | null
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11111,6 +13150,39 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SessionTemplateUpsertWithoutSessionsInput = {
+    update: XOR<SessionTemplateUpdateWithoutSessionsInput, SessionTemplateUncheckedUpdateWithoutSessionsInput>
+    create: XOR<SessionTemplateCreateWithoutSessionsInput, SessionTemplateUncheckedCreateWithoutSessionsInput>
+    where?: SessionTemplateWhereInput
+  }
+
+  export type SessionTemplateUpdateToOneWithWhereWithoutSessionsInput = {
+    where?: SessionTemplateWhereInput
+    data: XOR<SessionTemplateUpdateWithoutSessionsInput, SessionTemplateUncheckedUpdateWithoutSessionsInput>
+  }
+
+  export type SessionTemplateUpdateWithoutSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    showMetronome?: BoolFieldUpdateOperationsInput | boolean
+    showSongPicker?: BoolFieldUpdateOperationsInput | boolean
+    showGoalPicker?: BoolFieldUpdateOperationsInput | boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionTemplateUncheckedUpdateWithoutSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    showMetronome?: BoolFieldUpdateOperationsInput | boolean
+    showSongPicker?: BoolFieldUpdateOperationsInput | boolean
+    showGoalPicker?: BoolFieldUpdateOperationsInput | boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SessionCreateManySongInput = {
     id?: string
     userId: string
@@ -11129,6 +13201,8 @@ export namespace Prisma {
     instructorId?: string | null
     goalId?: string | null
     pickup?: string | null
+    templateId?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11149,12 +13223,14 @@ export namespace Prisma {
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUpdateManyWithoutSessionsNestedInput
     recordings?: RecordingUpdateManyWithoutSessionNestedInput
     instructor?: InstructorUpdateOneWithoutSessionsNestedInput
     goal?: GoalUpdateOneWithoutSessionsNestedInput
+    template?: SessionTemplateUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateWithoutSongInput = {
@@ -11175,6 +13251,8 @@ export namespace Prisma {
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
@@ -11199,6 +13277,8 @@ export namespace Prisma {
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11219,12 +13299,14 @@ export namespace Prisma {
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     song?: SongUpdateOneWithoutSessionsNestedInput
     recordings?: RecordingUpdateManyWithoutSessionNestedInput
     instructor?: InstructorUpdateOneWithoutSessionsNestedInput
     goal?: GoalUpdateOneWithoutSessionsNestedInput
+    template?: SessionTemplateUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateWithoutTagsInput = {
@@ -11246,6 +13328,8 @@ export namespace Prisma {
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     recordings?: RecordingUncheckedUpdateManyWithoutSessionNestedInput
@@ -11270,6 +13354,8 @@ export namespace Prisma {
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11292,6 +13378,8 @@ export namespace Prisma {
     songId?: string | null
     goalId?: string | null
     pickup?: string | null
+    templateId?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11312,12 +13400,14 @@ export namespace Prisma {
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     song?: SongUpdateOneWithoutSessionsNestedInput
     tags?: TagUpdateManyWithoutSessionsNestedInput
     recordings?: RecordingUpdateManyWithoutSessionNestedInput
     goal?: GoalUpdateOneWithoutSessionsNestedInput
+    template?: SessionTemplateUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateWithoutInstructorInput = {
@@ -11338,6 +13428,8 @@ export namespace Prisma {
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
@@ -11362,6 +13454,8 @@ export namespace Prisma {
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     goalId?: NullableStringFieldUpdateOperationsInput | string | null
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11384,6 +13478,8 @@ export namespace Prisma {
     songId?: string | null
     instructorId?: string | null
     pickup?: string | null
+    templateId?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11404,12 +13500,14 @@ export namespace Prisma {
     isFavorited?: BoolFieldUpdateOperationsInput | boolean
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     song?: SongUpdateOneWithoutSessionsNestedInput
     tags?: TagUpdateManyWithoutSessionsNestedInput
     recordings?: RecordingUpdateManyWithoutSessionNestedInput
     instructor?: InstructorUpdateOneWithoutSessionsNestedInput
+    template?: SessionTemplateUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateWithoutGoalInput = {
@@ -11430,6 +13528,8 @@ export namespace Prisma {
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
@@ -11454,6 +13554,108 @@ export namespace Prisma {
     songId?: NullableStringFieldUpdateOperationsInput | string | null
     instructorId?: NullableStringFieldUpdateOperationsInput | string | null
     pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionCreateManyTemplateInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    duration: number
+    topic?: string | null
+    notes?: string | null
+    bpm?: number | null
+    instrument?: string | null
+    intention?: string | null
+    intentionMet?: boolean | null
+    mood?: number | null
+    focus?: number | null
+    isFavorited?: boolean
+    isPublic?: boolean
+    songId?: string | null
+    instructorId?: string | null
+    goalId?: string | null
+    pickup?: string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SessionUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration?: IntFieldUpdateOperationsInput | number
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    song?: SongUpdateOneWithoutSessionsNestedInput
+    tags?: TagUpdateManyWithoutSessionsNestedInput
+    recordings?: RecordingUpdateManyWithoutSessionNestedInput
+    instructor?: InstructorUpdateOneWithoutSessionsNestedInput
+    goal?: GoalUpdateOneWithoutSessionsNestedInput
+  }
+
+  export type SessionUncheckedUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration?: IntFieldUpdateOperationsInput | number
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    songId?: NullableStringFieldUpdateOperationsInput | string | null
+    instructorId?: NullableStringFieldUpdateOperationsInput | string | null
+    goalId?: NullableStringFieldUpdateOperationsInput | string | null
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: TagUncheckedUpdateManyWithoutSessionsNestedInput
+    recordings?: RecordingUncheckedUpdateManyWithoutSessionNestedInput
+  }
+
+  export type SessionUncheckedUpdateManyWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration?: IntFieldUpdateOperationsInput | number
+    topic?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    instrument?: NullableStringFieldUpdateOperationsInput | string | null
+    intention?: NullableStringFieldUpdateOperationsInput | string | null
+    intentionMet?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    focus?: NullableIntFieldUpdateOperationsInput | number | null
+    isFavorited?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    songId?: NullableStringFieldUpdateOperationsInput | string | null
+    instructorId?: NullableStringFieldUpdateOperationsInput | string | null
+    goalId?: NullableStringFieldUpdateOperationsInput | string | null
+    pickup?: NullableStringFieldUpdateOperationsInput | string | null
+    checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

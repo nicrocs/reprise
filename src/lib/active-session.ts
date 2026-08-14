@@ -1,5 +1,6 @@
 // Client-side only — do not import in server components or actions
-import { Tuning, Key } from "../../prisma/generated/prisma"
+import { Tuning, Key, ThumbStyle } from "../../prisma/generated/prisma"
+import type { ChecklistItem, ChecklistAnswers } from "./types"
 
 const STORAGE_KEY = 'reprise_active_session'
 
@@ -10,8 +11,19 @@ export type ActiveSession = {
   songTitle?: string
   tuning?: Tuning
   key?: Key
+  thumbStyle?: ThumbStyle
   goalId?: string
   goalName?: string
+  templateId?: string
+  templateName?: string
+  templateChecklistItems?: ChecklistItem[]
+  templateShowMetronome?: boolean
+  templateShowSongPicker?: boolean
+  templateShowGoalPicker?: boolean
+  checklistAnswers?: ChecklistAnswers
+  bpm?: number
+  /** When true, the prefill should be applied immediately without showing a choice banner. */
+  autoApply?: boolean
 }
 
 export function saveActiveSession(session: ActiveSession): void {
