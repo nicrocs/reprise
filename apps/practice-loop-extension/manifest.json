@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Practice Loop",
+  "version": "0.1.0",
+  "description": "A/B looping and speed control for Wistia and YouTube videos.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://www.fretboardconfidential.com/*",
+    "https://www.youtube.com/*",
+    "https://*.wistia.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.fretboardconfidential.com/*",
+        "https://www.youtube.com/*"
+      ],
+      "js": ["src/content/index.ts"]
+    }
+  ]
+}
