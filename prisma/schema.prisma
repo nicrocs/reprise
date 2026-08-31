@@ -68,8 +68,18 @@ model Song {
   currentBlocker String?
   createdAt      DateTime   @default(now())
   sessions       Session[]
+  videos         SongVideo[]
 
   @@unique([userId, title])
+}
+
+model SongVideo {
+  id        String   @id @default(cuid())
+  songId    String
+  label     String
+  url       String
+  createdAt DateTime @default(now())
+  song      Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
 }
 
 model Tag {

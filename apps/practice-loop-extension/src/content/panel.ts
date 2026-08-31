@@ -11,6 +11,8 @@ export interface MountedPanel {
   element: HTMLElement;
   updateClips: (clips: LocalClip[]) => void;
   refresh: () => void;
+  setBoundary: (boundary: "a" | "b") => void;
+  loadLoop: (loop: Loop) => void;
   destroy: () => void;
 }
 
@@ -34,19 +36,31 @@ function formatTime(seconds: number): string {
   return `${m}:${pad(s)}`;
 }
 
-export function createLoopFromBoundary(
-  currentLoop: Loop | null,
+export interface PartialLoop {
+  start: number | null;
+  end: number | null;
+}
+
+export function applyBoundary(
+  partial: PartialLoop,
   currentTime: number,
   boundary: "a" | "b",
-): Loop {
+): PartialLoop {
   if (boundary === "a") {
     const start = currentTime;
-    const end = currentLoop && currentLoop.end > start ? currentLoop.end : start + 1;
+    const end = partial.end !== null && partial.end > start ? partial.end : null;
     return { start, end };
   }
   const end = currentTime;
-  const start = currentLoop && currentLoop.start < end ? currentLoop.start : Math.max(0, end - 1);
+  const start = partial.start !== null && partial.start < end ? partial.start : null;
   return { start, end };
+}
+
+export function buildLoop(partial: PartialLoop): Loop | null {
+  if (partial.start !== null && partial.end !== null && partial.start < partial.end) {
+    return { start: partial.start, end: partial.end };
+  }
+  return null;
 }
 
 export function mountPanel(options: MountPanelOptions): MountedPanel {
@@ -68,6 +82,7 @@ export function mountPanel(options: MountPanelOptions): MountedPanel {
   shadow.appendChild(panel);
 
   const cleanup: (() => void)[] = [];
+  let partialLoop: PartialLoop = { start: null, end: null };
 
   // Header
   const header = createHeader();
@@ -78,11 +93,29 @@ export function mountPanel(options: MountPanelOptions): MountedPanel {
   panel.appendChild(speedRow.element);
 
   // A/B points
-  const abRow = createABRow(controller, () => updateLoopUI());
+  const abRow = createABRow((boundary) => {
+    partialLoop = applyBoundary(partialLoop, controller.getCurrentTime(), boundary);
+    controller.setLoop(buildLoop(partialLoop));
+    updateLoopUI();
+  });
   panel.appendChild(abRow.element);
 
   // Loop toggle
-  const loopToggleRow = createLoopToggleRow(controller, () => updateLoopUI());
+  const loopToggleRow = createLoopToggleRow(() => {
+    if (controller.getLoop()) {
+      controller.setLoop(null);
+    } else {
+      const existing = buildLoop(partialLoop);
+      if (existing) {
+        controller.setLoop(existing);
+      } else {
+        const current = controller.getCurrentTime();
+        partialLoop = { start: current, end: current + 1 };
+        controller.setLoop(buildLoop(partialLoop));
+      }
+    }
+    updateLoopUI();
+  });
   panel.appendChild(loopToggleRow.element);
 
   // Save clip
@@ -100,7 +133,7 @@ export function mountPanel(options: MountPanelOptions): MountedPanel {
 
   function updateLoopUI() {
     const loop = controller.getLoop();
-    abRow.update(loop);
+    abRow.update(loop, partialLoop);
     loopToggleRow.update(loop);
   }
 
@@ -168,6 +201,16 @@ export function mountPanel(options: MountPanelOptions): MountedPanel {
     updateClips: (newClips) => renderClips(newClips),
     refresh: () => {
       updateSpeedUI();
+      updateLoopUI();
+    },
+    setBoundary: (boundary) => {
+      partialLoop = applyBoundary(partialLoop, controller.getCurrentTime(), boundary);
+      controller.setLoop(buildLoop(partialLoop));
+      updateLoopUI();
+    },
+    loadLoop: (loop) => {
+      partialLoop = { start: loop.start, end: loop.end };
+      controller.setLoop(buildLoop(partialLoop));
       updateLoopUI();
     },
     destroy: () => {
@@ -266,9 +309,8 @@ function createSpeedRow(
 }
 
 function createABRow(
-  controller: LoopController,
-  onLoopChange: () => void,
-): { element: HTMLElement; update: (loop: Loop | null) => void } {
+  onSetBoundary: (boundary: "a" | "b") => void,
+): { element: HTMLElement; update: (loop: Loop | null, partial: PartialLoop) => void } {
   const row = document.createElement("div");
   row.className = "row";
 
@@ -287,34 +329,32 @@ function createABRow(
   const setABtn = document.createElement("button");
   setABtn.className = "btn";
   setABtn.textContent = "Set A";
-  setABtn.addEventListener("click", () => {
-    const loop = createLoopFromBoundary(controller.getLoop(), controller.getCurrentTime(), "a");
-    controller.setLoop(loop);
-    onLoopChange();
-  });
+  setABtn.addEventListener("click", () => onSetBoundary("a"));
   group.appendChild(setABtn);
 
   const setBBtn = document.createElement("button");
   setBBtn.className = "btn";
   setBBtn.textContent = "Set B";
-  setBBtn.addEventListener("click", () => {
-    const loop = createLoopFromBoundary(controller.getLoop(), controller.getCurrentTime(), "b");
-    controller.setLoop(loop);
-    onLoopChange();
-  });
+  setBBtn.addEventListener("click", () => onSetBoundary("b"));
   group.appendChild(setBBtn);
 
   row.appendChild(group);
 
-  function update(loop: Loop | null) {
-    aTime.textContent = `A: ${loop ? formatTime(loop.start) : "--:--"}`;
-    bTime.textContent = `B: ${loop ? formatTime(loop.end) : "--:--"}`;
+  function update(loop: Loop | null, partial: PartialLoop) {
+    aTime.textContent = `A: ${formatBoundary(partial.start, loop?.start)}`;
+    bTime.textContent = `B: ${formatBoundary(partial.end, loop?.end)}`;
   }
 
   return {
     element: row,
     update,
   };
+}
+
+function formatBoundary(partial: number | null, active?: number): string {
+  if (partial !== null) return formatTime(partial);
+  if (active !== undefined) return formatTime(active);
+  return "--:--";
 }
 
 function createTimeLabel(prefix: string, initial: string): HTMLElement {
@@ -324,9 +364,18 @@ function createTimeLabel(prefix: string, initial: string): HTMLElement {
   return span;
 }
 
+function isolateInputShortcuts(input: HTMLInputElement | HTMLTextAreaElement): void {
+  const stop = (e: Event) => {
+    if (e.target === input) {
+      e.stopPropagation();
+    }
+  };
+  input.addEventListener("keydown", stop);
+  input.addEventListener("keyup", stop);
+}
+
 function createLoopToggleRow(
-  controller: LoopController,
-  onChange: () => void,
+  onToggle: () => void,
 ): { element: HTMLElement; update: (loop: Loop | null) => void } {
   const row = document.createElement("div");
   row.className = "row";
@@ -339,15 +388,7 @@ function createLoopToggleRow(
   const btn = document.createElement("button");
   btn.className = "btn";
   btn.textContent = "Off";
-  btn.addEventListener("click", () => {
-    if (controller.getLoop()) {
-      controller.setLoop(null);
-    } else {
-      const current = controller.getCurrentTime();
-      controller.setLoop({ start: current, end: current + 1 });
-    }
-    onChange();
-  });
+  btn.addEventListener("click", onToggle);
   row.appendChild(btn);
 
   return {
@@ -375,6 +416,7 @@ function createSaveRow(
   const input = document.createElement("input");
   input.type = "text";
   input.placeholder = "Clip label";
+  isolateInputShortcuts(input);
   row.appendChild(input);
 
   const saveBtn = document.createElement("button");

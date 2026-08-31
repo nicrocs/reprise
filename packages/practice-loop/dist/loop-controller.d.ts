@@ -22,6 +22,7 @@ export declare class LoopController {
     setPlaybackRate(rate: number): void;
     getPlaybackRate(): number;
     getCurrentTime(): number;
+    setCurrentTime(time: number): void;
     play(): void;
     pause(): void;
     private startPolling;

@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Song = $Result.DefaultSelection<Prisma.$SongPayload>
 /**
+ * Model SongVideo
+ * 
+ */
+export type SongVideo = $Result.DefaultSelection<Prisma.$SongVideoPayload>
+/**
  * Model Tag
  * 
  */
@@ -257,6 +262,16 @@ export class PrismaClient<
     * ```
     */
   get song(): Prisma.SongDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.songVideo`: Exposes CRUD operations for the **SongVideo** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SongVideos
+    * const songVideos = await prisma.songVideo.findMany()
+    * ```
+    */
+  get songVideo(): Prisma.SongVideoDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.tag`: Exposes CRUD operations for the **Tag** model.
@@ -752,6 +767,7 @@ export namespace Prisma {
 
   export const ModelName: {
     Song: 'Song',
+    SongVideo: 'SongVideo',
     Tag: 'Tag',
     Recording: 'Recording',
     Instructor: 'Instructor',
@@ -773,7 +789,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "song" | "tag" | "recording" | "instructor" | "goal" | "sessionTemplate" | "session"
+      modelProps: "song" | "songVideo" | "tag" | "recording" | "instructor" | "goal" | "sessionTemplate" | "session"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -848,6 +864,80 @@ export namespace Prisma {
           count: {
             args: Prisma.SongCountArgs<ExtArgs>
             result: $Utils.Optional<SongCountAggregateOutputType> | number
+          }
+        }
+      }
+      SongVideo: {
+        payload: Prisma.$SongVideoPayload<ExtArgs>
+        fields: Prisma.SongVideoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SongVideoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongVideoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SongVideoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongVideoPayload>
+          }
+          findFirst: {
+            args: Prisma.SongVideoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongVideoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SongVideoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongVideoPayload>
+          }
+          findMany: {
+            args: Prisma.SongVideoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongVideoPayload>[]
+          }
+          create: {
+            args: Prisma.SongVideoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongVideoPayload>
+          }
+          createMany: {
+            args: Prisma.SongVideoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SongVideoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongVideoPayload>[]
+          }
+          delete: {
+            args: Prisma.SongVideoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongVideoPayload>
+          }
+          update: {
+            args: Prisma.SongVideoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongVideoPayload>
+          }
+          deleteMany: {
+            args: Prisma.SongVideoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SongVideoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SongVideoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongVideoPayload>[]
+          }
+          upsert: {
+            args: Prisma.SongVideoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongVideoPayload>
+          }
+          aggregate: {
+            args: Prisma.SongVideoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSongVideo>
+          }
+          groupBy: {
+            args: Prisma.SongVideoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SongVideoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SongVideoCountArgs<ExtArgs>
+            result: $Utils.Optional<SongVideoCountAggregateOutputType> | number
           }
         }
       }
@@ -1404,6 +1494,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     song?: SongOmit
+    songVideo?: SongVideoOmit
     tag?: TagOmit
     recording?: RecordingOmit
     instructor?: InstructorOmit
@@ -1491,10 +1582,12 @@ export namespace Prisma {
 
   export type SongCountOutputType = {
     sessions: number
+    videos: number
   }
 
   export type SongCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | SongCountOutputTypeCountSessionsArgs
+    videos?: boolean | SongCountOutputTypeCountVideosArgs
   }
 
   // Custom InputTypes
@@ -1513,6 +1606,13 @@ export namespace Prisma {
    */
   export type SongCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SessionWhereInput
+  }
+
+  /**
+   * SongCountOutputType without action
+   */
+  export type SongCountOutputTypeCountVideosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SongVideoWhereInput
   }
 
 
@@ -1923,6 +2023,7 @@ export namespace Prisma {
     currentBlocker?: boolean
     createdAt?: boolean
     sessions?: boolean | Song$sessionsArgs<ExtArgs>
+    videos?: boolean | Song$videosArgs<ExtArgs>
     _count?: boolean | SongCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["song"]>
 
@@ -1968,6 +2069,7 @@ export namespace Prisma {
   export type SongOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "key" | "capo" | "tuning" | "thumbStyle" | "status" | "currentBlocker" | "createdAt", ExtArgs["result"]["song"]>
   export type SongInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | Song$sessionsArgs<ExtArgs>
+    videos?: boolean | Song$videosArgs<ExtArgs>
     _count?: boolean | SongCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SongIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1977,6 +2079,7 @@ export namespace Prisma {
     name: "Song"
     objects: {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
+      videos: Prisma.$SongVideoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2384,6 +2487,7 @@ export namespace Prisma {
   export interface Prisma__SongClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sessions<T extends Song$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, Song$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    videos<T extends Song$videosArgs<ExtArgs> = {}>(args?: Subset<T, Song$videosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SongVideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2835,6 +2939,30 @@ export namespace Prisma {
   }
 
   /**
+   * Song.videos
+   */
+  export type Song$videosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongVideo
+     */
+    select?: SongVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongVideo
+     */
+    omit?: SongVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongVideoInclude<ExtArgs> | null
+    where?: SongVideoWhereInput
+    orderBy?: SongVideoOrderByWithRelationInput | SongVideoOrderByWithRelationInput[]
+    cursor?: SongVideoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SongVideoScalarFieldEnum | SongVideoScalarFieldEnum[]
+  }
+
+  /**
    * Song without action
    */
   export type SongDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2850,6 +2978,1064 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SongInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SongVideo
+   */
+
+  export type AggregateSongVideo = {
+    _count: SongVideoCountAggregateOutputType | null
+    _min: SongVideoMinAggregateOutputType | null
+    _max: SongVideoMaxAggregateOutputType | null
+  }
+
+  export type SongVideoMinAggregateOutputType = {
+    id: string | null
+    songId: string | null
+    label: string | null
+    url: string | null
+    createdAt: Date | null
+  }
+
+  export type SongVideoMaxAggregateOutputType = {
+    id: string | null
+    songId: string | null
+    label: string | null
+    url: string | null
+    createdAt: Date | null
+  }
+
+  export type SongVideoCountAggregateOutputType = {
+    id: number
+    songId: number
+    label: number
+    url: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SongVideoMinAggregateInputType = {
+    id?: true
+    songId?: true
+    label?: true
+    url?: true
+    createdAt?: true
+  }
+
+  export type SongVideoMaxAggregateInputType = {
+    id?: true
+    songId?: true
+    label?: true
+    url?: true
+    createdAt?: true
+  }
+
+  export type SongVideoCountAggregateInputType = {
+    id?: true
+    songId?: true
+    label?: true
+    url?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SongVideoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SongVideo to aggregate.
+     */
+    where?: SongVideoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SongVideos to fetch.
+     */
+    orderBy?: SongVideoOrderByWithRelationInput | SongVideoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SongVideoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SongVideos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SongVideos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SongVideos
+    **/
+    _count?: true | SongVideoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SongVideoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SongVideoMaxAggregateInputType
+  }
+
+  export type GetSongVideoAggregateType<T extends SongVideoAggregateArgs> = {
+        [P in keyof T & keyof AggregateSongVideo]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSongVideo[P]>
+      : GetScalarType<T[P], AggregateSongVideo[P]>
+  }
+
+
+
+
+  export type SongVideoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SongVideoWhereInput
+    orderBy?: SongVideoOrderByWithAggregationInput | SongVideoOrderByWithAggregationInput[]
+    by: SongVideoScalarFieldEnum[] | SongVideoScalarFieldEnum
+    having?: SongVideoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SongVideoCountAggregateInputType | true
+    _min?: SongVideoMinAggregateInputType
+    _max?: SongVideoMaxAggregateInputType
+  }
+
+  export type SongVideoGroupByOutputType = {
+    id: string
+    songId: string
+    label: string
+    url: string
+    createdAt: Date
+    _count: SongVideoCountAggregateOutputType | null
+    _min: SongVideoMinAggregateOutputType | null
+    _max: SongVideoMaxAggregateOutputType | null
+  }
+
+  type GetSongVideoGroupByPayload<T extends SongVideoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SongVideoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SongVideoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SongVideoGroupByOutputType[P]>
+            : GetScalarType<T[P], SongVideoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SongVideoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    songId?: boolean
+    label?: boolean
+    url?: boolean
+    createdAt?: boolean
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["songVideo"]>
+
+  export type SongVideoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    songId?: boolean
+    label?: boolean
+    url?: boolean
+    createdAt?: boolean
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["songVideo"]>
+
+  export type SongVideoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    songId?: boolean
+    label?: boolean
+    url?: boolean
+    createdAt?: boolean
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["songVideo"]>
+
+  export type SongVideoSelectScalar = {
+    id?: boolean
+    songId?: boolean
+    label?: boolean
+    url?: boolean
+    createdAt?: boolean
+  }
+
+  export type SongVideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "songId" | "label" | "url" | "createdAt", ExtArgs["result"]["songVideo"]>
+  export type SongVideoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }
+  export type SongVideoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }
+  export type SongVideoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }
+
+  export type $SongVideoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SongVideo"
+    objects: {
+      song: Prisma.$SongPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      songId: string
+      label: string
+      url: string
+      createdAt: Date
+    }, ExtArgs["result"]["songVideo"]>
+    composites: {}
+  }
+
+  type SongVideoGetPayload<S extends boolean | null | undefined | SongVideoDefaultArgs> = $Result.GetResult<Prisma.$SongVideoPayload, S>
+
+  type SongVideoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SongVideoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SongVideoCountAggregateInputType | true
+    }
+
+  export interface SongVideoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SongVideo'], meta: { name: 'SongVideo' } }
+    /**
+     * Find zero or one SongVideo that matches the filter.
+     * @param {SongVideoFindUniqueArgs} args - Arguments to find a SongVideo
+     * @example
+     * // Get one SongVideo
+     * const songVideo = await prisma.songVideo.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SongVideoFindUniqueArgs>(args: SelectSubset<T, SongVideoFindUniqueArgs<ExtArgs>>): Prisma__SongVideoClient<$Result.GetResult<Prisma.$SongVideoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SongVideo that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SongVideoFindUniqueOrThrowArgs} args - Arguments to find a SongVideo
+     * @example
+     * // Get one SongVideo
+     * const songVideo = await prisma.songVideo.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SongVideoFindUniqueOrThrowArgs>(args: SelectSubset<T, SongVideoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SongVideoClient<$Result.GetResult<Prisma.$SongVideoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SongVideo that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SongVideoFindFirstArgs} args - Arguments to find a SongVideo
+     * @example
+     * // Get one SongVideo
+     * const songVideo = await prisma.songVideo.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SongVideoFindFirstArgs>(args?: SelectSubset<T, SongVideoFindFirstArgs<ExtArgs>>): Prisma__SongVideoClient<$Result.GetResult<Prisma.$SongVideoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SongVideo that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SongVideoFindFirstOrThrowArgs} args - Arguments to find a SongVideo
+     * @example
+     * // Get one SongVideo
+     * const songVideo = await prisma.songVideo.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SongVideoFindFirstOrThrowArgs>(args?: SelectSubset<T, SongVideoFindFirstOrThrowArgs<ExtArgs>>): Prisma__SongVideoClient<$Result.GetResult<Prisma.$SongVideoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SongVideos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SongVideoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SongVideos
+     * const songVideos = await prisma.songVideo.findMany()
+     * 
+     * // Get first 10 SongVideos
+     * const songVideos = await prisma.songVideo.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const songVideoWithIdOnly = await prisma.songVideo.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SongVideoFindManyArgs>(args?: SelectSubset<T, SongVideoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SongVideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SongVideo.
+     * @param {SongVideoCreateArgs} args - Arguments to create a SongVideo.
+     * @example
+     * // Create one SongVideo
+     * const SongVideo = await prisma.songVideo.create({
+     *   data: {
+     *     // ... data to create a SongVideo
+     *   }
+     * })
+     * 
+     */
+    create<T extends SongVideoCreateArgs>(args: SelectSubset<T, SongVideoCreateArgs<ExtArgs>>): Prisma__SongVideoClient<$Result.GetResult<Prisma.$SongVideoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SongVideos.
+     * @param {SongVideoCreateManyArgs} args - Arguments to create many SongVideos.
+     * @example
+     * // Create many SongVideos
+     * const songVideo = await prisma.songVideo.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SongVideoCreateManyArgs>(args?: SelectSubset<T, SongVideoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SongVideos and returns the data saved in the database.
+     * @param {SongVideoCreateManyAndReturnArgs} args - Arguments to create many SongVideos.
+     * @example
+     * // Create many SongVideos
+     * const songVideo = await prisma.songVideo.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SongVideos and only return the `id`
+     * const songVideoWithIdOnly = await prisma.songVideo.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SongVideoCreateManyAndReturnArgs>(args?: SelectSubset<T, SongVideoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SongVideoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SongVideo.
+     * @param {SongVideoDeleteArgs} args - Arguments to delete one SongVideo.
+     * @example
+     * // Delete one SongVideo
+     * const SongVideo = await prisma.songVideo.delete({
+     *   where: {
+     *     // ... filter to delete one SongVideo
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SongVideoDeleteArgs>(args: SelectSubset<T, SongVideoDeleteArgs<ExtArgs>>): Prisma__SongVideoClient<$Result.GetResult<Prisma.$SongVideoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SongVideo.
+     * @param {SongVideoUpdateArgs} args - Arguments to update one SongVideo.
+     * @example
+     * // Update one SongVideo
+     * const songVideo = await prisma.songVideo.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SongVideoUpdateArgs>(args: SelectSubset<T, SongVideoUpdateArgs<ExtArgs>>): Prisma__SongVideoClient<$Result.GetResult<Prisma.$SongVideoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SongVideos.
+     * @param {SongVideoDeleteManyArgs} args - Arguments to filter SongVideos to delete.
+     * @example
+     * // Delete a few SongVideos
+     * const { count } = await prisma.songVideo.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SongVideoDeleteManyArgs>(args?: SelectSubset<T, SongVideoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SongVideos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SongVideoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SongVideos
+     * const songVideo = await prisma.songVideo.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SongVideoUpdateManyArgs>(args: SelectSubset<T, SongVideoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SongVideos and returns the data updated in the database.
+     * @param {SongVideoUpdateManyAndReturnArgs} args - Arguments to update many SongVideos.
+     * @example
+     * // Update many SongVideos
+     * const songVideo = await prisma.songVideo.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SongVideos and only return the `id`
+     * const songVideoWithIdOnly = await prisma.songVideo.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SongVideoUpdateManyAndReturnArgs>(args: SelectSubset<T, SongVideoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SongVideoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SongVideo.
+     * @param {SongVideoUpsertArgs} args - Arguments to update or create a SongVideo.
+     * @example
+     * // Update or create a SongVideo
+     * const songVideo = await prisma.songVideo.upsert({
+     *   create: {
+     *     // ... data to create a SongVideo
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SongVideo we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SongVideoUpsertArgs>(args: SelectSubset<T, SongVideoUpsertArgs<ExtArgs>>): Prisma__SongVideoClient<$Result.GetResult<Prisma.$SongVideoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SongVideos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SongVideoCountArgs} args - Arguments to filter SongVideos to count.
+     * @example
+     * // Count the number of SongVideos
+     * const count = await prisma.songVideo.count({
+     *   where: {
+     *     // ... the filter for the SongVideos we want to count
+     *   }
+     * })
+    **/
+    count<T extends SongVideoCountArgs>(
+      args?: Subset<T, SongVideoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SongVideoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SongVideo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SongVideoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SongVideoAggregateArgs>(args: Subset<T, SongVideoAggregateArgs>): Prisma.PrismaPromise<GetSongVideoAggregateType<T>>
+
+    /**
+     * Group by SongVideo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SongVideoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SongVideoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SongVideoGroupByArgs['orderBy'] }
+        : { orderBy?: SongVideoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SongVideoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSongVideoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SongVideo model
+   */
+  readonly fields: SongVideoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SongVideo.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SongVideoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    song<T extends SongDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SongDefaultArgs<ExtArgs>>): Prisma__SongClient<$Result.GetResult<Prisma.$SongPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SongVideo model
+   */
+  interface SongVideoFieldRefs {
+    readonly id: FieldRef<"SongVideo", 'String'>
+    readonly songId: FieldRef<"SongVideo", 'String'>
+    readonly label: FieldRef<"SongVideo", 'String'>
+    readonly url: FieldRef<"SongVideo", 'String'>
+    readonly createdAt: FieldRef<"SongVideo", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SongVideo findUnique
+   */
+  export type SongVideoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongVideo
+     */
+    select?: SongVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongVideo
+     */
+    omit?: SongVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which SongVideo to fetch.
+     */
+    where: SongVideoWhereUniqueInput
+  }
+
+  /**
+   * SongVideo findUniqueOrThrow
+   */
+  export type SongVideoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongVideo
+     */
+    select?: SongVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongVideo
+     */
+    omit?: SongVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which SongVideo to fetch.
+     */
+    where: SongVideoWhereUniqueInput
+  }
+
+  /**
+   * SongVideo findFirst
+   */
+  export type SongVideoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongVideo
+     */
+    select?: SongVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongVideo
+     */
+    omit?: SongVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which SongVideo to fetch.
+     */
+    where?: SongVideoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SongVideos to fetch.
+     */
+    orderBy?: SongVideoOrderByWithRelationInput | SongVideoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SongVideos.
+     */
+    cursor?: SongVideoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SongVideos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SongVideos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SongVideos.
+     */
+    distinct?: SongVideoScalarFieldEnum | SongVideoScalarFieldEnum[]
+  }
+
+  /**
+   * SongVideo findFirstOrThrow
+   */
+  export type SongVideoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongVideo
+     */
+    select?: SongVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongVideo
+     */
+    omit?: SongVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which SongVideo to fetch.
+     */
+    where?: SongVideoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SongVideos to fetch.
+     */
+    orderBy?: SongVideoOrderByWithRelationInput | SongVideoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SongVideos.
+     */
+    cursor?: SongVideoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SongVideos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SongVideos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SongVideos.
+     */
+    distinct?: SongVideoScalarFieldEnum | SongVideoScalarFieldEnum[]
+  }
+
+  /**
+   * SongVideo findMany
+   */
+  export type SongVideoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongVideo
+     */
+    select?: SongVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongVideo
+     */
+    omit?: SongVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which SongVideos to fetch.
+     */
+    where?: SongVideoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SongVideos to fetch.
+     */
+    orderBy?: SongVideoOrderByWithRelationInput | SongVideoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SongVideos.
+     */
+    cursor?: SongVideoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SongVideos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SongVideos.
+     */
+    skip?: number
+    distinct?: SongVideoScalarFieldEnum | SongVideoScalarFieldEnum[]
+  }
+
+  /**
+   * SongVideo create
+   */
+  export type SongVideoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongVideo
+     */
+    select?: SongVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongVideo
+     */
+    omit?: SongVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongVideoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SongVideo.
+     */
+    data: XOR<SongVideoCreateInput, SongVideoUncheckedCreateInput>
+  }
+
+  /**
+   * SongVideo createMany
+   */
+  export type SongVideoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SongVideos.
+     */
+    data: SongVideoCreateManyInput | SongVideoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SongVideo createManyAndReturn
+   */
+  export type SongVideoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongVideo
+     */
+    select?: SongVideoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongVideo
+     */
+    omit?: SongVideoOmit<ExtArgs> | null
+    /**
+     * The data used to create many SongVideos.
+     */
+    data: SongVideoCreateManyInput | SongVideoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongVideoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SongVideo update
+   */
+  export type SongVideoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongVideo
+     */
+    select?: SongVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongVideo
+     */
+    omit?: SongVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongVideoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SongVideo.
+     */
+    data: XOR<SongVideoUpdateInput, SongVideoUncheckedUpdateInput>
+    /**
+     * Choose, which SongVideo to update.
+     */
+    where: SongVideoWhereUniqueInput
+  }
+
+  /**
+   * SongVideo updateMany
+   */
+  export type SongVideoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SongVideos.
+     */
+    data: XOR<SongVideoUpdateManyMutationInput, SongVideoUncheckedUpdateManyInput>
+    /**
+     * Filter which SongVideos to update
+     */
+    where?: SongVideoWhereInput
+    /**
+     * Limit how many SongVideos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SongVideo updateManyAndReturn
+   */
+  export type SongVideoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongVideo
+     */
+    select?: SongVideoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongVideo
+     */
+    omit?: SongVideoOmit<ExtArgs> | null
+    /**
+     * The data used to update SongVideos.
+     */
+    data: XOR<SongVideoUpdateManyMutationInput, SongVideoUncheckedUpdateManyInput>
+    /**
+     * Filter which SongVideos to update
+     */
+    where?: SongVideoWhereInput
+    /**
+     * Limit how many SongVideos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongVideoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SongVideo upsert
+   */
+  export type SongVideoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongVideo
+     */
+    select?: SongVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongVideo
+     */
+    omit?: SongVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongVideoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SongVideo to update in case it exists.
+     */
+    where: SongVideoWhereUniqueInput
+    /**
+     * In case the SongVideo found by the `where` argument doesn't exist, create a new SongVideo with this data.
+     */
+    create: XOR<SongVideoCreateInput, SongVideoUncheckedCreateInput>
+    /**
+     * In case the SongVideo was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SongVideoUpdateInput, SongVideoUncheckedUpdateInput>
+  }
+
+  /**
+   * SongVideo delete
+   */
+  export type SongVideoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongVideo
+     */
+    select?: SongVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongVideo
+     */
+    omit?: SongVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongVideoInclude<ExtArgs> | null
+    /**
+     * Filter which SongVideo to delete.
+     */
+    where: SongVideoWhereUniqueInput
+  }
+
+  /**
+   * SongVideo deleteMany
+   */
+  export type SongVideoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SongVideos to delete
+     */
+    where?: SongVideoWhereInput
+    /**
+     * Limit how many SongVideos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SongVideo without action
+   */
+  export type SongVideoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongVideo
+     */
+    select?: SongVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongVideo
+     */
+    omit?: SongVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongVideoInclude<ExtArgs> | null
   }
 
 
@@ -9683,6 +10869,17 @@ export namespace Prisma {
   export type SongScalarFieldEnum = (typeof SongScalarFieldEnum)[keyof typeof SongScalarFieldEnum]
 
 
+  export const SongVideoScalarFieldEnum: {
+    id: 'id',
+    songId: 'songId',
+    label: 'label',
+    url: 'url',
+    createdAt: 'createdAt'
+  };
+
+  export type SongVideoScalarFieldEnum = (typeof SongVideoScalarFieldEnum)[keyof typeof SongVideoScalarFieldEnum]
+
+
   export const TagScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -9962,6 +11159,7 @@ export namespace Prisma {
     currentBlocker?: StringNullableFilter<"Song"> | string | null
     createdAt?: DateTimeFilter<"Song"> | Date | string
     sessions?: SessionListRelationFilter
+    videos?: SongVideoListRelationFilter
   }
 
   export type SongOrderByWithRelationInput = {
@@ -9976,6 +11174,7 @@ export namespace Prisma {
     currentBlocker?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     sessions?: SessionOrderByRelationAggregateInput
+    videos?: SongVideoOrderByRelationAggregateInput
   }
 
   export type SongWhereUniqueInput = Prisma.AtLeast<{
@@ -9994,6 +11193,7 @@ export namespace Prisma {
     currentBlocker?: StringNullableFilter<"Song"> | string | null
     createdAt?: DateTimeFilter<"Song"> | Date | string
     sessions?: SessionListRelationFilter
+    videos?: SongVideoListRelationFilter
   }, "id" | "userId_title">
 
   export type SongOrderByWithAggregationInput = {
@@ -10028,6 +11228,61 @@ export namespace Prisma {
     status?: EnumSongStatusWithAggregatesFilter<"Song"> | $Enums.SongStatus
     currentBlocker?: StringNullableWithAggregatesFilter<"Song"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Song"> | Date | string
+  }
+
+  export type SongVideoWhereInput = {
+    AND?: SongVideoWhereInput | SongVideoWhereInput[]
+    OR?: SongVideoWhereInput[]
+    NOT?: SongVideoWhereInput | SongVideoWhereInput[]
+    id?: StringFilter<"SongVideo"> | string
+    songId?: StringFilter<"SongVideo"> | string
+    label?: StringFilter<"SongVideo"> | string
+    url?: StringFilter<"SongVideo"> | string
+    createdAt?: DateTimeFilter<"SongVideo"> | Date | string
+    song?: XOR<SongScalarRelationFilter, SongWhereInput>
+  }
+
+  export type SongVideoOrderByWithRelationInput = {
+    id?: SortOrder
+    songId?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+    song?: SongOrderByWithRelationInput
+  }
+
+  export type SongVideoWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SongVideoWhereInput | SongVideoWhereInput[]
+    OR?: SongVideoWhereInput[]
+    NOT?: SongVideoWhereInput | SongVideoWhereInput[]
+    songId?: StringFilter<"SongVideo"> | string
+    label?: StringFilter<"SongVideo"> | string
+    url?: StringFilter<"SongVideo"> | string
+    createdAt?: DateTimeFilter<"SongVideo"> | Date | string
+    song?: XOR<SongScalarRelationFilter, SongWhereInput>
+  }, "id">
+
+  export type SongVideoOrderByWithAggregationInput = {
+    id?: SortOrder
+    songId?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+    _count?: SongVideoCountOrderByAggregateInput
+    _max?: SongVideoMaxOrderByAggregateInput
+    _min?: SongVideoMinOrderByAggregateInput
+  }
+
+  export type SongVideoScalarWhereWithAggregatesInput = {
+    AND?: SongVideoScalarWhereWithAggregatesInput | SongVideoScalarWhereWithAggregatesInput[]
+    OR?: SongVideoScalarWhereWithAggregatesInput[]
+    NOT?: SongVideoScalarWhereWithAggregatesInput | SongVideoScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SongVideo"> | string
+    songId?: StringWithAggregatesFilter<"SongVideo"> | string
+    label?: StringWithAggregatesFilter<"SongVideo"> | string
+    url?: StringWithAggregatesFilter<"SongVideo"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SongVideo"> | Date | string
   }
 
   export type TagWhereInput = {
@@ -10473,6 +11728,7 @@ export namespace Prisma {
     currentBlocker?: string | null
     createdAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutSongInput
+    videos?: SongVideoCreateNestedManyWithoutSongInput
   }
 
   export type SongUncheckedCreateInput = {
@@ -10487,6 +11743,7 @@ export namespace Prisma {
     currentBlocker?: string | null
     createdAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutSongInput
+    videos?: SongVideoUncheckedCreateNestedManyWithoutSongInput
   }
 
   export type SongUpdateInput = {
@@ -10501,6 +11758,7 @@ export namespace Prisma {
     currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutSongNestedInput
+    videos?: SongVideoUpdateManyWithoutSongNestedInput
   }
 
   export type SongUncheckedUpdateInput = {
@@ -10515,6 +11773,7 @@ export namespace Prisma {
     currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutSongNestedInput
+    videos?: SongVideoUncheckedUpdateManyWithoutSongNestedInput
   }
 
   export type SongCreateManyInput = {
@@ -10553,6 +11812,61 @@ export namespace Prisma {
     thumbStyle?: NullableEnumThumbStyleFieldUpdateOperationsInput | $Enums.ThumbStyle | null
     status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
     currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SongVideoCreateInput = {
+    id?: string
+    label: string
+    url: string
+    createdAt?: Date | string
+    song: SongCreateNestedOneWithoutVideosInput
+  }
+
+  export type SongVideoUncheckedCreateInput = {
+    id?: string
+    songId: string
+    label: string
+    url: string
+    createdAt?: Date | string
+  }
+
+  export type SongVideoUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    song?: SongUpdateOneRequiredWithoutVideosNestedInput
+  }
+
+  export type SongVideoUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    songId?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SongVideoCreateManyInput = {
+    id?: string
+    songId: string
+    label: string
+    url: string
+    createdAt?: Date | string
+  }
+
+  export type SongVideoUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SongVideoUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    songId?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11109,12 +12423,22 @@ export namespace Prisma {
     none?: SessionWhereInput
   }
 
+  export type SongVideoListRelationFilter = {
+    every?: SongVideoWhereInput
+    some?: SongVideoWhereInput
+    none?: SongVideoWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type SessionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SongVideoOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11274,6 +12598,35 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type SongScalarRelationFilter = {
+    is?: SongWhereInput
+    isNot?: SongWhereInput
+  }
+
+  export type SongVideoCountOrderByAggregateInput = {
+    id?: SortOrder
+    songId?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SongVideoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    songId?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SongVideoMinOrderByAggregateInput = {
+    id?: SortOrder
+    songId?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type TagUserIdNameCompoundUniqueInput = {
@@ -11652,11 +13005,25 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
+  export type SongVideoCreateNestedManyWithoutSongInput = {
+    create?: XOR<SongVideoCreateWithoutSongInput, SongVideoUncheckedCreateWithoutSongInput> | SongVideoCreateWithoutSongInput[] | SongVideoUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: SongVideoCreateOrConnectWithoutSongInput | SongVideoCreateOrConnectWithoutSongInput[]
+    createMany?: SongVideoCreateManySongInputEnvelope
+    connect?: SongVideoWhereUniqueInput | SongVideoWhereUniqueInput[]
+  }
+
   export type SessionUncheckedCreateNestedManyWithoutSongInput = {
     create?: XOR<SessionCreateWithoutSongInput, SessionUncheckedCreateWithoutSongInput> | SessionCreateWithoutSongInput[] | SessionUncheckedCreateWithoutSongInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutSongInput | SessionCreateOrConnectWithoutSongInput[]
     createMany?: SessionCreateManySongInputEnvelope
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type SongVideoUncheckedCreateNestedManyWithoutSongInput = {
+    create?: XOR<SongVideoCreateWithoutSongInput, SongVideoUncheckedCreateWithoutSongInput> | SongVideoCreateWithoutSongInput[] | SongVideoUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: SongVideoCreateOrConnectWithoutSongInput | SongVideoCreateOrConnectWithoutSongInput[]
+    createMany?: SongVideoCreateManySongInputEnvelope
+    connect?: SongVideoWhereUniqueInput | SongVideoWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -11709,6 +13076,20 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type SongVideoUpdateManyWithoutSongNestedInput = {
+    create?: XOR<SongVideoCreateWithoutSongInput, SongVideoUncheckedCreateWithoutSongInput> | SongVideoCreateWithoutSongInput[] | SongVideoUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: SongVideoCreateOrConnectWithoutSongInput | SongVideoCreateOrConnectWithoutSongInput[]
+    upsert?: SongVideoUpsertWithWhereUniqueWithoutSongInput | SongVideoUpsertWithWhereUniqueWithoutSongInput[]
+    createMany?: SongVideoCreateManySongInputEnvelope
+    set?: SongVideoWhereUniqueInput | SongVideoWhereUniqueInput[]
+    disconnect?: SongVideoWhereUniqueInput | SongVideoWhereUniqueInput[]
+    delete?: SongVideoWhereUniqueInput | SongVideoWhereUniqueInput[]
+    connect?: SongVideoWhereUniqueInput | SongVideoWhereUniqueInput[]
+    update?: SongVideoUpdateWithWhereUniqueWithoutSongInput | SongVideoUpdateWithWhereUniqueWithoutSongInput[]
+    updateMany?: SongVideoUpdateManyWithWhereWithoutSongInput | SongVideoUpdateManyWithWhereWithoutSongInput[]
+    deleteMany?: SongVideoScalarWhereInput | SongVideoScalarWhereInput[]
+  }
+
   export type SessionUncheckedUpdateManyWithoutSongNestedInput = {
     create?: XOR<SessionCreateWithoutSongInput, SessionUncheckedCreateWithoutSongInput> | SessionCreateWithoutSongInput[] | SessionUncheckedCreateWithoutSongInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutSongInput | SessionCreateOrConnectWithoutSongInput[]
@@ -11721,6 +13102,34 @@ export namespace Prisma {
     update?: SessionUpdateWithWhereUniqueWithoutSongInput | SessionUpdateWithWhereUniqueWithoutSongInput[]
     updateMany?: SessionUpdateManyWithWhereWithoutSongInput | SessionUpdateManyWithWhereWithoutSongInput[]
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type SongVideoUncheckedUpdateManyWithoutSongNestedInput = {
+    create?: XOR<SongVideoCreateWithoutSongInput, SongVideoUncheckedCreateWithoutSongInput> | SongVideoCreateWithoutSongInput[] | SongVideoUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: SongVideoCreateOrConnectWithoutSongInput | SongVideoCreateOrConnectWithoutSongInput[]
+    upsert?: SongVideoUpsertWithWhereUniqueWithoutSongInput | SongVideoUpsertWithWhereUniqueWithoutSongInput[]
+    createMany?: SongVideoCreateManySongInputEnvelope
+    set?: SongVideoWhereUniqueInput | SongVideoWhereUniqueInput[]
+    disconnect?: SongVideoWhereUniqueInput | SongVideoWhereUniqueInput[]
+    delete?: SongVideoWhereUniqueInput | SongVideoWhereUniqueInput[]
+    connect?: SongVideoWhereUniqueInput | SongVideoWhereUniqueInput[]
+    update?: SongVideoUpdateWithWhereUniqueWithoutSongInput | SongVideoUpdateWithWhereUniqueWithoutSongInput[]
+    updateMany?: SongVideoUpdateManyWithWhereWithoutSongInput | SongVideoUpdateManyWithWhereWithoutSongInput[]
+    deleteMany?: SongVideoScalarWhereInput | SongVideoScalarWhereInput[]
+  }
+
+  export type SongCreateNestedOneWithoutVideosInput = {
+    create?: XOR<SongCreateWithoutVideosInput, SongUncheckedCreateWithoutVideosInput>
+    connectOrCreate?: SongCreateOrConnectWithoutVideosInput
+    connect?: SongWhereUniqueInput
+  }
+
+  export type SongUpdateOneRequiredWithoutVideosNestedInput = {
+    create?: XOR<SongCreateWithoutVideosInput, SongUncheckedCreateWithoutVideosInput>
+    connectOrCreate?: SongCreateOrConnectWithoutVideosInput
+    upsert?: SongUpsertWithoutVideosInput
+    connect?: SongWhereUniqueInput
+    update?: XOR<XOR<SongUpdateToOneWithWhereWithoutVideosInput, SongUpdateWithoutVideosInput>, SongUncheckedUpdateWithoutVideosInput>
   }
 
   export type SessionCreateNestedManyWithoutTagsInput = {
@@ -12403,6 +13812,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SongVideoCreateWithoutSongInput = {
+    id?: string
+    label: string
+    url: string
+    createdAt?: Date | string
+  }
+
+  export type SongVideoUncheckedCreateWithoutSongInput = {
+    id?: string
+    label: string
+    url: string
+    createdAt?: Date | string
+  }
+
+  export type SongVideoCreateOrConnectWithoutSongInput = {
+    where: SongVideoWhereUniqueInput
+    create: XOR<SongVideoCreateWithoutSongInput, SongVideoUncheckedCreateWithoutSongInput>
+  }
+
+  export type SongVideoCreateManySongInputEnvelope = {
+    data: SongVideoCreateManySongInput | SongVideoCreateManySongInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SessionUpsertWithWhereUniqueWithoutSongInput = {
     where: SessionWhereUniqueInput
     update: XOR<SessionUpdateWithoutSongInput, SessionUncheckedUpdateWithoutSongInput>
@@ -12445,6 +13878,105 @@ export namespace Prisma {
     checklistAnswers?: JsonNullableFilter<"Session">
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
+  }
+
+  export type SongVideoUpsertWithWhereUniqueWithoutSongInput = {
+    where: SongVideoWhereUniqueInput
+    update: XOR<SongVideoUpdateWithoutSongInput, SongVideoUncheckedUpdateWithoutSongInput>
+    create: XOR<SongVideoCreateWithoutSongInput, SongVideoUncheckedCreateWithoutSongInput>
+  }
+
+  export type SongVideoUpdateWithWhereUniqueWithoutSongInput = {
+    where: SongVideoWhereUniqueInput
+    data: XOR<SongVideoUpdateWithoutSongInput, SongVideoUncheckedUpdateWithoutSongInput>
+  }
+
+  export type SongVideoUpdateManyWithWhereWithoutSongInput = {
+    where: SongVideoScalarWhereInput
+    data: XOR<SongVideoUpdateManyMutationInput, SongVideoUncheckedUpdateManyWithoutSongInput>
+  }
+
+  export type SongVideoScalarWhereInput = {
+    AND?: SongVideoScalarWhereInput | SongVideoScalarWhereInput[]
+    OR?: SongVideoScalarWhereInput[]
+    NOT?: SongVideoScalarWhereInput | SongVideoScalarWhereInput[]
+    id?: StringFilter<"SongVideo"> | string
+    songId?: StringFilter<"SongVideo"> | string
+    label?: StringFilter<"SongVideo"> | string
+    url?: StringFilter<"SongVideo"> | string
+    createdAt?: DateTimeFilter<"SongVideo"> | Date | string
+  }
+
+  export type SongCreateWithoutVideosInput = {
+    id?: string
+    userId: string
+    title: string
+    key?: $Enums.Key | null
+    capo?: number | null
+    tuning?: $Enums.Tuning
+    thumbStyle?: $Enums.ThumbStyle | null
+    status?: $Enums.SongStatus
+    currentBlocker?: string | null
+    createdAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutSongInput
+  }
+
+  export type SongUncheckedCreateWithoutVideosInput = {
+    id?: string
+    userId: string
+    title: string
+    key?: $Enums.Key | null
+    capo?: number | null
+    tuning?: $Enums.Tuning
+    thumbStyle?: $Enums.ThumbStyle | null
+    status?: $Enums.SongStatus
+    currentBlocker?: string | null
+    createdAt?: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutSongInput
+  }
+
+  export type SongCreateOrConnectWithoutVideosInput = {
+    where: SongWhereUniqueInput
+    create: XOR<SongCreateWithoutVideosInput, SongUncheckedCreateWithoutVideosInput>
+  }
+
+  export type SongUpsertWithoutVideosInput = {
+    update: XOR<SongUpdateWithoutVideosInput, SongUncheckedUpdateWithoutVideosInput>
+    create: XOR<SongCreateWithoutVideosInput, SongUncheckedCreateWithoutVideosInput>
+    where?: SongWhereInput
+  }
+
+  export type SongUpdateToOneWithWhereWithoutVideosInput = {
+    where?: SongWhereInput
+    data: XOR<SongUpdateWithoutVideosInput, SongUncheckedUpdateWithoutVideosInput>
+  }
+
+  export type SongUpdateWithoutVideosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
+    capo?: NullableIntFieldUpdateOperationsInput | number | null
+    tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
+    thumbStyle?: NullableEnumThumbStyleFieldUpdateOperationsInput | $Enums.ThumbStyle | null
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutSongNestedInput
+  }
+
+  export type SongUncheckedUpdateWithoutVideosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
+    capo?: NullableIntFieldUpdateOperationsInput | number | null
+    tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
+    thumbStyle?: NullableEnumThumbStyleFieldUpdateOperationsInput | $Enums.ThumbStyle | null
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutSongNestedInput
   }
 
   export type SessionCreateWithoutTagsInput = {
@@ -12885,6 +14417,7 @@ export namespace Prisma {
     status?: $Enums.SongStatus
     currentBlocker?: string | null
     createdAt?: Date | string
+    videos?: SongVideoCreateNestedManyWithoutSongInput
   }
 
   export type SongUncheckedCreateWithoutSessionsInput = {
@@ -12898,6 +14431,7 @@ export namespace Prisma {
     status?: $Enums.SongStatus
     currentBlocker?: string | null
     createdAt?: Date | string
+    videos?: SongVideoUncheckedCreateNestedManyWithoutSongInput
   }
 
   export type SongCreateOrConnectWithoutSessionsInput = {
@@ -13033,6 +14567,7 @@ export namespace Prisma {
     status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
     currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    videos?: SongVideoUpdateManyWithoutSongNestedInput
   }
 
   export type SongUncheckedUpdateWithoutSessionsInput = {
@@ -13046,6 +14581,7 @@ export namespace Prisma {
     status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
     currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    videos?: SongVideoUncheckedUpdateManyWithoutSongNestedInput
   }
 
   export type TagUpsertWithWhereUniqueWithoutSessionsInput = {
@@ -13207,6 +14743,13 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type SongVideoCreateManySongInput = {
+    id?: string
+    label: string
+    url: string
+    createdAt?: Date | string
+  }
+
   export type SessionUpdateWithoutSongInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -13281,6 +14824,27 @@ export namespace Prisma {
     checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SongVideoUpdateWithoutSongInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SongVideoUncheckedUpdateWithoutSongInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SongVideoUncheckedUpdateManyWithoutSongInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SessionUpdateWithoutTagsInput = {

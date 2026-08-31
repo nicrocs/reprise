@@ -133,6 +133,14 @@ exports.Prisma.SongScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.SongVideoScalarFieldEnum = {
+  id: 'id',
+  songId: 'songId',
+  label: 'label',
+  url: 'url',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.TagScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -273,6 +281,7 @@ exports.SongStatus = exports.$Enums.SongStatus = {
 
 exports.Prisma.ModelName = {
   Song: 'Song',
+  SongVideo: 'SongVideo',
   Tag: 'Tag',
   Recording: 'Recording',
   Instructor: 'Instructor',

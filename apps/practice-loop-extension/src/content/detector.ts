@@ -1,10 +1,13 @@
 import type {
   MediaAdapter,
+  VimeoPlayer,
   WistiaPlayerElement,
   WistiaVideo,
 } from "@reprise/practice-loop";
+import Vimeo from "@vimeo/player";
 import {
   createVideoElementAdapter,
+  createVimeoAdapter,
   createWistiaLegacyAdapter,
   createWistiaModernAdapter,
 } from "@reprise/practice-loop";
@@ -40,6 +43,32 @@ export function extractYouTubeVideoId(url: string): string | null {
   return null;
 }
 
+export function extractVimeoVideoId(url: string): string | null {
+  try {
+    const parsed = new URL(url, "https://example.com/");
+    if (parsed.hostname !== "player.vimeo.com" && parsed.hostname !== "vimeo.com" && parsed.hostname !== "www.vimeo.com") {
+      return null;
+    }
+    const match = parsed.pathname.match(/\/video\/(\d+)(?:\/|$)|\/(\d+)(?:\/|$)/);
+    return match?.[1] ?? match?.[2] ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export function extractEmbedlyVimeoUrl(url: string): string | null {
+  try {
+    const parsed = new URL(url, "https://example.com/");
+    if (parsed.hostname !== "cdn.embedly.com" || !parsed.pathname.startsWith("/widgets/media.html")) {
+      return null;
+    }
+    const candidate = parsed.searchParams.get("src") ?? parsed.searchParams.get("url");
+    return candidate && extractVimeoVideoId(candidate) ? candidate : null;
+  } catch {
+    return null;
+  }
+}
+
 function findWistiaLegacyEmbed(document: Document): Element | null {
   return document.querySelector('.wistia_embed[class*="wistia_async_"]');
 }
@@ -52,12 +81,29 @@ function findFallbackVideo(document: Document): HTMLVideoElement | null {
   return document.querySelector("video");
 }
 
+function findVimeoIframe(document: Document): { iframe: HTMLIFrameElement; id: string } | null {
+  for (const iframe of Array.from(document.querySelectorAll("iframe"))) {
+    const src = iframe.getAttribute("src") ?? "";
+    const directId = extractVimeoVideoId(src);
+    if (directId) return { iframe, id: directId };
+    const embedlyUrl = extractEmbedlyVimeoUrl(src);
+    const embedlyId = embedlyUrl ? extractVimeoVideoId(embedlyUrl) : null;
+    if (embedlyId) {
+      return { iframe, id: embedlyId };
+    }
+  }
+  return null;
+}
+
 function inferVideoSource(hostname: string): VideoSource {
   if (hostname === "www.youtube.com" || hostname === "youtube.com" || hostname === "youtu.be") {
     return "youtube";
   }
   if (hostname.includes("fretboardconfidential.com")) {
     return "wistia";
+  }
+  if (hostname === "vimeo.com" || hostname === "www.vimeo.com" || hostname === "player.vimeo.com" || hostname === "cdn.embedly.com") {
+    return "vimeo";
   }
   return "video";
 }
@@ -185,6 +231,28 @@ export async function detectPlayer(
         element: modernPlayer,
         adapter: createWistiaModernAdapter(modernPlayer as WistiaPlayerElement),
       };
+    }
+
+    const vimeo = findVimeoIframe(doc);
+    if (vimeo) {
+      try {
+        const player = new Vimeo(vimeo.iframe);
+        await Promise.race([
+          player.ready(),
+          new Promise<never>((_, reject) =>
+            win.setTimeout(() => reject(new Error("Vimeo player timeout")), 3000),
+          ),
+        ]);
+        return {
+          type: "vimeo",
+          source: "vimeo",
+          externalId: vimeo.id,
+          element: vimeo.iframe,
+          adapter: createVimeoAdapter(player as unknown as VimeoPlayer),
+        };
+      } catch {
+        // Keep polling while the Vimeo frame or SDK finishes loading.
+      }
     }
 
     const fallbackVideo = findFallbackVideo(doc);

@@ -2,6 +2,7 @@
 
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
+import { revalidatePath } from 'next/cache'
 import { Tuning, Key, ThumbStyle, SongStatus } from '../../../prisma/generated/prisma'
 
 export async function getSongs(query: string) {
@@ -102,4 +103,63 @@ export async function updateSongStatus(id: string, status: SongStatus) {
     where: { id, userId },
     data: { status },
   })
+}
+
+function validateVideo(label: string, url: string) {
+  if (!label.trim()) throw new Error('A video label is required')
+
+  try {
+    const parsed = new URL(url)
+    if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') throw new Error()
+  } catch {
+    throw new Error('Enter a valid http or https URL')
+  }
+}
+
+export async function createSongVideo(songId: string, label: string, url: string) {
+  const { userId } = await auth()
+  if (!userId) throw new Error('Unauthorized')
+  validateVideo(label, url)
+
+  const song = await prisma.song.findFirst({ where: { id: songId, userId }, select: { id: true } })
+  if (!song) throw new Error('Song not found')
+
+  const video = await prisma.songVideo.create({
+    data: { songId, label: label.trim(), url: url.trim() },
+  })
+  revalidatePath(`/songs/${songId}`)
+  return video
+}
+
+export async function updateSongVideo(id: string, label: string, url: string) {
+  const { userId } = await auth()
+  if (!userId) throw new Error('Unauthorized')
+  validateVideo(label, url)
+
+  const video = await prisma.songVideo.findFirst({
+    where: { id, song: { userId } },
+    select: { songId: true },
+  })
+  if (!video) throw new Error('Video not found')
+
+  const updated = await prisma.songVideo.update({
+    where: { id },
+    data: { label: label.trim(), url: url.trim() },
+  })
+  revalidatePath(`/songs/${video.songId}`)
+  return updated
+}
+
+export async function deleteSongVideo(id: string) {
+  const { userId } = await auth()
+  if (!userId) throw new Error('Unauthorized')
+
+  const video = await prisma.songVideo.findFirst({
+    where: { id, song: { userId } },
+    select: { songId: true },
+  })
+  if (!video) throw new Error('Video not found')
+
+  await prisma.songVideo.delete({ where: { id } })
+  revalidatePath(`/songs/${video.songId}`)
 }

@@ -35,6 +35,9 @@ export class LoopController {
     getCurrentTime() {
         return this.adapter.getCurrentTime();
     }
+    setCurrentTime(time) {
+        this.adapter.setCurrentTime(time);
+    }
     play() {
         this.adapter.play();
         if (this.loop) {

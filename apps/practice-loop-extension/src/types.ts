@@ -1,4 +1,4 @@
-export type VideoSource = "wistia" | "youtube" | "video";
+export type VideoSource = "wistia" | "youtube" | "vimeo" | "video";
 
 export interface LocalClip {
   id: string;
@@ -15,7 +15,7 @@ export interface LocalClip {
 import type { MediaAdapter } from "@reprise/practice-loop";
 
 export interface PlayerInfo {
-  type: "wistia-legacy" | "wistia-modern" | "video";
+  type: "wistia-legacy" | "wistia-modern" | "vimeo" | "video";
   source: VideoSource;
   externalId: string;
   element?: HTMLElement;

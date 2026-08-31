@@ -10,7 +10,8 @@
     "test": "tsx --test src/**/*.test.ts"
   },
   "dependencies": {
-    "@reprise/practice-loop": "*"
+    "@reprise/practice-loop": "*",
+    "@vimeo/player": "^2.27.0"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.28",

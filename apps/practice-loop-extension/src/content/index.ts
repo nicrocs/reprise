@@ -1,6 +1,6 @@
 import { LoopController } from "@reprise/practice-loop";
 import { detectPlayer } from "./detector.js";
-import { createLoopFromBoundary, mountPanel } from "./panel.js";
+import { mountPanel } from "./panel.js";
 import { deleteClip, getClips, saveClip } from "../storage/local-clips.js";
 import type { LocalClip, PlayerInfo } from "../types.js";
 import type { MountedPanel } from "./panel.js";
@@ -12,6 +12,14 @@ let activePanel: MountedPanel | null = null;
 let activePlayer: PlayerInfo | null = null;
 let activeClips: LocalClip[] = [];
 const teardown: (() => void)[] = [];
+
+function isTypingInInput(): boolean {
+  let active: Element | null = document.activeElement;
+  while (active?.shadowRoot?.activeElement) {
+    active = active.shadowRoot.activeElement;
+  }
+  return active instanceof HTMLInputElement || active instanceof HTMLTextAreaElement;
+}
 
 async function refreshClips() {
   if (!activePlayer) return;
@@ -25,10 +33,10 @@ async function handleSave(clip: LocalClip) {
 }
 
 async function handleLoad(clip: LocalClip) {
-  if (!activeController) return;
+  if (!activeController || !activePanel) return;
   activeController.setPlaybackRate(clip.playbackRate);
-  activeController.setLoop({ start: clip.loopStart, end: clip.loopEnd });
-  activePanel?.refresh();
+  activeController.setCurrentTime(clip.loopStart);
+  activePanel.loadLoop({ start: clip.loopStart, end: clip.loopEnd });
 }
 
 async function handleDelete(clip: LocalClip) {
@@ -90,18 +98,14 @@ function setupNavigationHandling(): () => void {
 function setupKeyboardShortcuts(): () => void {
   const onKeyDown = (e: KeyboardEvent) => {
     if (!activeController) return;
-    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
-      return;
-    }
+    if (isTypingInInput()) return;
 
     if (e.key === "a" || e.key === "A") {
       e.preventDefault();
-      const loop = createLoopFromBoundary(activeController.getLoop(), activeController.getCurrentTime(), "a");
-      activeController.setLoop(loop);
+      activePanel?.setBoundary("a");
     } else if (e.key === "b" || e.key === "B") {
       e.preventDefault();
-      const loop = createLoopFromBoundary(activeController.getLoop(), activeController.getCurrentTime(), "b");
-      activeController.setLoop(loop);
+      activePanel?.setBoundary("b");
     }
   };
 

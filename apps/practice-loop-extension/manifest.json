@@ -2,19 +2,22 @@
   "manifest_version": 3,
   "name": "Practice Loop",
   "version": "0.1.0",
-  "description": "A/B looping and speed control for Wistia and YouTube videos.",
+  "description": "A/B looping and speed control for Wistia, YouTube, and Vimeo videos.",
   "permissions": ["storage"],
   "host_permissions": [
     "https://www.fretboardconfidential.com/*",
     "https://www.youtube.com/*",
-    "https://*.wistia.com/*"
+    "https://*.wistia.com/*",
+    "https://cdn.embedly.com/*"
   ],
   "content_scripts": [
     {
       "matches": [
         "https://www.fretboardconfidential.com/*",
-        "https://www.youtube.com/*"
+        "https://www.youtube.com/*",
+        "https://cdn.embedly.com/*"
       ],
+      "all_frames": true,
       "js": ["src/content/index.ts"]
     }
   ]

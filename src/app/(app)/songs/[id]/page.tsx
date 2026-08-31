@@ -6,6 +6,7 @@ import { BackButton } from '@/components/back-button'
 import { formatDate } from '@/lib/utils'
 import { SongStatusEditor } from '@/components/song-status-editor'
 import { SongMetadataEditor } from '@/components/song-metadata-editor'
+import { SongVideos } from '@/components/song-videos'
 
 export default async function SongDetailPage({
   params,
@@ -22,8 +23,11 @@ export default async function SongDetailPage({
       sessions: {
         orderBy: { date: 'desc' },
         include: {
-            goal: true
-        }
+          goal: true,
+        },
+      },
+      videos: {
+        orderBy: { createdAt: 'asc' },
       },
     },
   })
@@ -91,6 +95,10 @@ export default async function SongDetailPage({
             )}
         </div>
       </div>
+      <SongVideos
+        songId={song.id}
+        initialVideos={song.videos}
+      />
       {/* BPM Chart */}
       {sessionsWithBpm.length > 1 && (
         <div className="mb-8">

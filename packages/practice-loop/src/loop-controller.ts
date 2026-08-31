@@ -60,6 +60,10 @@ export class LoopController {
     return this.adapter.getCurrentTime();
   }
 
+  setCurrentTime(time: number): void {
+    this.adapter.setCurrentTime(time);
+  }
+
   play(): void {
     this.adapter.play();
     if (this.loop) {

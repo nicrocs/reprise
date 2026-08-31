@@ -1,6 +1,11 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { extractWistiaLegacyMediaId, extractYouTubeVideoId } from "./detector.js";
+import {
+  extractEmbedlyVimeoUrl,
+  extractVimeoVideoId,
+  extractWistiaLegacyMediaId,
+  extractYouTubeVideoId,
+} from "./detector.js";
 
 function fakeElement(className: string): Element {
   return {
@@ -52,5 +57,37 @@ describe("extractYouTubeVideoId", () => {
 
   it("returns null for invalid urls", () => {
     assert.equal(extractYouTubeVideoId("not a url"), null);
+  });
+});
+
+describe("extractVimeoVideoId", () => {
+  it("extracts an id from a player url", () => {
+    assert.equal(extractVimeoVideoId("https://player.vimeo.com/video/424186332?app_id=122963"), "424186332");
+  });
+
+  it("extracts an id from a public Vimeo url", () => {
+    assert.equal(extractVimeoVideoId("https://vimeo.com/424186332/52528f92"), "424186332");
+  });
+
+  it("returns null for non-Vimeo urls", () => {
+    assert.equal(extractVimeoVideoId("https://example.com/video/424186332"), null);
+  });
+});
+
+describe("extractEmbedlyVimeoUrl", () => {
+  it("unwraps the supplied protocol-relative Embedly url", () => {
+    const embedly =
+      "//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fplayer.vimeo.com%2Fvideo%2F424186332%3Fapp_id%3D122963&url=https%3A%2F%2Fvimeo.com%2F424186332%2F52528f92";
+    assert.equal(
+      extractEmbedlyVimeoUrl(embedly),
+      "https://player.vimeo.com/video/424186332?app_id=122963",
+    );
+  });
+
+  it("returns null for non-Vimeo Embedly media", () => {
+    assert.equal(
+      extractEmbedlyVimeoUrl("https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fexample.com%2Fvideo"),
+      null,
+    );
   });
 });

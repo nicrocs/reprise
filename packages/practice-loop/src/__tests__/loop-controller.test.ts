@@ -109,6 +109,15 @@ describe("LoopController", () => {
     assert.equal(controller.getCurrentTime(), 42);
   });
 
+  it("sets the current time through the adapter", () => {
+    const adapter = createFakeAdapter();
+    const controller = new LoopController(adapter);
+
+    controller.setCurrentTime(42);
+
+    assert.equal(adapter.getCurrentTime(), 42);
+  });
+
   it("calls onTimeUpdate each poll", () => {
     const adapter = createFakeAdapter();
     const raf = createFakeRaf();
