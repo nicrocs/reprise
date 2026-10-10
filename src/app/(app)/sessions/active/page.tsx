@@ -5,9 +5,17 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { ChecklistForm } from '@/components/checklist-form'
 import { MetronomePanel } from '@/components/metronome/metronome-panel'
+import { SongScorePlayer, type SongScoreInfo } from '@/components/song-score-player'
+import { getSongScores } from '@/app/actions/song-scores'
 import { getSongBpm, saveSongBpm } from '@/lib/metronome/song-bpm'
 import { getActiveSession, saveActiveSession, type ActiveSession } from '@/lib/active-session'
 import type { ChecklistAnswers } from '@/lib/types'
+
+type ScoreRequest = {
+  songId: string
+  scores: SongScoreInfo[]
+  status: 'loading' | 'loaded' | 'failed'
+}
 
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60).toString().padStart(2, '0')
@@ -32,6 +40,28 @@ export default function ActiveSessionPage() {
   })
 
   const [secondsElapsed, setSecondsElapsed] = useState(0)
+  const [scoreRequest, setScoreRequest] = useState<ScoreRequest | null>(null)
+  const songId = session?.songId
+
+  useEffect(() => {
+    if (!songId) return
+
+    let cancelled = false
+
+    getSongScores(songId)
+      .then((scores) => {
+        if (cancelled) return
+        setScoreRequest({ songId, scores, status: 'loaded' })
+      })
+      .catch(() => {
+        if (cancelled) return
+        setScoreRequest({ songId, scores: [], status: 'failed' })
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [songId])
 
   useEffect(() => {
     if (!session) {
@@ -89,6 +119,12 @@ export default function ActiveSessionPage() {
         </p>
       )}
 
+      {session.instrument && (
+        <p className="text-sm text-muted-foreground font-medium uppercase tracking-wide">
+          {session.instrument}
+        </p>
+      )}
+
       <p
         className="text-lg font-medium text-foreground leading-snug max-w-sm"
         style={{ borderLeft: '2px solid var(--primary)', paddingLeft: '0.75rem' }}
@@ -101,6 +137,24 @@ export default function ActiveSessionPage() {
       </p>
 
       <MetronomePanel initialBpm={initialBpm} onBpmCommit={handleBpmCommit} />
+
+      {session.songId && (
+        !scoreRequest || scoreRequest.songId !== session.songId || scoreRequest.status === 'loading' ? (
+          <p className="w-full text-center text-sm text-muted-foreground" role="status">
+            Loading score sections…
+          </p>
+        ) : scoreRequest.status === 'failed' ? (
+          <p className="w-full text-center text-sm text-destructive" role="alert">
+            Could not load score sections. Please try again later.
+          </p>
+        ) : scoreRequest.scores.length > 0 ? (
+          <SongScorePlayer key={session.songId} scores={scoreRequest.scores} />
+        ) : (
+          <p className="w-full text-center text-sm text-muted-foreground">
+            No score sections yet. Import a Guitar Pro file with the local import command.
+          </p>
+        )
+      )}
 
       {checklistItems.length > 0 && (
         <div className="w-full bg-[#FBF0EB]/40 rounded-lg p-5">

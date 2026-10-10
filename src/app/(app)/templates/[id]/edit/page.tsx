@@ -31,7 +31,8 @@ export default async function EditTemplatePage({
           showMetronome: template.showMetronome,
           showSongPicker: template.showSongPicker,
           showGoalPicker: template.showGoalPicker,
-          checklistItems: (template.checklistItems as ChecklistItem[] | null) ?? null,
+           checklistItems: (template.checklistItems as ChecklistItem[] | null) ?? null,
+           defaultInstrumentId: template.defaultInstrumentId,
         }}
       />
     </main>

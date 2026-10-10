@@ -11,7 +11,10 @@ export default async function TemplatesPage() {
   const templates = await prisma.sessionTemplate.findMany({
     where: { userId },
     orderBy: { name: 'asc' },
-    include: { _count: { select: { sessions: true } } },
+    include: {
+      _count: { select: { sessions: true } },
+      defaultInstrument: true,
+    },
   })
 
   return (
@@ -46,6 +49,11 @@ export default async function TemplatesPage() {
                   <div className="min-w-0">
                     <p className="text-sm font-medium">{template.name}</p>
                     <div className="flex flex-wrap gap-2 mt-1">
+                      {template.defaultInstrument && (
+                        <span className="text-xs border border-border rounded px-1.5 py-0.5 text-muted-foreground">
+                          {template.defaultInstrument.name}
+                        </span>
+                      )}
                       {template.showSongPicker && (
                         <span className="text-xs border border-border rounded px-1.5 py-0.5 text-muted-foreground">
                           Song

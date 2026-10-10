@@ -24,6 +24,11 @@ export type Song = $Result.DefaultSelection<Prisma.$SongPayload>
  */
 export type SongVideo = $Result.DefaultSelection<Prisma.$SongVideoPayload>
 /**
+ * Model SongScore
+ * 
+ */
+export type SongScore = $Result.DefaultSelection<Prisma.$SongScorePayload>
+/**
  * Model Tag
  * 
  */
@@ -48,6 +53,11 @@ export type Goal = $Result.DefaultSelection<Prisma.$GoalPayload>
  * 
  */
 export type SessionTemplate = $Result.DefaultSelection<Prisma.$SessionTemplatePayload>
+/**
+ * Model Instrument
+ * 
+ */
+export type Instrument = $Result.DefaultSelection<Prisma.$InstrumentPayload>
 /**
  * Model Session
  * 
@@ -274,6 +284,16 @@ export class PrismaClient<
   get songVideo(): Prisma.SongVideoDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.songScore`: Exposes CRUD operations for the **SongScore** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SongScores
+    * const songScores = await prisma.songScore.findMany()
+    * ```
+    */
+  get songScore(): Prisma.SongScoreDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.tag`: Exposes CRUD operations for the **Tag** model.
     * Example usage:
     * ```ts
@@ -322,6 +342,16 @@ export class PrismaClient<
     * ```
     */
   get sessionTemplate(): Prisma.SessionTemplateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.instrument`: Exposes CRUD operations for the **Instrument** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Instruments
+    * const instruments = await prisma.instrument.findMany()
+    * ```
+    */
+  get instrument(): Prisma.InstrumentDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.session`: Exposes CRUD operations for the **Session** model.
@@ -768,11 +798,13 @@ export namespace Prisma {
   export const ModelName: {
     Song: 'Song',
     SongVideo: 'SongVideo',
+    SongScore: 'SongScore',
     Tag: 'Tag',
     Recording: 'Recording',
     Instructor: 'Instructor',
     Goal: 'Goal',
     SessionTemplate: 'SessionTemplate',
+    Instrument: 'Instrument',
     Session: 'Session'
   };
 
@@ -789,7 +821,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "song" | "songVideo" | "tag" | "recording" | "instructor" | "goal" | "sessionTemplate" | "session"
+      modelProps: "song" | "songVideo" | "songScore" | "tag" | "recording" | "instructor" | "goal" | "sessionTemplate" | "instrument" | "session"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -938,6 +970,80 @@ export namespace Prisma {
           count: {
             args: Prisma.SongVideoCountArgs<ExtArgs>
             result: $Utils.Optional<SongVideoCountAggregateOutputType> | number
+          }
+        }
+      }
+      SongScore: {
+        payload: Prisma.$SongScorePayload<ExtArgs>
+        fields: Prisma.SongScoreFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SongScoreFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongScorePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SongScoreFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongScorePayload>
+          }
+          findFirst: {
+            args: Prisma.SongScoreFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongScorePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SongScoreFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongScorePayload>
+          }
+          findMany: {
+            args: Prisma.SongScoreFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongScorePayload>[]
+          }
+          create: {
+            args: Prisma.SongScoreCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongScorePayload>
+          }
+          createMany: {
+            args: Prisma.SongScoreCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SongScoreCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongScorePayload>[]
+          }
+          delete: {
+            args: Prisma.SongScoreDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongScorePayload>
+          }
+          update: {
+            args: Prisma.SongScoreUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongScorePayload>
+          }
+          deleteMany: {
+            args: Prisma.SongScoreDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SongScoreUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SongScoreUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongScorePayload>[]
+          }
+          upsert: {
+            args: Prisma.SongScoreUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SongScorePayload>
+          }
+          aggregate: {
+            args: Prisma.SongScoreAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSongScore>
+          }
+          groupBy: {
+            args: Prisma.SongScoreGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SongScoreGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SongScoreCountArgs<ExtArgs>
+            result: $Utils.Optional<SongScoreCountAggregateOutputType> | number
           }
         }
       }
@@ -1311,6 +1417,80 @@ export namespace Prisma {
           }
         }
       }
+      Instrument: {
+        payload: Prisma.$InstrumentPayload<ExtArgs>
+        fields: Prisma.InstrumentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InstrumentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstrumentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InstrumentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstrumentPayload>
+          }
+          findFirst: {
+            args: Prisma.InstrumentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstrumentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InstrumentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstrumentPayload>
+          }
+          findMany: {
+            args: Prisma.InstrumentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstrumentPayload>[]
+          }
+          create: {
+            args: Prisma.InstrumentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstrumentPayload>
+          }
+          createMany: {
+            args: Prisma.InstrumentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.InstrumentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstrumentPayload>[]
+          }
+          delete: {
+            args: Prisma.InstrumentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstrumentPayload>
+          }
+          update: {
+            args: Prisma.InstrumentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstrumentPayload>
+          }
+          deleteMany: {
+            args: Prisma.InstrumentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InstrumentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.InstrumentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstrumentPayload>[]
+          }
+          upsert: {
+            args: Prisma.InstrumentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstrumentPayload>
+          }
+          aggregate: {
+            args: Prisma.InstrumentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInstrument>
+          }
+          groupBy: {
+            args: Prisma.InstrumentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InstrumentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InstrumentCountArgs<ExtArgs>
+            result: $Utils.Optional<InstrumentCountAggregateOutputType> | number
+          }
+        }
+      }
       Session: {
         payload: Prisma.$SessionPayload<ExtArgs>
         fields: Prisma.SessionFieldRefs
@@ -1495,11 +1675,13 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     song?: SongOmit
     songVideo?: SongVideoOmit
+    songScore?: SongScoreOmit
     tag?: TagOmit
     recording?: RecordingOmit
     instructor?: InstructorOmit
     goal?: GoalOmit
     sessionTemplate?: SessionTemplateOmit
+    instrument?: InstrumentOmit
     session?: SessionOmit
   }
 
@@ -1583,11 +1765,13 @@ export namespace Prisma {
   export type SongCountOutputType = {
     sessions: number
     videos: number
+    scores: number
   }
 
   export type SongCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | SongCountOutputTypeCountSessionsArgs
     videos?: boolean | SongCountOutputTypeCountVideosArgs
+    scores?: boolean | SongCountOutputTypeCountScoresArgs
   }
 
   // Custom InputTypes
@@ -1613,6 +1797,13 @@ export namespace Prisma {
    */
   export type SongCountOutputTypeCountVideosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SongVideoWhereInput
+  }
+
+  /**
+   * SongCountOutputType without action
+   */
+  export type SongCountOutputTypeCountScoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SongScoreWhereInput
   }
 
 
@@ -1737,6 +1928,37 @@ export namespace Prisma {
    */
   export type SessionTemplateCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SessionWhereInput
+  }
+
+
+  /**
+   * Count Type InstrumentCountOutputType
+   */
+
+  export type InstrumentCountOutputType = {
+    templates: number
+  }
+
+  export type InstrumentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    templates?: boolean | InstrumentCountOutputTypeCountTemplatesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * InstrumentCountOutputType without action
+   */
+  export type InstrumentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstrumentCountOutputType
+     */
+    select?: InstrumentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * InstrumentCountOutputType without action
+   */
+  export type InstrumentCountOutputTypeCountTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionTemplateWhereInput
   }
 
 
@@ -2024,6 +2246,7 @@ export namespace Prisma {
     createdAt?: boolean
     sessions?: boolean | Song$sessionsArgs<ExtArgs>
     videos?: boolean | Song$videosArgs<ExtArgs>
+    scores?: boolean | Song$scoresArgs<ExtArgs>
     _count?: boolean | SongCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["song"]>
 
@@ -2070,6 +2293,7 @@ export namespace Prisma {
   export type SongInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | Song$sessionsArgs<ExtArgs>
     videos?: boolean | Song$videosArgs<ExtArgs>
+    scores?: boolean | Song$scoresArgs<ExtArgs>
     _count?: boolean | SongCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SongIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2080,6 +2304,7 @@ export namespace Prisma {
     objects: {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       videos: Prisma.$SongVideoPayload<ExtArgs>[]
+      scores: Prisma.$SongScorePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2488,6 +2713,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sessions<T extends Song$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, Song$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     videos<T extends Song$videosArgs<ExtArgs> = {}>(args?: Subset<T, Song$videosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SongVideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    scores<T extends Song$scoresArgs<ExtArgs> = {}>(args?: Subset<T, Song$scoresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SongScorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2960,6 +3186,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SongVideoScalarFieldEnum | SongVideoScalarFieldEnum[]
+  }
+
+  /**
+   * Song.scores
+   */
+  export type Song$scoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongScore
+     */
+    select?: SongScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongScore
+     */
+    omit?: SongScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongScoreInclude<ExtArgs> | null
+    where?: SongScoreWhereInput
+    orderBy?: SongScoreOrderByWithRelationInput | SongScoreOrderByWithRelationInput[]
+    cursor?: SongScoreWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SongScoreScalarFieldEnum | SongScoreScalarFieldEnum[]
   }
 
   /**
@@ -4036,6 +4286,1124 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SongVideoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SongScore
+   */
+
+  export type AggregateSongScore = {
+    _count: SongScoreCountAggregateOutputType | null
+    _avg: SongScoreAvgAggregateOutputType | null
+    _sum: SongScoreSumAggregateOutputType | null
+    _min: SongScoreMinAggregateOutputType | null
+    _max: SongScoreMaxAggregateOutputType | null
+  }
+
+  export type SongScoreAvgAggregateOutputType = {
+    sortOrder: number | null
+  }
+
+  export type SongScoreSumAggregateOutputType = {
+    sortOrder: number | null
+  }
+
+  export type SongScoreMinAggregateOutputType = {
+    id: string | null
+    songId: string | null
+    label: string | null
+    sortOrder: number | null
+    alphaTex: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SongScoreMaxAggregateOutputType = {
+    id: string | null
+    songId: string | null
+    label: string | null
+    sortOrder: number | null
+    alphaTex: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SongScoreCountAggregateOutputType = {
+    id: number
+    songId: number
+    label: number
+    sortOrder: number
+    alphaTex: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SongScoreAvgAggregateInputType = {
+    sortOrder?: true
+  }
+
+  export type SongScoreSumAggregateInputType = {
+    sortOrder?: true
+  }
+
+  export type SongScoreMinAggregateInputType = {
+    id?: true
+    songId?: true
+    label?: true
+    sortOrder?: true
+    alphaTex?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SongScoreMaxAggregateInputType = {
+    id?: true
+    songId?: true
+    label?: true
+    sortOrder?: true
+    alphaTex?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SongScoreCountAggregateInputType = {
+    id?: true
+    songId?: true
+    label?: true
+    sortOrder?: true
+    alphaTex?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SongScoreAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SongScore to aggregate.
+     */
+    where?: SongScoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SongScores to fetch.
+     */
+    orderBy?: SongScoreOrderByWithRelationInput | SongScoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SongScoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SongScores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SongScores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SongScores
+    **/
+    _count?: true | SongScoreCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SongScoreAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SongScoreSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SongScoreMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SongScoreMaxAggregateInputType
+  }
+
+  export type GetSongScoreAggregateType<T extends SongScoreAggregateArgs> = {
+        [P in keyof T & keyof AggregateSongScore]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSongScore[P]>
+      : GetScalarType<T[P], AggregateSongScore[P]>
+  }
+
+
+
+
+  export type SongScoreGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SongScoreWhereInput
+    orderBy?: SongScoreOrderByWithAggregationInput | SongScoreOrderByWithAggregationInput[]
+    by: SongScoreScalarFieldEnum[] | SongScoreScalarFieldEnum
+    having?: SongScoreScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SongScoreCountAggregateInputType | true
+    _avg?: SongScoreAvgAggregateInputType
+    _sum?: SongScoreSumAggregateInputType
+    _min?: SongScoreMinAggregateInputType
+    _max?: SongScoreMaxAggregateInputType
+  }
+
+  export type SongScoreGroupByOutputType = {
+    id: string
+    songId: string
+    label: string
+    sortOrder: number
+    alphaTex: string
+    createdAt: Date
+    updatedAt: Date
+    _count: SongScoreCountAggregateOutputType | null
+    _avg: SongScoreAvgAggregateOutputType | null
+    _sum: SongScoreSumAggregateOutputType | null
+    _min: SongScoreMinAggregateOutputType | null
+    _max: SongScoreMaxAggregateOutputType | null
+  }
+
+  type GetSongScoreGroupByPayload<T extends SongScoreGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SongScoreGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SongScoreGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SongScoreGroupByOutputType[P]>
+            : GetScalarType<T[P], SongScoreGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SongScoreSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    songId?: boolean
+    label?: boolean
+    sortOrder?: boolean
+    alphaTex?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["songScore"]>
+
+  export type SongScoreSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    songId?: boolean
+    label?: boolean
+    sortOrder?: boolean
+    alphaTex?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["songScore"]>
+
+  export type SongScoreSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    songId?: boolean
+    label?: boolean
+    sortOrder?: boolean
+    alphaTex?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["songScore"]>
+
+  export type SongScoreSelectScalar = {
+    id?: boolean
+    songId?: boolean
+    label?: boolean
+    sortOrder?: boolean
+    alphaTex?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SongScoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "songId" | "label" | "sortOrder" | "alphaTex" | "createdAt" | "updatedAt", ExtArgs["result"]["songScore"]>
+  export type SongScoreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }
+  export type SongScoreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }
+  export type SongScoreIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }
+
+  export type $SongScorePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SongScore"
+    objects: {
+      song: Prisma.$SongPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      songId: string
+      label: string
+      sortOrder: number
+      alphaTex: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["songScore"]>
+    composites: {}
+  }
+
+  type SongScoreGetPayload<S extends boolean | null | undefined | SongScoreDefaultArgs> = $Result.GetResult<Prisma.$SongScorePayload, S>
+
+  type SongScoreCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SongScoreFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SongScoreCountAggregateInputType | true
+    }
+
+  export interface SongScoreDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SongScore'], meta: { name: 'SongScore' } }
+    /**
+     * Find zero or one SongScore that matches the filter.
+     * @param {SongScoreFindUniqueArgs} args - Arguments to find a SongScore
+     * @example
+     * // Get one SongScore
+     * const songScore = await prisma.songScore.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SongScoreFindUniqueArgs>(args: SelectSubset<T, SongScoreFindUniqueArgs<ExtArgs>>): Prisma__SongScoreClient<$Result.GetResult<Prisma.$SongScorePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SongScore that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SongScoreFindUniqueOrThrowArgs} args - Arguments to find a SongScore
+     * @example
+     * // Get one SongScore
+     * const songScore = await prisma.songScore.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SongScoreFindUniqueOrThrowArgs>(args: SelectSubset<T, SongScoreFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SongScoreClient<$Result.GetResult<Prisma.$SongScorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SongScore that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SongScoreFindFirstArgs} args - Arguments to find a SongScore
+     * @example
+     * // Get one SongScore
+     * const songScore = await prisma.songScore.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SongScoreFindFirstArgs>(args?: SelectSubset<T, SongScoreFindFirstArgs<ExtArgs>>): Prisma__SongScoreClient<$Result.GetResult<Prisma.$SongScorePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SongScore that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SongScoreFindFirstOrThrowArgs} args - Arguments to find a SongScore
+     * @example
+     * // Get one SongScore
+     * const songScore = await prisma.songScore.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SongScoreFindFirstOrThrowArgs>(args?: SelectSubset<T, SongScoreFindFirstOrThrowArgs<ExtArgs>>): Prisma__SongScoreClient<$Result.GetResult<Prisma.$SongScorePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SongScores that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SongScoreFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SongScores
+     * const songScores = await prisma.songScore.findMany()
+     * 
+     * // Get first 10 SongScores
+     * const songScores = await prisma.songScore.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const songScoreWithIdOnly = await prisma.songScore.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SongScoreFindManyArgs>(args?: SelectSubset<T, SongScoreFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SongScorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SongScore.
+     * @param {SongScoreCreateArgs} args - Arguments to create a SongScore.
+     * @example
+     * // Create one SongScore
+     * const SongScore = await prisma.songScore.create({
+     *   data: {
+     *     // ... data to create a SongScore
+     *   }
+     * })
+     * 
+     */
+    create<T extends SongScoreCreateArgs>(args: SelectSubset<T, SongScoreCreateArgs<ExtArgs>>): Prisma__SongScoreClient<$Result.GetResult<Prisma.$SongScorePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SongScores.
+     * @param {SongScoreCreateManyArgs} args - Arguments to create many SongScores.
+     * @example
+     * // Create many SongScores
+     * const songScore = await prisma.songScore.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SongScoreCreateManyArgs>(args?: SelectSubset<T, SongScoreCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SongScores and returns the data saved in the database.
+     * @param {SongScoreCreateManyAndReturnArgs} args - Arguments to create many SongScores.
+     * @example
+     * // Create many SongScores
+     * const songScore = await prisma.songScore.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SongScores and only return the `id`
+     * const songScoreWithIdOnly = await prisma.songScore.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SongScoreCreateManyAndReturnArgs>(args?: SelectSubset<T, SongScoreCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SongScorePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SongScore.
+     * @param {SongScoreDeleteArgs} args - Arguments to delete one SongScore.
+     * @example
+     * // Delete one SongScore
+     * const SongScore = await prisma.songScore.delete({
+     *   where: {
+     *     // ... filter to delete one SongScore
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SongScoreDeleteArgs>(args: SelectSubset<T, SongScoreDeleteArgs<ExtArgs>>): Prisma__SongScoreClient<$Result.GetResult<Prisma.$SongScorePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SongScore.
+     * @param {SongScoreUpdateArgs} args - Arguments to update one SongScore.
+     * @example
+     * // Update one SongScore
+     * const songScore = await prisma.songScore.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SongScoreUpdateArgs>(args: SelectSubset<T, SongScoreUpdateArgs<ExtArgs>>): Prisma__SongScoreClient<$Result.GetResult<Prisma.$SongScorePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SongScores.
+     * @param {SongScoreDeleteManyArgs} args - Arguments to filter SongScores to delete.
+     * @example
+     * // Delete a few SongScores
+     * const { count } = await prisma.songScore.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SongScoreDeleteManyArgs>(args?: SelectSubset<T, SongScoreDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SongScores.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SongScoreUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SongScores
+     * const songScore = await prisma.songScore.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SongScoreUpdateManyArgs>(args: SelectSubset<T, SongScoreUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SongScores and returns the data updated in the database.
+     * @param {SongScoreUpdateManyAndReturnArgs} args - Arguments to update many SongScores.
+     * @example
+     * // Update many SongScores
+     * const songScore = await prisma.songScore.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SongScores and only return the `id`
+     * const songScoreWithIdOnly = await prisma.songScore.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SongScoreUpdateManyAndReturnArgs>(args: SelectSubset<T, SongScoreUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SongScorePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SongScore.
+     * @param {SongScoreUpsertArgs} args - Arguments to update or create a SongScore.
+     * @example
+     * // Update or create a SongScore
+     * const songScore = await prisma.songScore.upsert({
+     *   create: {
+     *     // ... data to create a SongScore
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SongScore we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SongScoreUpsertArgs>(args: SelectSubset<T, SongScoreUpsertArgs<ExtArgs>>): Prisma__SongScoreClient<$Result.GetResult<Prisma.$SongScorePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SongScores.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SongScoreCountArgs} args - Arguments to filter SongScores to count.
+     * @example
+     * // Count the number of SongScores
+     * const count = await prisma.songScore.count({
+     *   where: {
+     *     // ... the filter for the SongScores we want to count
+     *   }
+     * })
+    **/
+    count<T extends SongScoreCountArgs>(
+      args?: Subset<T, SongScoreCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SongScoreCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SongScore.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SongScoreAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SongScoreAggregateArgs>(args: Subset<T, SongScoreAggregateArgs>): Prisma.PrismaPromise<GetSongScoreAggregateType<T>>
+
+    /**
+     * Group by SongScore.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SongScoreGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SongScoreGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SongScoreGroupByArgs['orderBy'] }
+        : { orderBy?: SongScoreGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SongScoreGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSongScoreGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SongScore model
+   */
+  readonly fields: SongScoreFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SongScore.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SongScoreClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    song<T extends SongDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SongDefaultArgs<ExtArgs>>): Prisma__SongClient<$Result.GetResult<Prisma.$SongPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SongScore model
+   */
+  interface SongScoreFieldRefs {
+    readonly id: FieldRef<"SongScore", 'String'>
+    readonly songId: FieldRef<"SongScore", 'String'>
+    readonly label: FieldRef<"SongScore", 'String'>
+    readonly sortOrder: FieldRef<"SongScore", 'Int'>
+    readonly alphaTex: FieldRef<"SongScore", 'String'>
+    readonly createdAt: FieldRef<"SongScore", 'DateTime'>
+    readonly updatedAt: FieldRef<"SongScore", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SongScore findUnique
+   */
+  export type SongScoreFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongScore
+     */
+    select?: SongScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongScore
+     */
+    omit?: SongScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which SongScore to fetch.
+     */
+    where: SongScoreWhereUniqueInput
+  }
+
+  /**
+   * SongScore findUniqueOrThrow
+   */
+  export type SongScoreFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongScore
+     */
+    select?: SongScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongScore
+     */
+    omit?: SongScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which SongScore to fetch.
+     */
+    where: SongScoreWhereUniqueInput
+  }
+
+  /**
+   * SongScore findFirst
+   */
+  export type SongScoreFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongScore
+     */
+    select?: SongScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongScore
+     */
+    omit?: SongScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which SongScore to fetch.
+     */
+    where?: SongScoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SongScores to fetch.
+     */
+    orderBy?: SongScoreOrderByWithRelationInput | SongScoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SongScores.
+     */
+    cursor?: SongScoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SongScores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SongScores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SongScores.
+     */
+    distinct?: SongScoreScalarFieldEnum | SongScoreScalarFieldEnum[]
+  }
+
+  /**
+   * SongScore findFirstOrThrow
+   */
+  export type SongScoreFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongScore
+     */
+    select?: SongScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongScore
+     */
+    omit?: SongScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which SongScore to fetch.
+     */
+    where?: SongScoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SongScores to fetch.
+     */
+    orderBy?: SongScoreOrderByWithRelationInput | SongScoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SongScores.
+     */
+    cursor?: SongScoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SongScores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SongScores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SongScores.
+     */
+    distinct?: SongScoreScalarFieldEnum | SongScoreScalarFieldEnum[]
+  }
+
+  /**
+   * SongScore findMany
+   */
+  export type SongScoreFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongScore
+     */
+    select?: SongScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongScore
+     */
+    omit?: SongScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which SongScores to fetch.
+     */
+    where?: SongScoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SongScores to fetch.
+     */
+    orderBy?: SongScoreOrderByWithRelationInput | SongScoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SongScores.
+     */
+    cursor?: SongScoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SongScores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SongScores.
+     */
+    skip?: number
+    distinct?: SongScoreScalarFieldEnum | SongScoreScalarFieldEnum[]
+  }
+
+  /**
+   * SongScore create
+   */
+  export type SongScoreCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongScore
+     */
+    select?: SongScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongScore
+     */
+    omit?: SongScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongScoreInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SongScore.
+     */
+    data: XOR<SongScoreCreateInput, SongScoreUncheckedCreateInput>
+  }
+
+  /**
+   * SongScore createMany
+   */
+  export type SongScoreCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SongScores.
+     */
+    data: SongScoreCreateManyInput | SongScoreCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SongScore createManyAndReturn
+   */
+  export type SongScoreCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongScore
+     */
+    select?: SongScoreSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongScore
+     */
+    omit?: SongScoreOmit<ExtArgs> | null
+    /**
+     * The data used to create many SongScores.
+     */
+    data: SongScoreCreateManyInput | SongScoreCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongScoreIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SongScore update
+   */
+  export type SongScoreUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongScore
+     */
+    select?: SongScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongScore
+     */
+    omit?: SongScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongScoreInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SongScore.
+     */
+    data: XOR<SongScoreUpdateInput, SongScoreUncheckedUpdateInput>
+    /**
+     * Choose, which SongScore to update.
+     */
+    where: SongScoreWhereUniqueInput
+  }
+
+  /**
+   * SongScore updateMany
+   */
+  export type SongScoreUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SongScores.
+     */
+    data: XOR<SongScoreUpdateManyMutationInput, SongScoreUncheckedUpdateManyInput>
+    /**
+     * Filter which SongScores to update
+     */
+    where?: SongScoreWhereInput
+    /**
+     * Limit how many SongScores to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SongScore updateManyAndReturn
+   */
+  export type SongScoreUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongScore
+     */
+    select?: SongScoreSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongScore
+     */
+    omit?: SongScoreOmit<ExtArgs> | null
+    /**
+     * The data used to update SongScores.
+     */
+    data: XOR<SongScoreUpdateManyMutationInput, SongScoreUncheckedUpdateManyInput>
+    /**
+     * Filter which SongScores to update
+     */
+    where?: SongScoreWhereInput
+    /**
+     * Limit how many SongScores to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongScoreIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SongScore upsert
+   */
+  export type SongScoreUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongScore
+     */
+    select?: SongScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongScore
+     */
+    omit?: SongScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongScoreInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SongScore to update in case it exists.
+     */
+    where: SongScoreWhereUniqueInput
+    /**
+     * In case the SongScore found by the `where` argument doesn't exist, create a new SongScore with this data.
+     */
+    create: XOR<SongScoreCreateInput, SongScoreUncheckedCreateInput>
+    /**
+     * In case the SongScore was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SongScoreUpdateInput, SongScoreUncheckedUpdateInput>
+  }
+
+  /**
+   * SongScore delete
+   */
+  export type SongScoreDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongScore
+     */
+    select?: SongScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongScore
+     */
+    omit?: SongScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongScoreInclude<ExtArgs> | null
+    /**
+     * Filter which SongScore to delete.
+     */
+    where: SongScoreWhereUniqueInput
+  }
+
+  /**
+   * SongScore deleteMany
+   */
+  export type SongScoreDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SongScores to delete
+     */
+    where?: SongScoreWhereInput
+    /**
+     * Limit how many SongScores to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SongScore without action
+   */
+  export type SongScoreDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SongScore
+     */
+    select?: SongScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SongScore
+     */
+    omit?: SongScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongScoreInclude<ExtArgs> | null
   }
 
 
@@ -8273,6 +9641,7 @@ export namespace Prisma {
     showSongPicker: boolean | null
     showGoalPicker: boolean | null
     createdAt: Date | null
+    defaultInstrumentId: string | null
   }
 
   export type SessionTemplateMaxAggregateOutputType = {
@@ -8283,6 +9652,7 @@ export namespace Prisma {
     showSongPicker: boolean | null
     showGoalPicker: boolean | null
     createdAt: Date | null
+    defaultInstrumentId: string | null
   }
 
   export type SessionTemplateCountAggregateOutputType = {
@@ -8294,6 +9664,7 @@ export namespace Prisma {
     showGoalPicker: number
     checklistItems: number
     createdAt: number
+    defaultInstrumentId: number
     _all: number
   }
 
@@ -8306,6 +9677,7 @@ export namespace Prisma {
     showSongPicker?: true
     showGoalPicker?: true
     createdAt?: true
+    defaultInstrumentId?: true
   }
 
   export type SessionTemplateMaxAggregateInputType = {
@@ -8316,6 +9688,7 @@ export namespace Prisma {
     showSongPicker?: true
     showGoalPicker?: true
     createdAt?: true
+    defaultInstrumentId?: true
   }
 
   export type SessionTemplateCountAggregateInputType = {
@@ -8327,6 +9700,7 @@ export namespace Prisma {
     showGoalPicker?: true
     checklistItems?: true
     createdAt?: true
+    defaultInstrumentId?: true
     _all?: true
   }
 
@@ -8411,6 +9785,7 @@ export namespace Prisma {
     showGoalPicker: boolean
     checklistItems: JsonValue | null
     createdAt: Date
+    defaultInstrumentId: string | null
     _count: SessionTemplateCountAggregateOutputType | null
     _min: SessionTemplateMinAggregateOutputType | null
     _max: SessionTemplateMaxAggregateOutputType | null
@@ -8439,6 +9814,8 @@ export namespace Prisma {
     showGoalPicker?: boolean
     checklistItems?: boolean
     createdAt?: boolean
+    defaultInstrumentId?: boolean
+    defaultInstrument?: boolean | SessionTemplate$defaultInstrumentArgs<ExtArgs>
     sessions?: boolean | SessionTemplate$sessionsArgs<ExtArgs>
     _count?: boolean | SessionTemplateCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sessionTemplate"]>
@@ -8452,6 +9829,8 @@ export namespace Prisma {
     showGoalPicker?: boolean
     checklistItems?: boolean
     createdAt?: boolean
+    defaultInstrumentId?: boolean
+    defaultInstrument?: boolean | SessionTemplate$defaultInstrumentArgs<ExtArgs>
   }, ExtArgs["result"]["sessionTemplate"]>
 
   export type SessionTemplateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8463,6 +9842,8 @@ export namespace Prisma {
     showGoalPicker?: boolean
     checklistItems?: boolean
     createdAt?: boolean
+    defaultInstrumentId?: boolean
+    defaultInstrument?: boolean | SessionTemplate$defaultInstrumentArgs<ExtArgs>
   }, ExtArgs["result"]["sessionTemplate"]>
 
   export type SessionTemplateSelectScalar = {
@@ -8474,19 +9855,26 @@ export namespace Prisma {
     showGoalPicker?: boolean
     checklistItems?: boolean
     createdAt?: boolean
+    defaultInstrumentId?: boolean
   }
 
-  export type SessionTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "showMetronome" | "showSongPicker" | "showGoalPicker" | "checklistItems" | "createdAt", ExtArgs["result"]["sessionTemplate"]>
+  export type SessionTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "showMetronome" | "showSongPicker" | "showGoalPicker" | "checklistItems" | "createdAt" | "defaultInstrumentId", ExtArgs["result"]["sessionTemplate"]>
   export type SessionTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    defaultInstrument?: boolean | SessionTemplate$defaultInstrumentArgs<ExtArgs>
     sessions?: boolean | SessionTemplate$sessionsArgs<ExtArgs>
     _count?: boolean | SessionTemplateCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type SessionTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type SessionTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SessionTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    defaultInstrument?: boolean | SessionTemplate$defaultInstrumentArgs<ExtArgs>
+  }
+  export type SessionTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    defaultInstrument?: boolean | SessionTemplate$defaultInstrumentArgs<ExtArgs>
+  }
 
   export type $SessionTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "SessionTemplate"
     objects: {
+      defaultInstrument: Prisma.$InstrumentPayload<ExtArgs> | null
       sessions: Prisma.$SessionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -8498,6 +9886,7 @@ export namespace Prisma {
       showGoalPicker: boolean
       checklistItems: Prisma.JsonValue | null
       createdAt: Date
+      defaultInstrumentId: string | null
     }, ExtArgs["result"]["sessionTemplate"]>
     composites: {}
   }
@@ -8892,6 +10281,7 @@ export namespace Prisma {
    */
   export interface Prisma__SessionTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    defaultInstrument<T extends SessionTemplate$defaultInstrumentArgs<ExtArgs> = {}>(args?: Subset<T, SessionTemplate$defaultInstrumentArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     sessions<T extends SessionTemplate$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, SessionTemplate$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8930,6 +10320,7 @@ export namespace Prisma {
     readonly showGoalPicker: FieldRef<"SessionTemplate", 'Boolean'>
     readonly checklistItems: FieldRef<"SessionTemplate", 'Json'>
     readonly createdAt: FieldRef<"SessionTemplate", 'DateTime'>
+    readonly defaultInstrumentId: FieldRef<"SessionTemplate", 'String'>
   }
     
 
@@ -9179,6 +10570,10 @@ export namespace Prisma {
      */
     data: SessionTemplateCreateManyInput | SessionTemplateCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionTemplateIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -9249,6 +10644,10 @@ export namespace Prisma {
      * Limit how many SessionTemplates to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionTemplateIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -9318,6 +10717,25 @@ export namespace Prisma {
   }
 
   /**
+   * SessionTemplate.defaultInstrument
+   */
+  export type SessionTemplate$defaultInstrumentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instrument
+     */
+    select?: InstrumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instrument
+     */
+    omit?: InstrumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstrumentInclude<ExtArgs> | null
+    where?: InstrumentWhereInput
+  }
+
+  /**
    * SessionTemplate.sessions
    */
   export type SessionTemplate$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9357,6 +10775,1089 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SessionTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Instrument
+   */
+
+  export type AggregateInstrument = {
+    _count: InstrumentCountAggregateOutputType | null
+    _min: InstrumentMinAggregateOutputType | null
+    _max: InstrumentMaxAggregateOutputType | null
+  }
+
+  export type InstrumentMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    isArchived: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type InstrumentMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    isArchived: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type InstrumentCountAggregateOutputType = {
+    id: number
+    userId: number
+    name: number
+    isArchived: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type InstrumentMinAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    isArchived?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type InstrumentMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    isArchived?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type InstrumentCountAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    isArchived?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type InstrumentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Instrument to aggregate.
+     */
+    where?: InstrumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Instruments to fetch.
+     */
+    orderBy?: InstrumentOrderByWithRelationInput | InstrumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InstrumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Instruments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Instruments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Instruments
+    **/
+    _count?: true | InstrumentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InstrumentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InstrumentMaxAggregateInputType
+  }
+
+  export type GetInstrumentAggregateType<T extends InstrumentAggregateArgs> = {
+        [P in keyof T & keyof AggregateInstrument]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInstrument[P]>
+      : GetScalarType<T[P], AggregateInstrument[P]>
+  }
+
+
+
+
+  export type InstrumentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InstrumentWhereInput
+    orderBy?: InstrumentOrderByWithAggregationInput | InstrumentOrderByWithAggregationInput[]
+    by: InstrumentScalarFieldEnum[] | InstrumentScalarFieldEnum
+    having?: InstrumentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InstrumentCountAggregateInputType | true
+    _min?: InstrumentMinAggregateInputType
+    _max?: InstrumentMaxAggregateInputType
+  }
+
+  export type InstrumentGroupByOutputType = {
+    id: string
+    userId: string
+    name: string
+    isArchived: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: InstrumentCountAggregateOutputType | null
+    _min: InstrumentMinAggregateOutputType | null
+    _max: InstrumentMaxAggregateOutputType | null
+  }
+
+  type GetInstrumentGroupByPayload<T extends InstrumentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InstrumentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InstrumentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InstrumentGroupByOutputType[P]>
+            : GetScalarType<T[P], InstrumentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InstrumentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    isArchived?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    templates?: boolean | Instrument$templatesArgs<ExtArgs>
+    _count?: boolean | InstrumentCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["instrument"]>
+
+  export type InstrumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    isArchived?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["instrument"]>
+
+  export type InstrumentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    isArchived?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["instrument"]>
+
+  export type InstrumentSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    isArchived?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type InstrumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "isArchived" | "createdAt" | "updatedAt", ExtArgs["result"]["instrument"]>
+  export type InstrumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    templates?: boolean | Instrument$templatesArgs<ExtArgs>
+    _count?: boolean | InstrumentCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type InstrumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type InstrumentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $InstrumentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Instrument"
+    objects: {
+      templates: Prisma.$SessionTemplatePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      name: string
+      isArchived: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["instrument"]>
+    composites: {}
+  }
+
+  type InstrumentGetPayload<S extends boolean | null | undefined | InstrumentDefaultArgs> = $Result.GetResult<Prisma.$InstrumentPayload, S>
+
+  type InstrumentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InstrumentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InstrumentCountAggregateInputType | true
+    }
+
+  export interface InstrumentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Instrument'], meta: { name: 'Instrument' } }
+    /**
+     * Find zero or one Instrument that matches the filter.
+     * @param {InstrumentFindUniqueArgs} args - Arguments to find a Instrument
+     * @example
+     * // Get one Instrument
+     * const instrument = await prisma.instrument.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InstrumentFindUniqueArgs>(args: SelectSubset<T, InstrumentFindUniqueArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Instrument that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InstrumentFindUniqueOrThrowArgs} args - Arguments to find a Instrument
+     * @example
+     * // Get one Instrument
+     * const instrument = await prisma.instrument.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InstrumentFindUniqueOrThrowArgs>(args: SelectSubset<T, InstrumentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Instrument that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstrumentFindFirstArgs} args - Arguments to find a Instrument
+     * @example
+     * // Get one Instrument
+     * const instrument = await prisma.instrument.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InstrumentFindFirstArgs>(args?: SelectSubset<T, InstrumentFindFirstArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Instrument that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstrumentFindFirstOrThrowArgs} args - Arguments to find a Instrument
+     * @example
+     * // Get one Instrument
+     * const instrument = await prisma.instrument.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InstrumentFindFirstOrThrowArgs>(args?: SelectSubset<T, InstrumentFindFirstOrThrowArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Instruments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstrumentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Instruments
+     * const instruments = await prisma.instrument.findMany()
+     * 
+     * // Get first 10 Instruments
+     * const instruments = await prisma.instrument.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const instrumentWithIdOnly = await prisma.instrument.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends InstrumentFindManyArgs>(args?: SelectSubset<T, InstrumentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Instrument.
+     * @param {InstrumentCreateArgs} args - Arguments to create a Instrument.
+     * @example
+     * // Create one Instrument
+     * const Instrument = await prisma.instrument.create({
+     *   data: {
+     *     // ... data to create a Instrument
+     *   }
+     * })
+     * 
+     */
+    create<T extends InstrumentCreateArgs>(args: SelectSubset<T, InstrumentCreateArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Instruments.
+     * @param {InstrumentCreateManyArgs} args - Arguments to create many Instruments.
+     * @example
+     * // Create many Instruments
+     * const instrument = await prisma.instrument.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InstrumentCreateManyArgs>(args?: SelectSubset<T, InstrumentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Instruments and returns the data saved in the database.
+     * @param {InstrumentCreateManyAndReturnArgs} args - Arguments to create many Instruments.
+     * @example
+     * // Create many Instruments
+     * const instrument = await prisma.instrument.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Instruments and only return the `id`
+     * const instrumentWithIdOnly = await prisma.instrument.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends InstrumentCreateManyAndReturnArgs>(args?: SelectSubset<T, InstrumentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Instrument.
+     * @param {InstrumentDeleteArgs} args - Arguments to delete one Instrument.
+     * @example
+     * // Delete one Instrument
+     * const Instrument = await prisma.instrument.delete({
+     *   where: {
+     *     // ... filter to delete one Instrument
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InstrumentDeleteArgs>(args: SelectSubset<T, InstrumentDeleteArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Instrument.
+     * @param {InstrumentUpdateArgs} args - Arguments to update one Instrument.
+     * @example
+     * // Update one Instrument
+     * const instrument = await prisma.instrument.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InstrumentUpdateArgs>(args: SelectSubset<T, InstrumentUpdateArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Instruments.
+     * @param {InstrumentDeleteManyArgs} args - Arguments to filter Instruments to delete.
+     * @example
+     * // Delete a few Instruments
+     * const { count } = await prisma.instrument.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InstrumentDeleteManyArgs>(args?: SelectSubset<T, InstrumentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Instruments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstrumentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Instruments
+     * const instrument = await prisma.instrument.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InstrumentUpdateManyArgs>(args: SelectSubset<T, InstrumentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Instruments and returns the data updated in the database.
+     * @param {InstrumentUpdateManyAndReturnArgs} args - Arguments to update many Instruments.
+     * @example
+     * // Update many Instruments
+     * const instrument = await prisma.instrument.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Instruments and only return the `id`
+     * const instrumentWithIdOnly = await prisma.instrument.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends InstrumentUpdateManyAndReturnArgs>(args: SelectSubset<T, InstrumentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Instrument.
+     * @param {InstrumentUpsertArgs} args - Arguments to update or create a Instrument.
+     * @example
+     * // Update or create a Instrument
+     * const instrument = await prisma.instrument.upsert({
+     *   create: {
+     *     // ... data to create a Instrument
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Instrument we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InstrumentUpsertArgs>(args: SelectSubset<T, InstrumentUpsertArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Instruments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstrumentCountArgs} args - Arguments to filter Instruments to count.
+     * @example
+     * // Count the number of Instruments
+     * const count = await prisma.instrument.count({
+     *   where: {
+     *     // ... the filter for the Instruments we want to count
+     *   }
+     * })
+    **/
+    count<T extends InstrumentCountArgs>(
+      args?: Subset<T, InstrumentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InstrumentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Instrument.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstrumentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InstrumentAggregateArgs>(args: Subset<T, InstrumentAggregateArgs>): Prisma.PrismaPromise<GetInstrumentAggregateType<T>>
+
+    /**
+     * Group by Instrument.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstrumentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InstrumentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InstrumentGroupByArgs['orderBy'] }
+        : { orderBy?: InstrumentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InstrumentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInstrumentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Instrument model
+   */
+  readonly fields: InstrumentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Instrument.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InstrumentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    templates<T extends Instrument$templatesArgs<ExtArgs> = {}>(args?: Subset<T, Instrument$templatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Instrument model
+   */
+  interface InstrumentFieldRefs {
+    readonly id: FieldRef<"Instrument", 'String'>
+    readonly userId: FieldRef<"Instrument", 'String'>
+    readonly name: FieldRef<"Instrument", 'String'>
+    readonly isArchived: FieldRef<"Instrument", 'Boolean'>
+    readonly createdAt: FieldRef<"Instrument", 'DateTime'>
+    readonly updatedAt: FieldRef<"Instrument", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Instrument findUnique
+   */
+  export type InstrumentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instrument
+     */
+    select?: InstrumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instrument
+     */
+    omit?: InstrumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstrumentInclude<ExtArgs> | null
+    /**
+     * Filter, which Instrument to fetch.
+     */
+    where: InstrumentWhereUniqueInput
+  }
+
+  /**
+   * Instrument findUniqueOrThrow
+   */
+  export type InstrumentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instrument
+     */
+    select?: InstrumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instrument
+     */
+    omit?: InstrumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstrumentInclude<ExtArgs> | null
+    /**
+     * Filter, which Instrument to fetch.
+     */
+    where: InstrumentWhereUniqueInput
+  }
+
+  /**
+   * Instrument findFirst
+   */
+  export type InstrumentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instrument
+     */
+    select?: InstrumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instrument
+     */
+    omit?: InstrumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstrumentInclude<ExtArgs> | null
+    /**
+     * Filter, which Instrument to fetch.
+     */
+    where?: InstrumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Instruments to fetch.
+     */
+    orderBy?: InstrumentOrderByWithRelationInput | InstrumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Instruments.
+     */
+    cursor?: InstrumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Instruments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Instruments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Instruments.
+     */
+    distinct?: InstrumentScalarFieldEnum | InstrumentScalarFieldEnum[]
+  }
+
+  /**
+   * Instrument findFirstOrThrow
+   */
+  export type InstrumentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instrument
+     */
+    select?: InstrumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instrument
+     */
+    omit?: InstrumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstrumentInclude<ExtArgs> | null
+    /**
+     * Filter, which Instrument to fetch.
+     */
+    where?: InstrumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Instruments to fetch.
+     */
+    orderBy?: InstrumentOrderByWithRelationInput | InstrumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Instruments.
+     */
+    cursor?: InstrumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Instruments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Instruments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Instruments.
+     */
+    distinct?: InstrumentScalarFieldEnum | InstrumentScalarFieldEnum[]
+  }
+
+  /**
+   * Instrument findMany
+   */
+  export type InstrumentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instrument
+     */
+    select?: InstrumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instrument
+     */
+    omit?: InstrumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstrumentInclude<ExtArgs> | null
+    /**
+     * Filter, which Instruments to fetch.
+     */
+    where?: InstrumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Instruments to fetch.
+     */
+    orderBy?: InstrumentOrderByWithRelationInput | InstrumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Instruments.
+     */
+    cursor?: InstrumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Instruments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Instruments.
+     */
+    skip?: number
+    distinct?: InstrumentScalarFieldEnum | InstrumentScalarFieldEnum[]
+  }
+
+  /**
+   * Instrument create
+   */
+  export type InstrumentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instrument
+     */
+    select?: InstrumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instrument
+     */
+    omit?: InstrumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstrumentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Instrument.
+     */
+    data: XOR<InstrumentCreateInput, InstrumentUncheckedCreateInput>
+  }
+
+  /**
+   * Instrument createMany
+   */
+  export type InstrumentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Instruments.
+     */
+    data: InstrumentCreateManyInput | InstrumentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Instrument createManyAndReturn
+   */
+  export type InstrumentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instrument
+     */
+    select?: InstrumentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instrument
+     */
+    omit?: InstrumentOmit<ExtArgs> | null
+    /**
+     * The data used to create many Instruments.
+     */
+    data: InstrumentCreateManyInput | InstrumentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Instrument update
+   */
+  export type InstrumentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instrument
+     */
+    select?: InstrumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instrument
+     */
+    omit?: InstrumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstrumentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Instrument.
+     */
+    data: XOR<InstrumentUpdateInput, InstrumentUncheckedUpdateInput>
+    /**
+     * Choose, which Instrument to update.
+     */
+    where: InstrumentWhereUniqueInput
+  }
+
+  /**
+   * Instrument updateMany
+   */
+  export type InstrumentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Instruments.
+     */
+    data: XOR<InstrumentUpdateManyMutationInput, InstrumentUncheckedUpdateManyInput>
+    /**
+     * Filter which Instruments to update
+     */
+    where?: InstrumentWhereInput
+    /**
+     * Limit how many Instruments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Instrument updateManyAndReturn
+   */
+  export type InstrumentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instrument
+     */
+    select?: InstrumentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instrument
+     */
+    omit?: InstrumentOmit<ExtArgs> | null
+    /**
+     * The data used to update Instruments.
+     */
+    data: XOR<InstrumentUpdateManyMutationInput, InstrumentUncheckedUpdateManyInput>
+    /**
+     * Filter which Instruments to update
+     */
+    where?: InstrumentWhereInput
+    /**
+     * Limit how many Instruments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Instrument upsert
+   */
+  export type InstrumentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instrument
+     */
+    select?: InstrumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instrument
+     */
+    omit?: InstrumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstrumentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Instrument to update in case it exists.
+     */
+    where: InstrumentWhereUniqueInput
+    /**
+     * In case the Instrument found by the `where` argument doesn't exist, create a new Instrument with this data.
+     */
+    create: XOR<InstrumentCreateInput, InstrumentUncheckedCreateInput>
+    /**
+     * In case the Instrument was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InstrumentUpdateInput, InstrumentUncheckedUpdateInput>
+  }
+
+  /**
+   * Instrument delete
+   */
+  export type InstrumentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instrument
+     */
+    select?: InstrumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instrument
+     */
+    omit?: InstrumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstrumentInclude<ExtArgs> | null
+    /**
+     * Filter which Instrument to delete.
+     */
+    where: InstrumentWhereUniqueInput
+  }
+
+  /**
+   * Instrument deleteMany
+   */
+  export type InstrumentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Instruments to delete
+     */
+    where?: InstrumentWhereInput
+    /**
+     * Limit how many Instruments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Instrument.templates
+   */
+  export type Instrument$templatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionTemplate
+     */
+    select?: SessionTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionTemplate
+     */
+    omit?: SessionTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionTemplateInclude<ExtArgs> | null
+    where?: SessionTemplateWhereInput
+    orderBy?: SessionTemplateOrderByWithRelationInput | SessionTemplateOrderByWithRelationInput[]
+    cursor?: SessionTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SessionTemplateScalarFieldEnum | SessionTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * Instrument without action
+   */
+  export type InstrumentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instrument
+     */
+    select?: InstrumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instrument
+     */
+    omit?: InstrumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstrumentInclude<ExtArgs> | null
   }
 
 
@@ -10880,6 +13381,19 @@ export namespace Prisma {
   export type SongVideoScalarFieldEnum = (typeof SongVideoScalarFieldEnum)[keyof typeof SongVideoScalarFieldEnum]
 
 
+  export const SongScoreScalarFieldEnum: {
+    id: 'id',
+    songId: 'songId',
+    label: 'label',
+    sortOrder: 'sortOrder',
+    alphaTex: 'alphaTex',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SongScoreScalarFieldEnum = (typeof SongScoreScalarFieldEnum)[keyof typeof SongScoreScalarFieldEnum]
+
+
   export const TagScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -10928,10 +13442,23 @@ export namespace Prisma {
     showSongPicker: 'showSongPicker',
     showGoalPicker: 'showGoalPicker',
     checklistItems: 'checklistItems',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    defaultInstrumentId: 'defaultInstrumentId'
   };
 
   export type SessionTemplateScalarFieldEnum = (typeof SessionTemplateScalarFieldEnum)[keyof typeof SessionTemplateScalarFieldEnum]
+
+
+  export const InstrumentScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    name: 'name',
+    isArchived: 'isArchived',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type InstrumentScalarFieldEnum = (typeof InstrumentScalarFieldEnum)[keyof typeof InstrumentScalarFieldEnum]
 
 
   export const SessionScalarFieldEnum: {
@@ -11160,6 +13687,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Song"> | Date | string
     sessions?: SessionListRelationFilter
     videos?: SongVideoListRelationFilter
+    scores?: SongScoreListRelationFilter
   }
 
   export type SongOrderByWithRelationInput = {
@@ -11175,6 +13703,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     sessions?: SessionOrderByRelationAggregateInput
     videos?: SongVideoOrderByRelationAggregateInput
+    scores?: SongScoreOrderByRelationAggregateInput
   }
 
   export type SongWhereUniqueInput = Prisma.AtLeast<{
@@ -11194,6 +13723,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Song"> | Date | string
     sessions?: SessionListRelationFilter
     videos?: SongVideoListRelationFilter
+    scores?: SongScoreListRelationFilter
   }, "id" | "userId_title">
 
   export type SongOrderByWithAggregationInput = {
@@ -11283,6 +13813,74 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"SongVideo"> | string
     url?: StringWithAggregatesFilter<"SongVideo"> | string
     createdAt?: DateTimeWithAggregatesFilter<"SongVideo"> | Date | string
+  }
+
+  export type SongScoreWhereInput = {
+    AND?: SongScoreWhereInput | SongScoreWhereInput[]
+    OR?: SongScoreWhereInput[]
+    NOT?: SongScoreWhereInput | SongScoreWhereInput[]
+    id?: StringFilter<"SongScore"> | string
+    songId?: StringFilter<"SongScore"> | string
+    label?: StringFilter<"SongScore"> | string
+    sortOrder?: IntFilter<"SongScore"> | number
+    alphaTex?: StringFilter<"SongScore"> | string
+    createdAt?: DateTimeFilter<"SongScore"> | Date | string
+    updatedAt?: DateTimeFilter<"SongScore"> | Date | string
+    song?: XOR<SongScalarRelationFilter, SongWhereInput>
+  }
+
+  export type SongScoreOrderByWithRelationInput = {
+    id?: SortOrder
+    songId?: SortOrder
+    label?: SortOrder
+    sortOrder?: SortOrder
+    alphaTex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    song?: SongOrderByWithRelationInput
+  }
+
+  export type SongScoreWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    songId_label?: SongScoreSongIdLabelCompoundUniqueInput
+    AND?: SongScoreWhereInput | SongScoreWhereInput[]
+    OR?: SongScoreWhereInput[]
+    NOT?: SongScoreWhereInput | SongScoreWhereInput[]
+    songId?: StringFilter<"SongScore"> | string
+    label?: StringFilter<"SongScore"> | string
+    sortOrder?: IntFilter<"SongScore"> | number
+    alphaTex?: StringFilter<"SongScore"> | string
+    createdAt?: DateTimeFilter<"SongScore"> | Date | string
+    updatedAt?: DateTimeFilter<"SongScore"> | Date | string
+    song?: XOR<SongScalarRelationFilter, SongWhereInput>
+  }, "id" | "songId_label">
+
+  export type SongScoreOrderByWithAggregationInput = {
+    id?: SortOrder
+    songId?: SortOrder
+    label?: SortOrder
+    sortOrder?: SortOrder
+    alphaTex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SongScoreCountOrderByAggregateInput
+    _avg?: SongScoreAvgOrderByAggregateInput
+    _max?: SongScoreMaxOrderByAggregateInput
+    _min?: SongScoreMinOrderByAggregateInput
+    _sum?: SongScoreSumOrderByAggregateInput
+  }
+
+  export type SongScoreScalarWhereWithAggregatesInput = {
+    AND?: SongScoreScalarWhereWithAggregatesInput | SongScoreScalarWhereWithAggregatesInput[]
+    OR?: SongScoreScalarWhereWithAggregatesInput[]
+    NOT?: SongScoreScalarWhereWithAggregatesInput | SongScoreScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SongScore"> | string
+    songId?: StringWithAggregatesFilter<"SongScore"> | string
+    label?: StringWithAggregatesFilter<"SongScore"> | string
+    sortOrder?: IntWithAggregatesFilter<"SongScore"> | number
+    alphaTex?: StringWithAggregatesFilter<"SongScore"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SongScore"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SongScore"> | Date | string
   }
 
   export type TagWhereInput = {
@@ -11500,6 +14098,8 @@ export namespace Prisma {
     showGoalPicker?: BoolFilter<"SessionTemplate"> | boolean
     checklistItems?: JsonNullableFilter<"SessionTemplate">
     createdAt?: DateTimeFilter<"SessionTemplate"> | Date | string
+    defaultInstrumentId?: StringNullableFilter<"SessionTemplate"> | string | null
+    defaultInstrument?: XOR<InstrumentNullableScalarRelationFilter, InstrumentWhereInput> | null
     sessions?: SessionListRelationFilter
   }
 
@@ -11512,6 +14112,8 @@ export namespace Prisma {
     showGoalPicker?: SortOrder
     checklistItems?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    defaultInstrumentId?: SortOrderInput | SortOrder
+    defaultInstrument?: InstrumentOrderByWithRelationInput
     sessions?: SessionOrderByRelationAggregateInput
   }
 
@@ -11528,6 +14130,8 @@ export namespace Prisma {
     showGoalPicker?: BoolFilter<"SessionTemplate"> | boolean
     checklistItems?: JsonNullableFilter<"SessionTemplate">
     createdAt?: DateTimeFilter<"SessionTemplate"> | Date | string
+    defaultInstrumentId?: StringNullableFilter<"SessionTemplate"> | string | null
+    defaultInstrument?: XOR<InstrumentNullableScalarRelationFilter, InstrumentWhereInput> | null
     sessions?: SessionListRelationFilter
   }, "id" | "userId_name">
 
@@ -11540,6 +14144,7 @@ export namespace Prisma {
     showGoalPicker?: SortOrder
     checklistItems?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    defaultInstrumentId?: SortOrderInput | SortOrder
     _count?: SessionTemplateCountOrderByAggregateInput
     _max?: SessionTemplateMaxOrderByAggregateInput
     _min?: SessionTemplateMinOrderByAggregateInput
@@ -11557,6 +14162,68 @@ export namespace Prisma {
     showGoalPicker?: BoolWithAggregatesFilter<"SessionTemplate"> | boolean
     checklistItems?: JsonNullableWithAggregatesFilter<"SessionTemplate">
     createdAt?: DateTimeWithAggregatesFilter<"SessionTemplate"> | Date | string
+    defaultInstrumentId?: StringNullableWithAggregatesFilter<"SessionTemplate"> | string | null
+  }
+
+  export type InstrumentWhereInput = {
+    AND?: InstrumentWhereInput | InstrumentWhereInput[]
+    OR?: InstrumentWhereInput[]
+    NOT?: InstrumentWhereInput | InstrumentWhereInput[]
+    id?: StringFilter<"Instrument"> | string
+    userId?: StringFilter<"Instrument"> | string
+    name?: StringFilter<"Instrument"> | string
+    isArchived?: BoolFilter<"Instrument"> | boolean
+    createdAt?: DateTimeFilter<"Instrument"> | Date | string
+    updatedAt?: DateTimeFilter<"Instrument"> | Date | string
+    templates?: SessionTemplateListRelationFilter
+  }
+
+  export type InstrumentOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    isArchived?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    templates?: SessionTemplateOrderByRelationAggregateInput
+  }
+
+  export type InstrumentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_name?: InstrumentUserIdNameCompoundUniqueInput
+    AND?: InstrumentWhereInput | InstrumentWhereInput[]
+    OR?: InstrumentWhereInput[]
+    NOT?: InstrumentWhereInput | InstrumentWhereInput[]
+    userId?: StringFilter<"Instrument"> | string
+    name?: StringFilter<"Instrument"> | string
+    isArchived?: BoolFilter<"Instrument"> | boolean
+    createdAt?: DateTimeFilter<"Instrument"> | Date | string
+    updatedAt?: DateTimeFilter<"Instrument"> | Date | string
+    templates?: SessionTemplateListRelationFilter
+  }, "id" | "userId_name">
+
+  export type InstrumentOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    isArchived?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: InstrumentCountOrderByAggregateInput
+    _max?: InstrumentMaxOrderByAggregateInput
+    _min?: InstrumentMinOrderByAggregateInput
+  }
+
+  export type InstrumentScalarWhereWithAggregatesInput = {
+    AND?: InstrumentScalarWhereWithAggregatesInput | InstrumentScalarWhereWithAggregatesInput[]
+    OR?: InstrumentScalarWhereWithAggregatesInput[]
+    NOT?: InstrumentScalarWhereWithAggregatesInput | InstrumentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Instrument"> | string
+    userId?: StringWithAggregatesFilter<"Instrument"> | string
+    name?: StringWithAggregatesFilter<"Instrument"> | string
+    isArchived?: BoolWithAggregatesFilter<"Instrument"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Instrument"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Instrument"> | Date | string
   }
 
   export type SessionWhereInput = {
@@ -11729,6 +14396,7 @@ export namespace Prisma {
     createdAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutSongInput
     videos?: SongVideoCreateNestedManyWithoutSongInput
+    scores?: SongScoreCreateNestedManyWithoutSongInput
   }
 
   export type SongUncheckedCreateInput = {
@@ -11744,6 +14412,7 @@ export namespace Prisma {
     createdAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutSongInput
     videos?: SongVideoUncheckedCreateNestedManyWithoutSongInput
+    scores?: SongScoreUncheckedCreateNestedManyWithoutSongInput
   }
 
   export type SongUpdateInput = {
@@ -11759,6 +14428,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutSongNestedInput
     videos?: SongVideoUpdateManyWithoutSongNestedInput
+    scores?: SongScoreUpdateManyWithoutSongNestedInput
   }
 
   export type SongUncheckedUpdateInput = {
@@ -11774,6 +14444,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutSongNestedInput
     videos?: SongVideoUncheckedUpdateManyWithoutSongNestedInput
+    scores?: SongScoreUncheckedUpdateManyWithoutSongNestedInput
   }
 
   export type SongCreateManyInput = {
@@ -11868,6 +14539,75 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SongScoreCreateInput = {
+    id?: string
+    label: string
+    sortOrder: number
+    alphaTex: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    song: SongCreateNestedOneWithoutScoresInput
+  }
+
+  export type SongScoreUncheckedCreateInput = {
+    id?: string
+    songId: string
+    label: string
+    sortOrder: number
+    alphaTex: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SongScoreUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    alphaTex?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    song?: SongUpdateOneRequiredWithoutScoresNestedInput
+  }
+
+  export type SongScoreUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    songId?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    alphaTex?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SongScoreCreateManyInput = {
+    id?: string
+    songId: string
+    label: string
+    sortOrder: number
+    alphaTex: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SongScoreUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    alphaTex?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SongScoreUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    songId?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    alphaTex?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TagCreateInput = {
@@ -12086,6 +14826,7 @@ export namespace Prisma {
     showGoalPicker?: boolean
     checklistItems?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
+    defaultInstrument?: InstrumentCreateNestedOneWithoutTemplatesInput
     sessions?: SessionCreateNestedManyWithoutTemplateInput
   }
 
@@ -12098,6 +14839,7 @@ export namespace Prisma {
     showGoalPicker?: boolean
     checklistItems?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
+    defaultInstrumentId?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutTemplateInput
   }
 
@@ -12110,6 +14852,7 @@ export namespace Prisma {
     showGoalPicker?: BoolFieldUpdateOperationsInput | boolean
     checklistItems?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    defaultInstrument?: InstrumentUpdateOneWithoutTemplatesNestedInput
     sessions?: SessionUpdateManyWithoutTemplateNestedInput
   }
 
@@ -12122,6 +14865,7 @@ export namespace Prisma {
     showGoalPicker?: BoolFieldUpdateOperationsInput | boolean
     checklistItems?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    defaultInstrumentId?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutTemplateNestedInput
   }
 
@@ -12134,6 +14878,7 @@ export namespace Prisma {
     showGoalPicker?: boolean
     checklistItems?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
+    defaultInstrumentId?: string | null
   }
 
   export type SessionTemplateUpdateManyMutationInput = {
@@ -12156,6 +14901,74 @@ export namespace Prisma {
     showGoalPicker?: BoolFieldUpdateOperationsInput | boolean
     checklistItems?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    defaultInstrumentId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type InstrumentCreateInput = {
+    id?: string
+    userId: string
+    name: string
+    isArchived?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    templates?: SessionTemplateCreateNestedManyWithoutDefaultInstrumentInput
+  }
+
+  export type InstrumentUncheckedCreateInput = {
+    id?: string
+    userId: string
+    name: string
+    isArchived?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    templates?: SessionTemplateUncheckedCreateNestedManyWithoutDefaultInstrumentInput
+  }
+
+  export type InstrumentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    templates?: SessionTemplateUpdateManyWithoutDefaultInstrumentNestedInput
+  }
+
+  export type InstrumentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    templates?: SessionTemplateUncheckedUpdateManyWithoutDefaultInstrumentNestedInput
+  }
+
+  export type InstrumentCreateManyInput = {
+    id?: string
+    userId: string
+    name: string
+    isArchived?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InstrumentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InstrumentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SessionCreateInput = {
@@ -12429,6 +15242,12 @@ export namespace Prisma {
     none?: SongVideoWhereInput
   }
 
+  export type SongScoreListRelationFilter = {
+    every?: SongScoreWhereInput
+    some?: SongScoreWhereInput
+    none?: SongScoreWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -12439,6 +15258,10 @@ export namespace Prisma {
   }
 
   export type SongVideoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SongScoreOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12629,6 +15452,76 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type SongScoreSongIdLabelCompoundUniqueInput = {
+    songId: string
+    label: string
+  }
+
+  export type SongScoreCountOrderByAggregateInput = {
+    id?: SortOrder
+    songId?: SortOrder
+    label?: SortOrder
+    sortOrder?: SortOrder
+    alphaTex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SongScoreAvgOrderByAggregateInput = {
+    sortOrder?: SortOrder
+  }
+
+  export type SongScoreMaxOrderByAggregateInput = {
+    id?: SortOrder
+    songId?: SortOrder
+    label?: SortOrder
+    sortOrder?: SortOrder
+    alphaTex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SongScoreMinOrderByAggregateInput = {
+    id?: SortOrder
+    songId?: SortOrder
+    label?: SortOrder
+    sortOrder?: SortOrder
+    alphaTex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SongScoreSumOrderByAggregateInput = {
+    sortOrder?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type TagUserIdNameCompoundUniqueInput = {
     userId: string
     name: string
@@ -12761,6 +15654,11 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type InstrumentNullableScalarRelationFilter = {
+    is?: InstrumentWhereInput | null
+    isNot?: InstrumentWhereInput | null
+  }
+
   export type SessionTemplateUserIdNameCompoundUniqueInput = {
     userId: string
     name: string
@@ -12775,6 +15673,7 @@ export namespace Prisma {
     showGoalPicker?: SortOrder
     checklistItems?: SortOrder
     createdAt?: SortOrder
+    defaultInstrumentId?: SortOrder
   }
 
   export type SessionTemplateMaxOrderByAggregateInput = {
@@ -12785,6 +15684,7 @@ export namespace Prisma {
     showSongPicker?: SortOrder
     showGoalPicker?: SortOrder
     createdAt?: SortOrder
+    defaultInstrumentId?: SortOrder
   }
 
   export type SessionTemplateMinOrderByAggregateInput = {
@@ -12795,6 +15695,7 @@ export namespace Prisma {
     showSongPicker?: SortOrder
     showGoalPicker?: SortOrder
     createdAt?: SortOrder
+    defaultInstrumentId?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -12831,15 +15732,46 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+  export type SessionTemplateListRelationFilter = {
+    every?: SessionTemplateWhereInput
+    some?: SessionTemplateWhereInput
+    none?: SessionTemplateWhereInput
+  }
+
+  export type SessionTemplateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type InstrumentUserIdNameCompoundUniqueInput = {
+    userId: string
+    name: string
+  }
+
+  export type InstrumentCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    isArchived?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type InstrumentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    isArchived?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type InstrumentMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    isArchived?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type BoolNullableFilter<$PrismaModel = never> = {
@@ -12974,22 +15906,6 @@ export namespace Prisma {
     focus?: SortOrder
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
   export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
@@ -13012,6 +15928,13 @@ export namespace Prisma {
     connect?: SongVideoWhereUniqueInput | SongVideoWhereUniqueInput[]
   }
 
+  export type SongScoreCreateNestedManyWithoutSongInput = {
+    create?: XOR<SongScoreCreateWithoutSongInput, SongScoreUncheckedCreateWithoutSongInput> | SongScoreCreateWithoutSongInput[] | SongScoreUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: SongScoreCreateOrConnectWithoutSongInput | SongScoreCreateOrConnectWithoutSongInput[]
+    createMany?: SongScoreCreateManySongInputEnvelope
+    connect?: SongScoreWhereUniqueInput | SongScoreWhereUniqueInput[]
+  }
+
   export type SessionUncheckedCreateNestedManyWithoutSongInput = {
     create?: XOR<SessionCreateWithoutSongInput, SessionUncheckedCreateWithoutSongInput> | SessionCreateWithoutSongInput[] | SessionUncheckedCreateWithoutSongInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutSongInput | SessionCreateOrConnectWithoutSongInput[]
@@ -13024,6 +15947,13 @@ export namespace Prisma {
     connectOrCreate?: SongVideoCreateOrConnectWithoutSongInput | SongVideoCreateOrConnectWithoutSongInput[]
     createMany?: SongVideoCreateManySongInputEnvelope
     connect?: SongVideoWhereUniqueInput | SongVideoWhereUniqueInput[]
+  }
+
+  export type SongScoreUncheckedCreateNestedManyWithoutSongInput = {
+    create?: XOR<SongScoreCreateWithoutSongInput, SongScoreUncheckedCreateWithoutSongInput> | SongScoreCreateWithoutSongInput[] | SongScoreUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: SongScoreCreateOrConnectWithoutSongInput | SongScoreCreateOrConnectWithoutSongInput[]
+    createMany?: SongScoreCreateManySongInputEnvelope
+    connect?: SongScoreWhereUniqueInput | SongScoreWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -13090,6 +16020,20 @@ export namespace Prisma {
     deleteMany?: SongVideoScalarWhereInput | SongVideoScalarWhereInput[]
   }
 
+  export type SongScoreUpdateManyWithoutSongNestedInput = {
+    create?: XOR<SongScoreCreateWithoutSongInput, SongScoreUncheckedCreateWithoutSongInput> | SongScoreCreateWithoutSongInput[] | SongScoreUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: SongScoreCreateOrConnectWithoutSongInput | SongScoreCreateOrConnectWithoutSongInput[]
+    upsert?: SongScoreUpsertWithWhereUniqueWithoutSongInput | SongScoreUpsertWithWhereUniqueWithoutSongInput[]
+    createMany?: SongScoreCreateManySongInputEnvelope
+    set?: SongScoreWhereUniqueInput | SongScoreWhereUniqueInput[]
+    disconnect?: SongScoreWhereUniqueInput | SongScoreWhereUniqueInput[]
+    delete?: SongScoreWhereUniqueInput | SongScoreWhereUniqueInput[]
+    connect?: SongScoreWhereUniqueInput | SongScoreWhereUniqueInput[]
+    update?: SongScoreUpdateWithWhereUniqueWithoutSongInput | SongScoreUpdateWithWhereUniqueWithoutSongInput[]
+    updateMany?: SongScoreUpdateManyWithWhereWithoutSongInput | SongScoreUpdateManyWithWhereWithoutSongInput[]
+    deleteMany?: SongScoreScalarWhereInput | SongScoreScalarWhereInput[]
+  }
+
   export type SessionUncheckedUpdateManyWithoutSongNestedInput = {
     create?: XOR<SessionCreateWithoutSongInput, SessionUncheckedCreateWithoutSongInput> | SessionCreateWithoutSongInput[] | SessionUncheckedCreateWithoutSongInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutSongInput | SessionCreateOrConnectWithoutSongInput[]
@@ -13118,6 +16062,20 @@ export namespace Prisma {
     deleteMany?: SongVideoScalarWhereInput | SongVideoScalarWhereInput[]
   }
 
+  export type SongScoreUncheckedUpdateManyWithoutSongNestedInput = {
+    create?: XOR<SongScoreCreateWithoutSongInput, SongScoreUncheckedCreateWithoutSongInput> | SongScoreCreateWithoutSongInput[] | SongScoreUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: SongScoreCreateOrConnectWithoutSongInput | SongScoreCreateOrConnectWithoutSongInput[]
+    upsert?: SongScoreUpsertWithWhereUniqueWithoutSongInput | SongScoreUpsertWithWhereUniqueWithoutSongInput[]
+    createMany?: SongScoreCreateManySongInputEnvelope
+    set?: SongScoreWhereUniqueInput | SongScoreWhereUniqueInput[]
+    disconnect?: SongScoreWhereUniqueInput | SongScoreWhereUniqueInput[]
+    delete?: SongScoreWhereUniqueInput | SongScoreWhereUniqueInput[]
+    connect?: SongScoreWhereUniqueInput | SongScoreWhereUniqueInput[]
+    update?: SongScoreUpdateWithWhereUniqueWithoutSongInput | SongScoreUpdateWithWhereUniqueWithoutSongInput[]
+    updateMany?: SongScoreUpdateManyWithWhereWithoutSongInput | SongScoreUpdateManyWithWhereWithoutSongInput[]
+    deleteMany?: SongScoreScalarWhereInput | SongScoreScalarWhereInput[]
+  }
+
   export type SongCreateNestedOneWithoutVideosInput = {
     create?: XOR<SongCreateWithoutVideosInput, SongUncheckedCreateWithoutVideosInput>
     connectOrCreate?: SongCreateOrConnectWithoutVideosInput
@@ -13130,6 +16088,28 @@ export namespace Prisma {
     upsert?: SongUpsertWithoutVideosInput
     connect?: SongWhereUniqueInput
     update?: XOR<XOR<SongUpdateToOneWithWhereWithoutVideosInput, SongUpdateWithoutVideosInput>, SongUncheckedUpdateWithoutVideosInput>
+  }
+
+  export type SongCreateNestedOneWithoutScoresInput = {
+    create?: XOR<SongCreateWithoutScoresInput, SongUncheckedCreateWithoutScoresInput>
+    connectOrCreate?: SongCreateOrConnectWithoutScoresInput
+    connect?: SongWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type SongUpdateOneRequiredWithoutScoresNestedInput = {
+    create?: XOR<SongCreateWithoutScoresInput, SongUncheckedCreateWithoutScoresInput>
+    connectOrCreate?: SongCreateOrConnectWithoutScoresInput
+    upsert?: SongUpsertWithoutScoresInput
+    connect?: SongWhereUniqueInput
+    update?: XOR<XOR<SongUpdateToOneWithWhereWithoutScoresInput, SongUpdateWithoutScoresInput>, SongUncheckedUpdateWithoutScoresInput>
   }
 
   export type SessionCreateNestedManyWithoutTagsInput = {
@@ -13268,6 +16248,12 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type InstrumentCreateNestedOneWithoutTemplatesInput = {
+    create?: XOR<InstrumentCreateWithoutTemplatesInput, InstrumentUncheckedCreateWithoutTemplatesInput>
+    connectOrCreate?: InstrumentCreateOrConnectWithoutTemplatesInput
+    connect?: InstrumentWhereUniqueInput
+  }
+
   export type SessionCreateNestedManyWithoutTemplateInput = {
     create?: XOR<SessionCreateWithoutTemplateInput, SessionUncheckedCreateWithoutTemplateInput> | SessionCreateWithoutTemplateInput[] | SessionUncheckedCreateWithoutTemplateInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutTemplateInput | SessionCreateOrConnectWithoutTemplateInput[]
@@ -13284,6 +16270,16 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type InstrumentUpdateOneWithoutTemplatesNestedInput = {
+    create?: XOR<InstrumentCreateWithoutTemplatesInput, InstrumentUncheckedCreateWithoutTemplatesInput>
+    connectOrCreate?: InstrumentCreateOrConnectWithoutTemplatesInput
+    upsert?: InstrumentUpsertWithoutTemplatesInput
+    disconnect?: InstrumentWhereInput | boolean
+    delete?: InstrumentWhereInput | boolean
+    connect?: InstrumentWhereUniqueInput
+    update?: XOR<XOR<InstrumentUpdateToOneWithWhereWithoutTemplatesInput, InstrumentUpdateWithoutTemplatesInput>, InstrumentUncheckedUpdateWithoutTemplatesInput>
   }
 
   export type SessionUpdateManyWithoutTemplateNestedInput = {
@@ -13312,6 +16308,48 @@ export namespace Prisma {
     update?: SessionUpdateWithWhereUniqueWithoutTemplateInput | SessionUpdateWithWhereUniqueWithoutTemplateInput[]
     updateMany?: SessionUpdateManyWithWhereWithoutTemplateInput | SessionUpdateManyWithWhereWithoutTemplateInput[]
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type SessionTemplateCreateNestedManyWithoutDefaultInstrumentInput = {
+    create?: XOR<SessionTemplateCreateWithoutDefaultInstrumentInput, SessionTemplateUncheckedCreateWithoutDefaultInstrumentInput> | SessionTemplateCreateWithoutDefaultInstrumentInput[] | SessionTemplateUncheckedCreateWithoutDefaultInstrumentInput[]
+    connectOrCreate?: SessionTemplateCreateOrConnectWithoutDefaultInstrumentInput | SessionTemplateCreateOrConnectWithoutDefaultInstrumentInput[]
+    createMany?: SessionTemplateCreateManyDefaultInstrumentInputEnvelope
+    connect?: SessionTemplateWhereUniqueInput | SessionTemplateWhereUniqueInput[]
+  }
+
+  export type SessionTemplateUncheckedCreateNestedManyWithoutDefaultInstrumentInput = {
+    create?: XOR<SessionTemplateCreateWithoutDefaultInstrumentInput, SessionTemplateUncheckedCreateWithoutDefaultInstrumentInput> | SessionTemplateCreateWithoutDefaultInstrumentInput[] | SessionTemplateUncheckedCreateWithoutDefaultInstrumentInput[]
+    connectOrCreate?: SessionTemplateCreateOrConnectWithoutDefaultInstrumentInput | SessionTemplateCreateOrConnectWithoutDefaultInstrumentInput[]
+    createMany?: SessionTemplateCreateManyDefaultInstrumentInputEnvelope
+    connect?: SessionTemplateWhereUniqueInput | SessionTemplateWhereUniqueInput[]
+  }
+
+  export type SessionTemplateUpdateManyWithoutDefaultInstrumentNestedInput = {
+    create?: XOR<SessionTemplateCreateWithoutDefaultInstrumentInput, SessionTemplateUncheckedCreateWithoutDefaultInstrumentInput> | SessionTemplateCreateWithoutDefaultInstrumentInput[] | SessionTemplateUncheckedCreateWithoutDefaultInstrumentInput[]
+    connectOrCreate?: SessionTemplateCreateOrConnectWithoutDefaultInstrumentInput | SessionTemplateCreateOrConnectWithoutDefaultInstrumentInput[]
+    upsert?: SessionTemplateUpsertWithWhereUniqueWithoutDefaultInstrumentInput | SessionTemplateUpsertWithWhereUniqueWithoutDefaultInstrumentInput[]
+    createMany?: SessionTemplateCreateManyDefaultInstrumentInputEnvelope
+    set?: SessionTemplateWhereUniqueInput | SessionTemplateWhereUniqueInput[]
+    disconnect?: SessionTemplateWhereUniqueInput | SessionTemplateWhereUniqueInput[]
+    delete?: SessionTemplateWhereUniqueInput | SessionTemplateWhereUniqueInput[]
+    connect?: SessionTemplateWhereUniqueInput | SessionTemplateWhereUniqueInput[]
+    update?: SessionTemplateUpdateWithWhereUniqueWithoutDefaultInstrumentInput | SessionTemplateUpdateWithWhereUniqueWithoutDefaultInstrumentInput[]
+    updateMany?: SessionTemplateUpdateManyWithWhereWithoutDefaultInstrumentInput | SessionTemplateUpdateManyWithWhereWithoutDefaultInstrumentInput[]
+    deleteMany?: SessionTemplateScalarWhereInput | SessionTemplateScalarWhereInput[]
+  }
+
+  export type SessionTemplateUncheckedUpdateManyWithoutDefaultInstrumentNestedInput = {
+    create?: XOR<SessionTemplateCreateWithoutDefaultInstrumentInput, SessionTemplateUncheckedCreateWithoutDefaultInstrumentInput> | SessionTemplateCreateWithoutDefaultInstrumentInput[] | SessionTemplateUncheckedCreateWithoutDefaultInstrumentInput[]
+    connectOrCreate?: SessionTemplateCreateOrConnectWithoutDefaultInstrumentInput | SessionTemplateCreateOrConnectWithoutDefaultInstrumentInput[]
+    upsert?: SessionTemplateUpsertWithWhereUniqueWithoutDefaultInstrumentInput | SessionTemplateUpsertWithWhereUniqueWithoutDefaultInstrumentInput[]
+    createMany?: SessionTemplateCreateManyDefaultInstrumentInputEnvelope
+    set?: SessionTemplateWhereUniqueInput | SessionTemplateWhereUniqueInput[]
+    disconnect?: SessionTemplateWhereUniqueInput | SessionTemplateWhereUniqueInput[]
+    delete?: SessionTemplateWhereUniqueInput | SessionTemplateWhereUniqueInput[]
+    connect?: SessionTemplateWhereUniqueInput | SessionTemplateWhereUniqueInput[]
+    update?: SessionTemplateUpdateWithWhereUniqueWithoutDefaultInstrumentInput | SessionTemplateUpdateWithWhereUniqueWithoutDefaultInstrumentInput[]
+    updateMany?: SessionTemplateUpdateManyWithWhereWithoutDefaultInstrumentInput | SessionTemplateUpdateManyWithWhereWithoutDefaultInstrumentInput[]
+    deleteMany?: SessionTemplateScalarWhereInput | SessionTemplateScalarWhereInput[]
   }
 
   export type SongCreateNestedOneWithoutSessionsInput = {
@@ -13362,14 +16400,6 @@ export namespace Prisma {
     connectOrCreate?: RecordingCreateOrConnectWithoutSessionInput | RecordingCreateOrConnectWithoutSessionInput[]
     createMany?: RecordingCreateManySessionInputEnvelope
     connect?: RecordingWhereUniqueInput | RecordingWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type NullableBoolFieldUpdateOperationsInput = {
@@ -13674,6 +16704,33 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -13713,33 +16770,6 @@ export namespace Prisma {
   export type NestedBoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -13836,6 +16866,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SongScoreCreateWithoutSongInput = {
+    id?: string
+    label: string
+    sortOrder: number
+    alphaTex: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SongScoreUncheckedCreateWithoutSongInput = {
+    id?: string
+    label: string
+    sortOrder: number
+    alphaTex: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SongScoreCreateOrConnectWithoutSongInput = {
+    where: SongScoreWhereUniqueInput
+    create: XOR<SongScoreCreateWithoutSongInput, SongScoreUncheckedCreateWithoutSongInput>
+  }
+
+  export type SongScoreCreateManySongInputEnvelope = {
+    data: SongScoreCreateManySongInput | SongScoreCreateManySongInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SessionUpsertWithWhereUniqueWithoutSongInput = {
     where: SessionWhereUniqueInput
     update: XOR<SessionUpdateWithoutSongInput, SessionUncheckedUpdateWithoutSongInput>
@@ -13907,6 +16965,35 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"SongVideo"> | Date | string
   }
 
+  export type SongScoreUpsertWithWhereUniqueWithoutSongInput = {
+    where: SongScoreWhereUniqueInput
+    update: XOR<SongScoreUpdateWithoutSongInput, SongScoreUncheckedUpdateWithoutSongInput>
+    create: XOR<SongScoreCreateWithoutSongInput, SongScoreUncheckedCreateWithoutSongInput>
+  }
+
+  export type SongScoreUpdateWithWhereUniqueWithoutSongInput = {
+    where: SongScoreWhereUniqueInput
+    data: XOR<SongScoreUpdateWithoutSongInput, SongScoreUncheckedUpdateWithoutSongInput>
+  }
+
+  export type SongScoreUpdateManyWithWhereWithoutSongInput = {
+    where: SongScoreScalarWhereInput
+    data: XOR<SongScoreUpdateManyMutationInput, SongScoreUncheckedUpdateManyWithoutSongInput>
+  }
+
+  export type SongScoreScalarWhereInput = {
+    AND?: SongScoreScalarWhereInput | SongScoreScalarWhereInput[]
+    OR?: SongScoreScalarWhereInput[]
+    NOT?: SongScoreScalarWhereInput | SongScoreScalarWhereInput[]
+    id?: StringFilter<"SongScore"> | string
+    songId?: StringFilter<"SongScore"> | string
+    label?: StringFilter<"SongScore"> | string
+    sortOrder?: IntFilter<"SongScore"> | number
+    alphaTex?: StringFilter<"SongScore"> | string
+    createdAt?: DateTimeFilter<"SongScore"> | Date | string
+    updatedAt?: DateTimeFilter<"SongScore"> | Date | string
+  }
+
   export type SongCreateWithoutVideosInput = {
     id?: string
     userId: string
@@ -13919,6 +17006,7 @@ export namespace Prisma {
     currentBlocker?: string | null
     createdAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutSongInput
+    scores?: SongScoreCreateNestedManyWithoutSongInput
   }
 
   export type SongUncheckedCreateWithoutVideosInput = {
@@ -13933,6 +17021,7 @@ export namespace Prisma {
     currentBlocker?: string | null
     createdAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutSongInput
+    scores?: SongScoreUncheckedCreateNestedManyWithoutSongInput
   }
 
   export type SongCreateOrConnectWithoutVideosInput = {
@@ -13963,6 +17052,7 @@ export namespace Prisma {
     currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutSongNestedInput
+    scores?: SongScoreUpdateManyWithoutSongNestedInput
   }
 
   export type SongUncheckedUpdateWithoutVideosInput = {
@@ -13977,6 +17067,83 @@ export namespace Prisma {
     currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutSongNestedInput
+    scores?: SongScoreUncheckedUpdateManyWithoutSongNestedInput
+  }
+
+  export type SongCreateWithoutScoresInput = {
+    id?: string
+    userId: string
+    title: string
+    key?: $Enums.Key | null
+    capo?: number | null
+    tuning?: $Enums.Tuning
+    thumbStyle?: $Enums.ThumbStyle | null
+    status?: $Enums.SongStatus
+    currentBlocker?: string | null
+    createdAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutSongInput
+    videos?: SongVideoCreateNestedManyWithoutSongInput
+  }
+
+  export type SongUncheckedCreateWithoutScoresInput = {
+    id?: string
+    userId: string
+    title: string
+    key?: $Enums.Key | null
+    capo?: number | null
+    tuning?: $Enums.Tuning
+    thumbStyle?: $Enums.ThumbStyle | null
+    status?: $Enums.SongStatus
+    currentBlocker?: string | null
+    createdAt?: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutSongInput
+    videos?: SongVideoUncheckedCreateNestedManyWithoutSongInput
+  }
+
+  export type SongCreateOrConnectWithoutScoresInput = {
+    where: SongWhereUniqueInput
+    create: XOR<SongCreateWithoutScoresInput, SongUncheckedCreateWithoutScoresInput>
+  }
+
+  export type SongUpsertWithoutScoresInput = {
+    update: XOR<SongUpdateWithoutScoresInput, SongUncheckedUpdateWithoutScoresInput>
+    create: XOR<SongCreateWithoutScoresInput, SongUncheckedCreateWithoutScoresInput>
+    where?: SongWhereInput
+  }
+
+  export type SongUpdateToOneWithWhereWithoutScoresInput = {
+    where?: SongWhereInput
+    data: XOR<SongUpdateWithoutScoresInput, SongUncheckedUpdateWithoutScoresInput>
+  }
+
+  export type SongUpdateWithoutScoresInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
+    capo?: NullableIntFieldUpdateOperationsInput | number | null
+    tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
+    thumbStyle?: NullableEnumThumbStyleFieldUpdateOperationsInput | $Enums.ThumbStyle | null
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutSongNestedInput
+    videos?: SongVideoUpdateManyWithoutSongNestedInput
+  }
+
+  export type SongUncheckedUpdateWithoutScoresInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    key?: NullableEnumKeyFieldUpdateOperationsInput | $Enums.Key | null
+    capo?: NullableIntFieldUpdateOperationsInput | number | null
+    tuning?: EnumTuningFieldUpdateOperationsInput | $Enums.Tuning
+    thumbStyle?: NullableEnumThumbStyleFieldUpdateOperationsInput | $Enums.ThumbStyle | null
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutSongNestedInput
+    videos?: SongVideoUncheckedUpdateManyWithoutSongNestedInput
   }
 
   export type SessionCreateWithoutTagsInput = {
@@ -14328,6 +17495,29 @@ export namespace Prisma {
     data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutGoalInput>
   }
 
+  export type InstrumentCreateWithoutTemplatesInput = {
+    id?: string
+    userId: string
+    name: string
+    isArchived?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InstrumentUncheckedCreateWithoutTemplatesInput = {
+    id?: string
+    userId: string
+    name: string
+    isArchived?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InstrumentCreateOrConnectWithoutTemplatesInput = {
+    where: InstrumentWhereUniqueInput
+    create: XOR<InstrumentCreateWithoutTemplatesInput, InstrumentUncheckedCreateWithoutTemplatesInput>
+  }
+
   export type SessionCreateWithoutTemplateInput = {
     id?: string
     userId: string
@@ -14390,6 +17580,35 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type InstrumentUpsertWithoutTemplatesInput = {
+    update: XOR<InstrumentUpdateWithoutTemplatesInput, InstrumentUncheckedUpdateWithoutTemplatesInput>
+    create: XOR<InstrumentCreateWithoutTemplatesInput, InstrumentUncheckedCreateWithoutTemplatesInput>
+    where?: InstrumentWhereInput
+  }
+
+  export type InstrumentUpdateToOneWithWhereWithoutTemplatesInput = {
+    where?: InstrumentWhereInput
+    data: XOR<InstrumentUpdateWithoutTemplatesInput, InstrumentUncheckedUpdateWithoutTemplatesInput>
+  }
+
+  export type InstrumentUpdateWithoutTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InstrumentUncheckedUpdateWithoutTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SessionUpsertWithWhereUniqueWithoutTemplateInput = {
     where: SessionWhereUniqueInput
     update: XOR<SessionUpdateWithoutTemplateInput, SessionUncheckedUpdateWithoutTemplateInput>
@@ -14406,6 +17625,71 @@ export namespace Prisma {
     data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutTemplateInput>
   }
 
+  export type SessionTemplateCreateWithoutDefaultInstrumentInput = {
+    id?: string
+    userId: string
+    name: string
+    showMetronome?: boolean
+    showSongPicker?: boolean
+    showGoalPicker?: boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutTemplateInput
+  }
+
+  export type SessionTemplateUncheckedCreateWithoutDefaultInstrumentInput = {
+    id?: string
+    userId: string
+    name: string
+    showMetronome?: boolean
+    showSongPicker?: boolean
+    showGoalPicker?: boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type SessionTemplateCreateOrConnectWithoutDefaultInstrumentInput = {
+    where: SessionTemplateWhereUniqueInput
+    create: XOR<SessionTemplateCreateWithoutDefaultInstrumentInput, SessionTemplateUncheckedCreateWithoutDefaultInstrumentInput>
+  }
+
+  export type SessionTemplateCreateManyDefaultInstrumentInputEnvelope = {
+    data: SessionTemplateCreateManyDefaultInstrumentInput | SessionTemplateCreateManyDefaultInstrumentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SessionTemplateUpsertWithWhereUniqueWithoutDefaultInstrumentInput = {
+    where: SessionTemplateWhereUniqueInput
+    update: XOR<SessionTemplateUpdateWithoutDefaultInstrumentInput, SessionTemplateUncheckedUpdateWithoutDefaultInstrumentInput>
+    create: XOR<SessionTemplateCreateWithoutDefaultInstrumentInput, SessionTemplateUncheckedCreateWithoutDefaultInstrumentInput>
+  }
+
+  export type SessionTemplateUpdateWithWhereUniqueWithoutDefaultInstrumentInput = {
+    where: SessionTemplateWhereUniqueInput
+    data: XOR<SessionTemplateUpdateWithoutDefaultInstrumentInput, SessionTemplateUncheckedUpdateWithoutDefaultInstrumentInput>
+  }
+
+  export type SessionTemplateUpdateManyWithWhereWithoutDefaultInstrumentInput = {
+    where: SessionTemplateScalarWhereInput
+    data: XOR<SessionTemplateUpdateManyMutationInput, SessionTemplateUncheckedUpdateManyWithoutDefaultInstrumentInput>
+  }
+
+  export type SessionTemplateScalarWhereInput = {
+    AND?: SessionTemplateScalarWhereInput | SessionTemplateScalarWhereInput[]
+    OR?: SessionTemplateScalarWhereInput[]
+    NOT?: SessionTemplateScalarWhereInput | SessionTemplateScalarWhereInput[]
+    id?: StringFilter<"SessionTemplate"> | string
+    userId?: StringFilter<"SessionTemplate"> | string
+    name?: StringFilter<"SessionTemplate"> | string
+    showMetronome?: BoolFilter<"SessionTemplate"> | boolean
+    showSongPicker?: BoolFilter<"SessionTemplate"> | boolean
+    showGoalPicker?: BoolFilter<"SessionTemplate"> | boolean
+    checklistItems?: JsonNullableFilter<"SessionTemplate">
+    createdAt?: DateTimeFilter<"SessionTemplate"> | Date | string
+    defaultInstrumentId?: StringNullableFilter<"SessionTemplate"> | string | null
+  }
+
   export type SongCreateWithoutSessionsInput = {
     id?: string
     userId: string
@@ -14418,6 +17702,7 @@ export namespace Prisma {
     currentBlocker?: string | null
     createdAt?: Date | string
     videos?: SongVideoCreateNestedManyWithoutSongInput
+    scores?: SongScoreCreateNestedManyWithoutSongInput
   }
 
   export type SongUncheckedCreateWithoutSessionsInput = {
@@ -14432,6 +17717,7 @@ export namespace Prisma {
     currentBlocker?: string | null
     createdAt?: Date | string
     videos?: SongVideoUncheckedCreateNestedManyWithoutSongInput
+    scores?: SongScoreUncheckedCreateNestedManyWithoutSongInput
   }
 
   export type SongCreateOrConnectWithoutSessionsInput = {
@@ -14527,6 +17813,7 @@ export namespace Prisma {
     showGoalPicker?: boolean
     checklistItems?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
+    defaultInstrument?: InstrumentCreateNestedOneWithoutTemplatesInput
   }
 
   export type SessionTemplateUncheckedCreateWithoutSessionsInput = {
@@ -14538,6 +17825,7 @@ export namespace Prisma {
     showGoalPicker?: boolean
     checklistItems?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
+    defaultInstrumentId?: string | null
   }
 
   export type SessionTemplateCreateOrConnectWithoutSessionsInput = {
@@ -14568,6 +17856,7 @@ export namespace Prisma {
     currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: SongVideoUpdateManyWithoutSongNestedInput
+    scores?: SongScoreUpdateManyWithoutSongNestedInput
   }
 
   export type SongUncheckedUpdateWithoutSessionsInput = {
@@ -14582,6 +17871,7 @@ export namespace Prisma {
     currentBlocker?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: SongVideoUncheckedUpdateManyWithoutSongNestedInput
+    scores?: SongScoreUncheckedUpdateManyWithoutSongNestedInput
   }
 
   export type TagUpsertWithWhereUniqueWithoutSessionsInput = {
@@ -14706,6 +17996,7 @@ export namespace Prisma {
     showGoalPicker?: BoolFieldUpdateOperationsInput | boolean
     checklistItems?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    defaultInstrument?: InstrumentUpdateOneWithoutTemplatesNestedInput
   }
 
   export type SessionTemplateUncheckedUpdateWithoutSessionsInput = {
@@ -14717,6 +18008,7 @@ export namespace Prisma {
     showGoalPicker?: BoolFieldUpdateOperationsInput | boolean
     checklistItems?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    defaultInstrumentId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SessionCreateManySongInput = {
@@ -14748,6 +18040,15 @@ export namespace Prisma {
     label: string
     url: string
     createdAt?: Date | string
+  }
+
+  export type SongScoreCreateManySongInput = {
+    id?: string
+    label: string
+    sortOrder: number
+    alphaTex: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type SessionUpdateWithoutSongInput = {
@@ -14845,6 +18146,33 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SongScoreUpdateWithoutSongInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    alphaTex?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SongScoreUncheckedUpdateWithoutSongInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    alphaTex?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SongScoreUncheckedUpdateManyWithoutSongInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    alphaTex?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SessionUpdateWithoutTagsInput = {
@@ -15222,6 +18550,52 @@ export namespace Prisma {
     checklistAnswers?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionTemplateCreateManyDefaultInstrumentInput = {
+    id?: string
+    userId: string
+    name: string
+    showMetronome?: boolean
+    showSongPicker?: boolean
+    showGoalPicker?: boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SessionTemplateUpdateWithoutDefaultInstrumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    showMetronome?: BoolFieldUpdateOperationsInput | boolean
+    showSongPicker?: BoolFieldUpdateOperationsInput | boolean
+    showGoalPicker?: BoolFieldUpdateOperationsInput | boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type SessionTemplateUncheckedUpdateWithoutDefaultInstrumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    showMetronome?: BoolFieldUpdateOperationsInput | boolean
+    showSongPicker?: BoolFieldUpdateOperationsInput | boolean
+    showGoalPicker?: BoolFieldUpdateOperationsInput | boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type SessionTemplateUncheckedUpdateManyWithoutDefaultInstrumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    showMetronome?: BoolFieldUpdateOperationsInput | boolean
+    showSongPicker?: BoolFieldUpdateOperationsInput | boolean
+    showGoalPicker?: BoolFieldUpdateOperationsInput | boolean
+    checklistItems?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RecordingCreateManySessionInput = {

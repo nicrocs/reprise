@@ -46,6 +46,7 @@ export async function createSession(formData: FormData) {
   const songKey = (formData.get('songKey') as string) || null
   const songThumbStyle = (formData.get('songThumbStyle') as string) || null
   const intention = formData.get('intention') as string
+  const instrument = (formData.get('instrument') as string)?.trim() || null
   const tagsRaw = formData.get('tags') as string
   const pickup = formData.get('pickup') as string
   const goalId = formData.get('goalId') as string
@@ -82,6 +83,7 @@ export async function createSession(formData: FormData) {
         bpm: bpm ?? undefined,
         songId,
         intention,
+        instrument,
         tags: {
           connect: tagIds.map(id => ({ id }))
         },
@@ -115,6 +117,7 @@ export async function updateSession(id: string, formData: FormData) {
   const songTitle = formData.get('songTitle') as string
   const songTuning = formData.get('songTuning') as string || 'STANDARD'
   const intention = formData.get('intention') as string
+  const instrument = (formData.get('instrument') as string)?.trim() || null
   const intentionMetRaw = formData.get('intentionMet')
   const intentionMet = intentionMetRaw === 'true' ? true : intentionMetRaw === 'false' ? false : null
   const tagsRaw = formData.get('tags') as string
@@ -143,6 +146,7 @@ export async function updateSession(id: string, formData: FormData) {
         bpm: bpm ?? undefined,
         songId,
         intention,
+        instrument,
         intentionMet,
         tags: {
           set: tagIds.map(id => ({ id }))
@@ -201,6 +205,10 @@ export async function getLastSessionForPickup() {
   return prisma.session.findFirst({
     where: { userId },
     orderBy: { date: 'desc' },
-    include: { song: true, goal: true, template: true },
+    include: {
+      song: true,
+      goal: true,
+      template: { include: { defaultInstrument: true } },
+    },
   })
 }

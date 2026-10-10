@@ -22,6 +22,7 @@ type SessionFormProps = {
     bpm?: number | null
     notes?: string | null
     intention?: string | null
+    instrument?: string | null
     intentionMet?: boolean | null
     tags?: { id: string; name: string }[]
     templateName?: string | null
@@ -87,6 +88,14 @@ export function SessionForm({ action, defaultValues, submitLabel }: SessionFormP
         />
       )}
 
+      <div>
+        <Label htmlFor="instrument" className='text-xs uppercase tracking-widest text-muted-foreground mb-2'>Instrument</Label>
+        <Input
+          id="instrument"
+          name="instrument"
+          defaultValue={defaultValues?.instrument ?? undefined}
+        />
+      </div>
       <div>
         <Label htmlFor="date" className='text-xs uppercase tracking-widest text-muted-foreground mb-2'>Date</Label>
         <Input

@@ -12,6 +12,7 @@ export async function getSessionTemplates() {
   return prisma.sessionTemplate.findMany({
     where: { userId },
     orderBy: { name: 'asc' },
+    include: { defaultInstrument: true },
   })
 }
 
@@ -28,6 +29,13 @@ export async function createSessionTemplate(input: TemplateFormData) {
   const name = input.name.trim()
   if (!name) throw new Error('Template name is required')
 
+  if (input.defaultInstrumentId) {
+    const instrument = await prisma.instrument.findFirst({
+      where: { id: input.defaultInstrumentId, userId },
+    })
+    if (!instrument) throw new Error('Default instrument not found')
+  }
+
   const existing = await prisma.sessionTemplate.findFirst({
     where: { userId, name: { equals: name, mode: 'insensitive' } },
   })
@@ -41,6 +49,7 @@ export async function createSessionTemplate(input: TemplateFormData) {
       showSongPicker: input.showSongPicker,
       showGoalPicker: input.showGoalPicker,
       checklistItems: (input.checklistItems ?? Prisma.JsonNull) as Prisma.InputJsonValue,
+      defaultInstrumentId: input.defaultInstrumentId || null,
     },
   })
 }
@@ -56,6 +65,13 @@ export async function updateSessionTemplate(id: string, input: TemplateFormData)
 
   const name = input.name.trim()
   if (!name) throw new Error('Template name is required')
+
+  if (input.defaultInstrumentId) {
+    const instrument = await prisma.instrument.findFirst({
+      where: { id: input.defaultInstrumentId, userId },
+    })
+    if (!instrument) throw new Error('Default instrument not found')
+  }
 
   if (name.toLowerCase() !== existing.name.toLowerCase()) {
     const duplicate = await prisma.sessionTemplate.findFirst({
@@ -76,6 +92,7 @@ export async function updateSessionTemplate(id: string, input: TemplateFormData)
       showSongPicker: input.showSongPicker,
       showGoalPicker: input.showGoalPicker,
       checklistItems: (input.checklistItems ?? Prisma.JsonNull) as Prisma.InputJsonValue,
+      defaultInstrumentId: input.defaultInstrumentId || null,
     },
   })
 }

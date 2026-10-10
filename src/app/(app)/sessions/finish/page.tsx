@@ -57,6 +57,7 @@ export default function FinishSessionPage() {
     const formData = new FormData()
 
     formData.set('intention', session.intention)
+    if (session.instrument) formData.set('instrument', session.instrument)
     formData.set('pickup', pickup)
     formData.set('intentionMet', intentionMet === null ? '' : String(intentionMet))
     formData.set('duration', String(duration))
@@ -98,6 +99,9 @@ export default function FinishSessionPage() {
           <p className="text-xs text-muted-foreground mt-1 uppercase tracking-widest">
             {session.templateName}
           </p>
+        )}
+        {session.instrument && (
+          <p className="text-sm text-muted-foreground mt-1">{session.instrument}</p>
         )}
       </div>
 

@@ -12,6 +12,7 @@ export type SessionTemplate = {
   showSongPicker: boolean
   showGoalPicker: boolean
   checklistItems: ChecklistItem[] | null
+  defaultInstrument: { id: string; name: string } | null
 }
 
 type Props = {
@@ -25,24 +26,41 @@ export function TemplatePicker({ initialTemplate, onSelect }: Props) {
     initialTemplate?.id ?? null
   )
   const [loading, setLoading] = useState(true)
+  const [loadFailed, setLoadFailed] = useState(false)
 
   useEffect(() => {
-    getSessionTemplates().then((rows) => {
-      const mapped = rows.map((r) => ({
-        id: r.id,
-        name: r.name,
-        showMetronome: r.showMetronome,
-        showSongPicker: r.showSongPicker,
-        showGoalPicker: r.showGoalPicker,
-        checklistItems: (r.checklistItems as ChecklistItem[] | null) ?? null,
-      }))
-      setTemplates(mapped)
-      if (initialTemplate?.id) {
-        const match = mapped.find((t) => t.id === initialTemplate.id)
-        if (match) onSelect?.(match)
-      }
-      setLoading(false)
-    })
+    let cancelled = false
+
+    getSessionTemplates()
+      .then((rows) => {
+        if (cancelled) return
+        const mapped = rows.map((r) => ({
+          id: r.id,
+          name: r.name,
+          showMetronome: r.showMetronome,
+          showSongPicker: r.showSongPicker,
+          showGoalPicker: r.showGoalPicker,
+          checklistItems: (r.checklistItems as ChecklistItem[] | null) ?? null,
+          defaultInstrument: r.defaultInstrument && !r.defaultInstrument.isArchived
+            ? { id: r.defaultInstrument.id, name: r.defaultInstrument.name }
+            : null,
+        }))
+        setTemplates(mapped)
+        if (initialTemplate?.id) {
+          const match = mapped.find((t) => t.id === initialTemplate.id)
+          if (match) onSelect?.(match)
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setLoadFailed(true)
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
+
+    return () => {
+      cancelled = true
+    }
   }, [initialTemplate?.id, onSelect])
 
   function handleSelect(id: string | null) {
@@ -59,6 +77,10 @@ export function TemplatePicker({ initialTemplate, onSelect }: Props) {
     return (
       <div className="text-sm text-muted-foreground">Loading templates…</div>
     )
+  }
+
+  if (loadFailed) {
+    return <p className="text-sm text-destructive" role="alert">Could not load practice modes.</p>
   }
 
   if (templates.length === 0) {

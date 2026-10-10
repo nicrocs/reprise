@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useSyncExternalStore } from 'react'
 import { useRouter } from 'next/navigation'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
@@ -22,10 +22,23 @@ import { TUNING_LABELS, KEY_LABELS, THUMB_STYLE_LABELS } from '@/lib/constants'
 import { SongInfo } from '@/components/song-details'
 
 import { TemplatePicker, type SessionTemplate } from '@/components/template-picker'
+import { InstrumentPicker, type InstrumentOption } from '@/components/instrument-picker'
 
 function readPrefill(): Partial<ActiveSession> | null {
   if (typeof window === 'undefined') return null
   return getPrefill()
+}
+
+function subscribeToHydration() {
+  return () => {}
+}
+
+function getHydrationSnapshot() {
+  return true
+}
+
+function getServerHydrationSnapshot() {
+  return false
 }
 
 type PickupData = {
@@ -43,6 +56,9 @@ type PickupData = {
   templateShowSongPicker?: boolean
   templateShowGoalPicker?: boolean
   templateChecklistItems?: SessionTemplate['checklistItems']
+  templateDefaultInstrumentId?: string
+  templateDefaultInstrumentName?: string
+  instrument?: string
 }
 
 function prefillToPickupData(prefill: Partial<ActiveSession>): PickupData {
@@ -61,6 +77,7 @@ function prefillToPickupData(prefill: Partial<ActiveSession>): PickupData {
     templateShowSongPicker: prefill.templateShowSongPicker,
     templateShowGoalPicker: prefill.templateShowGoalPicker,
     templateChecklistItems: prefill.templateChecklistItems,
+    instrument: prefill.instrument,
   }
 }
 
@@ -84,6 +101,15 @@ function sessionToPickupData(
     templateShowGoalPicker: session.template?.showGoalPicker ?? true,
     templateChecklistItems:
       (session.template?.checklistItems as SessionTemplate['checklistItems']) ?? null,
+    templateDefaultInstrumentId:
+      session.template?.defaultInstrument && !session.template.defaultInstrument.isArchived
+        ? session.template.defaultInstrument.id
+        : undefined,
+    templateDefaultInstrumentName:
+      session.template?.defaultInstrument && !session.template.defaultInstrument.isArchived
+        ? session.template.defaultInstrument.name
+        : undefined,
+    instrument: session.instrument ?? undefined,
   }
 }
 
@@ -96,6 +122,10 @@ function computeTemplateFromPickupData(data: PickupData): SessionTemplate | null
     showSongPicker: data.templateShowSongPicker ?? true,
     showGoalPicker: data.templateShowGoalPicker ?? true,
     checklistItems: data.templateChecklistItems ?? null,
+    defaultInstrument:
+      data.templateDefaultInstrumentId && data.templateDefaultInstrumentName
+        ? { id: data.templateDefaultInstrumentId, name: data.templateDefaultInstrumentName }
+        : null,
   }
 }
 
@@ -119,6 +149,11 @@ function computeGoalFromPickupData(
 
 export default function NewSessionPage() {
   const router = useRouter()
+  const isHydrated = useSyncExternalStore(
+    subscribeToHydration,
+    getHydrationSnapshot,
+    getServerHydrationSnapshot
+  )
   const [prefill] = useState<Partial<ActiveSession> | null>(() => readPrefill())
 
   const autoAppliedData = prefill?.autoApply ? prefillToPickupData(prefill) : null
@@ -128,6 +163,8 @@ export default function NewSessionPage() {
   const [template, setTemplate] = useState<SessionTemplate | null>(() =>
     autoAppliedData ? computeTemplateFromPickupData(autoAppliedData) : null
   )
+  const [selectedInstrument, setSelectedInstrument] = useState<InstrumentOption | null>(null)
+  const [instrumentTouched, setInstrumentTouched] = useState(false)
   const [song, setSong] = useState<SongInfo | null>(() =>
     autoAppliedData
       ? computeSongFromPickupData(autoAppliedData)
@@ -142,9 +179,10 @@ export default function NewSessionPage() {
 
   const [pickupData, setPickupData] = useState<PickupData | null>(prefillBannerData)
   const [loadingPickup, setLoadingPickup] = useState(() => !prefill)
+  const [pickupLoadFailed, setPickupLoadFailed] = useState(false)
   const [showBanner, setShowBanner] = useState(() => {
     if (prefill?.autoApply) return false
-    if (prefill) return !!(prefill.intention || prefill.templateId || prefill.goalId)
+    if (prefill) return !!(prefill.intention || prefill.templateId || prefill.goalId || prefill.instrument)
     return true
   })
 
@@ -159,11 +197,26 @@ export default function NewSessionPage() {
     setGoal(computeGoalFromPickupData(data))
   }, [])
 
+  const handleTemplateSelect = useCallback((nextTemplate: SessionTemplate | null) => {
+    setTemplate(nextTemplate)
+    if (!instrumentTouched) setSelectedInstrument(nextTemplate?.defaultInstrument ?? null)
+  }, [instrumentTouched])
+
+  const handleInstrumentSelect = useCallback((
+    next: InstrumentOption | null,
+    isInitialSelection = false
+  ) => {
+    setSelectedInstrument(next)
+    if (!isInitialSelection) setInstrumentTouched(true)
+  }, [])
+
   function startFresh() {
     clearPrefill()
     setPickupData(null)
     setShowBanner(false)
     setTemplate(null)
+    setSelectedInstrument(null)
+    setInstrumentTouched(false)
     setSong(null)
     setIntention('')
     setGoal(null)
@@ -173,16 +226,18 @@ export default function NewSessionPage() {
     if (prefill) return
 
     // No prefill — fetch the last session so the user can choose to pick up.
-    getLastSessionForPickup().then((session) => {
-      const data = sessionToPickupData(session)
-      if (data?.intention || data?.songTitle || data?.templateName || data?.goalName) {
-        setPickupData(data)
-        setShowBanner(true)
-      } else {
-        setShowBanner(false)
-      }
-      setLoadingPickup(false)
-    })
+    getLastSessionForPickup()
+      .then((session) => {
+        const data = sessionToPickupData(session)
+        if (data?.intention || data?.songTitle || data?.templateName || data?.goalName || data?.instrument) {
+          setPickupData(data)
+          setShowBanner(true)
+        } else {
+          setShowBanner(false)
+        }
+      })
+      .catch(() => setPickupLoadFailed(true))
+      .finally(() => setLoadingPickup(false))
   }, [prefill])
 
   function handleUseSettings() {
@@ -222,6 +277,7 @@ export default function NewSessionPage() {
     if (!intention.trim()) return
     saveActiveSession({
       intention: intention.trim(),
+      instrument: selectedInstrument?.name,
       songId: song?.id,
       songTitle: song?.title,
       goalId: goal?.id,
@@ -257,8 +313,17 @@ export default function NewSessionPage() {
         pickupData.songTitle,
         pickupData.templateName,
         pickupData.goalName,
+        pickupData.instrument,
       ].filter(Boolean)
     : []
+
+  if (!isHydrated) {
+    return (
+      <main className="max-w-xl mx-auto p-8" aria-busy="true">
+        <p className="text-sm text-muted-foreground" role="status">Loading session setup…</p>
+      </main>
+    )
+  }
 
   return (
     <main className="max-w-xl mx-auto p-8 flex flex-col gap-8">
@@ -271,6 +336,12 @@ export default function NewSessionPage() {
 
       {loadingPickup && (
         <div className="text-sm text-muted-foreground">Loading previous session…</div>
+      )}
+
+      {pickupLoadFailed && (
+        <p className="text-sm text-destructive" role="alert">
+          Could not load your previous session. You can still set up a new session below.
+        </p>
       )}
 
       {showBanner && pickupData && (
@@ -319,10 +390,27 @@ export default function NewSessionPage() {
           Optional. Choose a template to hide fields you don&apos;t need this session.
         </p>
         <TemplatePicker
-          onSelect={setTemplate}
+          onSelect={handleTemplateSelect}
           initialTemplate={
             template ? { id: template.id, name: template.name } : null
           }
+        />
+      </div>
+
+      {/* Instrument */}
+      <div className="space-y-2">
+        <Label className="text-base font-semibold">Instrument</Label>
+        <p className="text-sm text-muted-foreground">
+          Choose what you&apos;re practicing today.
+        </p>
+        <InstrumentPicker
+          selectedId={selectedInstrument?.id}
+          initialName={
+            selectedInstrument?.name
+              ? null
+              : pickupData?.instrument ?? autoAppliedData?.instrument ?? prefillBannerData?.instrument
+          }
+          onSelect={handleInstrumentSelect}
         />
       </div>
 

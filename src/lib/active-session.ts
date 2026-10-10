@@ -7,6 +7,7 @@ const STORAGE_KEY = 'reprise_active_session'
 export type ActiveSession = {
   startedAt?: number
   intention: string
+  instrument?: string
   songId?: string
   songTitle?: string
   tuning?: Tuning

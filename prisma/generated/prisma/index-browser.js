@@ -141,6 +141,16 @@ exports.Prisma.SongVideoScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.SongScoreScalarFieldEnum = {
+  id: 'id',
+  songId: 'songId',
+  label: 'label',
+  sortOrder: 'sortOrder',
+  alphaTex: 'alphaTex',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.TagScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -177,7 +187,17 @@ exports.Prisma.SessionTemplateScalarFieldEnum = {
   showSongPicker: 'showSongPicker',
   showGoalPicker: 'showGoalPicker',
   checklistItems: 'checklistItems',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  defaultInstrumentId: 'defaultInstrumentId'
+};
+
+exports.Prisma.InstrumentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  isArchived: 'isArchived',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -282,11 +302,13 @@ exports.SongStatus = exports.$Enums.SongStatus = {
 exports.Prisma.ModelName = {
   Song: 'Song',
   SongVideo: 'SongVideo',
+  SongScore: 'SongScore',
   Tag: 'Tag',
   Recording: 'Recording',
   Instructor: 'Instructor',
   Goal: 'Goal',
   SessionTemplate: 'SessionTemplate',
+  Instrument: 'Instrument',
   Session: 'Session'
 };
 

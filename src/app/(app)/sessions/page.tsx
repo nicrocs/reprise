@@ -34,7 +34,10 @@ export default async function SessionsPage() {
                     {session.song.title}
                   </h2>
                 )}
-                  <p className="text-sm text-muted-foreground truncate">{session.intention}</p>
+                   <p className="text-sm text-muted-foreground truncate">{session.intention}</p>
+                  {session.instrument && (
+                    <p className="text-xs text-muted-foreground">{session.instrument}</p>
+                  )}
                   {session.tags.length > 0 && (
                     <div className="mt-2 flex flex-wrap gap-2">
                       {session.tags.map((tag) => (

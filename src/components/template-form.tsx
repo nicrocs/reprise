@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { createSessionTemplate, updateSessionTemplate } from '@/app/actions/session-templates'
 import type { ChecklistItem } from '@/lib/types'
+import { InstrumentPicker, type InstrumentOption } from '@/components/instrument-picker'
 
 type Props = {
   initial?: {
@@ -17,6 +18,7 @@ type Props = {
     showSongPicker: boolean
     showGoalPicker: boolean
     checklistItems: ChecklistItem[] | null
+    defaultInstrumentId?: string | null
   } | null
 }
 
@@ -35,6 +37,9 @@ export function TemplateForm({ initial }: Props) {
   const [showSongPicker, setShowSongPicker] = useState(initial?.showSongPicker ?? true)
   const [showGoalPicker, setShowGoalPicker] = useState(initial?.showGoalPicker ?? false)
   const [items, setItems] = useState<ChecklistItem[]>(initial?.checklistItems ?? [])
+  const [defaultInstrument, setDefaultInstrument] = useState<InstrumentOption | null>(
+    initial?.defaultInstrumentId ? { id: initial.defaultInstrumentId, name: '' } : null
+  )
   const [error, setError] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
 
@@ -137,6 +142,7 @@ export function TemplateForm({ initial }: Props) {
         showSongPicker,
         showGoalPicker,
         checklistItems: items,
+        defaultInstrumentId: defaultInstrument?.id ?? null,
       }
 
       if (initial?.id) {
@@ -202,6 +208,17 @@ export function TemplateForm({ initial }: Props) {
             Metronome
           </label>
         </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-sm font-medium">Default instrument</Label>
+        <p className="text-sm text-muted-foreground">
+          Optional. This will be preselected when you start this practice mode.
+        </p>
+        <InstrumentPicker
+          selectedId={defaultInstrument?.id}
+          onSelect={setDefaultInstrument}
+        />
       </div>
 
       <div className="space-y-3">

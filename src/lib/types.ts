@@ -11,4 +11,5 @@ export type TemplateFormData = {
   showSongPicker: boolean
   showGoalPicker: boolean
   checklistItems: ChecklistItem[]
+  defaultInstrumentId?: string | null
 }
